@@ -1,0 +1,16 @@
+﻿@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@inherits System.Web.Mvc.WebViewPage<IEnumerable<LewCMS.Core.PageType>>
+
+<h2>New Page</h2>
+
+<ul>
+    
+    @foreach (var pageType in Model)
+    {
+        <li>
+            <a href="~/LewCMS/Page/Create?pageTypeId=@pageType.Id">@pageType.DisplayName</a>
+        </li>
+    }
+
+</ul>
