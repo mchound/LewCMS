@@ -95,8 +95,6 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Core\Data\ServiceFactories.cs" />
-    <Compile Include="Core\Data\ILewCMSRepository.cs" />
     <Compile Include="Core\ISerializable.cs" />
     <Compile Include="Core\LewCMSControllerFactory.cs" />
     <Compile Include="Core\Serialization\ISerializer.cs" />
