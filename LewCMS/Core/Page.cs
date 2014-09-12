@@ -64,8 +64,9 @@ namespace LewCMS.Core
         public string PageId { get; set; }
         public string PageTypeName { get; set; }
         public List<string> PropertyTypeNames { get; set; }
-        public string Route { get; set; }
+        public string PageRoute { get; set; }
         public string ParentId { get; set; }
+        public string PageName { get; set; }
 
         public PageMetaData()
         {
@@ -77,8 +78,9 @@ namespace LewCMS.Core
             this.PageId = page.Id;
             this.PageTypeName = page.PageType.TypeName;
             this.PropertyTypeNames = new List<string>();
-            this.Route = page.Route;
+            this.PageRoute = page.Route;
             this.ParentId = page.ParentId;
+            this.PageName = page.Name;
 
             string propertyTypeName = string.Empty;
 

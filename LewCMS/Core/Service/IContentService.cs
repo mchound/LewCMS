@@ -47,11 +47,12 @@ namespace LewCMS.Core.Service
         {
             var pageType = this.GetPageTypes().FirstOrDefault(p => p.Id == pageTypeId);
             IPage page = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(pageType.TypeName)) as IPage;
-            page.Route = this.CreatePageRoute(pageName, null);
+            page.Route = this.CreatePageRoute(pageName, parentId);
             page.Name = pageName;
             page.Version = 1;
             page.Id = Guid.NewGuid().ToString();
             page.PageType = pageType as PageType;
+            page.ParentId = parentId;
 
             page.OnInit();
             this._contentRepository.AddPage(page);
@@ -83,13 +84,33 @@ namespace LewCMS.Core.Service
 
         private string CreatePageRoute(string pageName, string parentId)
         {
-            if(string.IsNullOrWhiteSpace(parentId))
+            string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._contentRepository.GetPageMetaData(m => m.PageId == parentId).PageRoute;
+            string route = string.Concat(parentRoute, "/", HttpUtility.UrlEncode(pageName.ToLower()).Replace("+", "-"));
+            return this.GetPageRouteWithSuffix(route, firstIteration: true);
+        }
+
+        private string GetPageRouteWithSuffix(string route, bool firstIteration = false)
+        {
+            IEnumerable<PageMetaData> pagesMetaData = this._contentRepository.GetPagesMetaData(m => m.PageRoute.ToLower() == route.ToLower());
+
+            if (!pagesMetaData.Any())
             {
-                return string.Concat("/", HttpUtility.UrlEncode(pageName).Replace("+", "-"));
+                return route;
             }
 
-            // TODO: Calculate correct page route based on page tree. Think of that the pageName can appear many times
-            return string.Concat("/", HttpUtility.UrlEncode(pageName).Replace("+", "-"));
+            string newRoute = route;
+
+            if (firstIteration)
+            {
+                newRoute = string.Concat(newRoute, "-1");
+                return this.GetPageRouteWithSuffix(newRoute);
+            }
+
+            string[] routeFragments = route.Split('-');
+            int enumeration = int.Parse(routeFragments.Last()) + 1;
+            routeFragments[routeFragments.Length - 1] = enumeration.ToString();
+
+            return this.GetPageRouteWithSuffix(string.Join("-", routeFragments));
         }
 
         # endregion

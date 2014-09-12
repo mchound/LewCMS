@@ -19,6 +19,9 @@ namespace LewCMS.Core.Service
         IPage GetPage(string pageId);
         IEnumerable<IPage> GetAllPages();
         IEnumerable<IPage> GetPages(Func<PageMetaData, bool> predicate);
+        PageMetaData GetPageMetaData(Func<PageMetaData, bool> predicate);
+        IEnumerable<PageMetaData> GetPagesMetaData();
+        IEnumerable<PageMetaData> GetPagesMetaData(Func<PageMetaData, bool> predicate);
         IPage AddPage(IPage page);
         void UpdatePage(IPage page);
         void DeletePage(string pageId);
@@ -153,6 +156,21 @@ namespace LewCMS.Core.Service
             
         }
 
+        public PageMetaData GetPageMetaData(Func<PageMetaData, bool> predicate)
+        {
+            return (this._contentCacheService.GetPagesMetaData() ?? this.LoadPagesMetaData()).FirstOrDefault(predicate);
+        }
+
+        public IEnumerable<PageMetaData> GetPagesMetaData()
+        {
+            return this._contentCacheService.GetPagesMetaData() ?? this.LoadPagesMetaData();
+        }
+
+        public IEnumerable<PageMetaData> GetPagesMetaData(Func<PageMetaData, bool> predicate)
+        {
+            return (this._contentCacheService.GetPagesMetaData() ?? this.LoadPagesMetaData()).Where(predicate);
+        }
+
         #endregion
 
         #region Private Methods
@@ -273,5 +291,6 @@ namespace LewCMS.Core.Service
         }
 
         #endregion
+
     }
 }
