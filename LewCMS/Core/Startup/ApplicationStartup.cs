@@ -9,7 +9,6 @@ using System.Web.Http;
 using System.Reflection;
 using System.Web.Hosting;
 using LewCMS.Core.VirtualFileSystem;
-using LewCMS.Core.Data;
 
 namespace LewCMS.Core.Startup
 {

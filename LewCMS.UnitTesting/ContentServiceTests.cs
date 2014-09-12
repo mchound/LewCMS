@@ -13,13 +13,15 @@ namespace LewCMS.UnitTesting
     [TestClass]
     public class ContentServiceTests
     {
+        private static string FILE_PERSIST_PATH = @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data";
+
         [ClassInitialize]
         public static void InitializeTestClass(TestContext testContext)
         {
             Application.Current.SetApplicationAssembly(Assembly.GetExecutingAssembly());
             ContentServiceTestHelper.Instance.SetInitializeService(new InitializeService());
             ContentServiceTestHelper.Instance.SetContentCacheService(new ContentCacheService());
-            ContentServiceTestHelper.Instance.SetContentRepository(new ContentRepository(ContentServiceTestHelper.Instance.InitializeService, ContentServiceTestHelper.Instance.ContentCacheService, new LewCMSJsonSerializer(), @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data"));
+            ContentServiceTestHelper.Instance.SetContentRepository(new ContentRepository(ContentServiceTestHelper.Instance.InitializeService, ContentServiceTestHelper.Instance.ContentCacheService, new LewCMSJsonSerializer(), ContentServiceTests.FILE_PERSIST_PATH));
             ContentServiceTestHelper.Instance.SetContentService(new ContentService(ContentServiceTestHelper.Instance.ContentRepository));
 
             var contentService = ContentServiceTestHelper.Instance.ContentService;
@@ -134,7 +136,7 @@ namespace LewCMS.UnitTesting
 
         private IContentService CreateNewContentService()
         {
-            return new ContentService(new ContentRepository(new InitializeService(), new ContentCacheService(), new LewCMSJsonSerializer(), @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data"));
+            return new ContentService(new ContentRepository(new InitializeService(), new ContentCacheService(), new LewCMSJsonSerializer(), ContentServiceTests.FILE_PERSIST_PATH));
         }
 
         private void CreatePage(string pageTypeId, string pageName, string parentId = null)
