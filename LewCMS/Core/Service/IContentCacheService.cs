@@ -10,12 +10,13 @@ namespace LewCMS.Core.Service
     public interface IContentCacheService
     {
         IEnumerable<IPageType> GetPageTypes();
-        IPage GetPage(string pageId);
+        IPage GetPage(string pageId, int version);
         List<PageMetaData> GetPagesMetaData();
         void InitialCaching(IEnumerable<IPage> pages);
         void CachePage(IPage page);
         void CachePageTypes(IEnumerable<IPageType> pageTypes);
         void RemovePage(string pageId);
+        void RemovePage(string pageId, int version);
         void ClearCachedPages();
         bool IsSynced { get; }
         int CachedPages { get;  }
@@ -26,7 +27,7 @@ namespace LewCMS.Core.Service
         # region Cache keys
 
         private string cacheKeyPageTypes = "LewCMS-pageTypes";
-        private string cacheKeyPage = "LewCMS-page-{0}";
+        private string cacheKeyPage = "LewCMS-page-{0}[{1}]";
         private string cacheKeyPageMetaData = "LewCMS-PageMetaData";
 
         # endregion
@@ -71,16 +72,27 @@ namespace LewCMS.Core.Service
             return this.GetCacheObjectByKey<IEnumerable<IPageType>>("LewCMS-pageTypes");
         }
 
-        public IPage GetPage(string pageId)
+        public IPage GetPage(string pageId, int version)
         {
-            string pageCacheKey = string.Format(this.cacheKeyPage, pageId);
+            string pageCacheKey = string.Empty;
+
+            if (version == -1)
+            {
+                int latestVersion = this.GetLatestPageVersionNumber(pageId);
+                pageCacheKey = string.Format(this.cacheKeyPage, pageId, latestVersion);
+            }
+            else
+            {
+                pageCacheKey = string.Format(this.cacheKeyPage, pageId, version);
+            }
+            
             return HttpRuntime.Cache[pageCacheKey] as IPage;
         }
 
         public void CachePage(IPage page)
         {
             this.AddToCacheList<PageMetaData>(new PageMetaData(page), this.cacheKeyPageMetaData);
-            this.CacheObject(page, string.Format(this.cacheKeyPage, page.Id));
+            this.CacheObject(page, string.Format(this.cacheKeyPage, page.Id, page.Version));
         }
 
         public void CachePageTypes(IEnumerable<IPageType> pageTypes)
@@ -95,7 +107,7 @@ namespace LewCMS.Core.Service
 
             foreach (PageMetaData metaData in pagesMetaData)
 	        {
-		        pageCacheKey = string.Format(this.cacheKeyPage, metaData.PageId);
+		        pageCacheKey = string.Format(this.cacheKeyPage, metaData.PageId, metaData.Version);
                 HttpRuntime.Cache.Remove(pageCacheKey);
 	        }
 
@@ -109,8 +121,19 @@ namespace LewCMS.Core.Service
 
         public void RemovePage(string pageId)
         {
-            HttpRuntime.Cache.Remove(string.Format(this.cacheKeyPage, pageId));
-            this.RemoveFromCacheList<PageMetaData>(m => m.PageId == pageId, this.cacheKeyPageMetaData);
+            IEnumerable<PageMetaData> pageMetaData = this.MetaDataForPage(pageId).ToList();
+
+            foreach (var page in pageMetaData)
+            {
+                HttpRuntime.Cache.Remove(string.Format(this.cacheKeyPage, pageId, page.Version));
+                this.RemoveFromCacheList<PageMetaData>(m => m.PageId == pageId && m.Version == page.Version, this.cacheKeyPageMetaData);   
+            }
+        }
+
+        public void RemovePage(string pageId, int version)
+        {
+            HttpRuntime.Cache.Remove(string.Format(this.cacheKeyPage, pageId, version));
+            this.RemoveFromCacheList<PageMetaData>(m => m.PageId == pageId && m.Version == version, this.cacheKeyPageMetaData);
         }
 
         #region Private Methods
@@ -118,7 +141,6 @@ namespace LewCMS.Core.Service
         private void CacheObject(object obj, string cacheKey)
         {
             HttpRuntime.Cache[cacheKey] = obj;
-
         }
 
         private T GetCacheObjectByKey<T>(string cacheKey)
@@ -181,6 +203,32 @@ namespace LewCMS.Core.Service
             }
 
             return this.GetPagesMetaData().Count;
+        }
+
+        private int GetLatestPageVersionNumber(string pageId)
+        {
+            IEnumerable<PageMetaData> pagesMetaData = this.GetPagesMetaData();
+
+            if (pagesMetaData == null || pagesMetaData.Count() == 0)
+            {
+                return 1;
+            }
+
+            IEnumerable<PageMetaData> metaDataForPage = pagesMetaData.Where(p => p.PageId == pageId);
+
+            if (metaDataForPage == null || metaDataForPage.Count() == 0)
+            {
+                return 1;
+            }
+
+            return metaDataForPage.Max(p => p.Version);
+        }
+
+        private IEnumerable<PageMetaData> MetaDataForPage(string pageId)
+        {
+            IEnumerable<PageMetaData> pagesMetaData = this.GetPagesMetaData();
+
+            return pagesMetaData == null ? Enumerable.Empty<PageMetaData>() : pagesMetaData.Where(p => p.PageId == pageId);
         }
 
         #endregion

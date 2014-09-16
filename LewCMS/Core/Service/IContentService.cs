@@ -15,7 +15,7 @@ namespace LewCMS.Core.Service
         IEnumerable<IPage> GetAllPages();
         IPage AddPage(string pageTypeId, string pageName);
         IPage AddPage(string pageTypeId, string pageName, string parentId);
-        void UpdatePage(IPage page);
+        IPage UpdatePage(IPage page);
         void DeletePage(string pageId);
     }
 
@@ -35,7 +35,7 @@ namespace LewCMS.Core.Service
 
         public IPage GetPage(string pageId)
         {
-            return this._contentRepository.GetPage(pageId);
+            return this._contentRepository.GetPage(pageId, -1);
         }
 
         public IPage AddPage(string pageTypeId, string pageName)
@@ -47,12 +47,14 @@ namespace LewCMS.Core.Service
         {
             var pageType = this.GetPageTypes().FirstOrDefault(p => p.Id == pageTypeId);
             IPage page = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(pageType.TypeName)) as IPage;
-            page.Route = this.CreatePageRoute(pageName, parentId);
+            page.Id = Guid.NewGuid().ToString();
+            page.Route = this.CreatePageRoute(page.Id, pageName, parentId);
             page.Name = pageName;
             page.Version = 1;
-            page.Id = Guid.NewGuid().ToString();
             page.PageType = pageType as PageType;
             page.ParentId = parentId;
+            page.CreatedAt = DateTime.Now;
+            page.UpdatedAt = page.CreatedAt;
 
             page.OnInit();
             this._contentRepository.AddPage(page);
@@ -60,9 +62,10 @@ namespace LewCMS.Core.Service
             return page;
         }
 
-        public void UpdatePage(IPage page)
+        public IPage UpdatePage(IPage page)
         {
-            throw new NotImplementedException();
+            page.Route = this.CreatePageRoute(page.Id, page.Name, page.ParentId);
+            return this._contentRepository.UpdatePage(page);
         }
 
         public void DeletePage(string pageId)
@@ -82,16 +85,16 @@ namespace LewCMS.Core.Service
 
         # region Private Methods
 
-        private string CreatePageRoute(string pageName, string parentId)
+        private string CreatePageRoute(string pageId, string pageName, string parentId)
         {
             string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._contentRepository.GetPageMetaData(m => m.PageId == parentId).PageRoute;
             string route = string.Concat(parentRoute, "/", HttpUtility.UrlEncode(pageName.ToLower()).Replace("+", "-"));
-            return this.GetPageRouteWithSuffix(route, firstIteration: true);
+            return this.GetPageRouteWithSuffix(pageId, route, firstIteration: true);
         }
 
-        private string GetPageRouteWithSuffix(string route, bool firstIteration = false)
+        private string GetPageRouteWithSuffix(string pageId, string route, bool firstIteration = false)
         {
-            IEnumerable<PageMetaData> pagesMetaData = this._contentRepository.GetPagesMetaData(m => m.PageRoute.ToLower() == route.ToLower());
+            IEnumerable<PageMetaData> pagesMetaData = this._contentRepository.GetPagesMetaData(m => m.PageRoute.ToLower() == route.ToLower() && m.PageId != pageId);
 
             if (!pagesMetaData.Any())
             {
@@ -103,14 +106,14 @@ namespace LewCMS.Core.Service
             if (firstIteration)
             {
                 newRoute = string.Concat(newRoute, "-1");
-                return this.GetPageRouteWithSuffix(newRoute);
+                return this.GetPageRouteWithSuffix(pageId, newRoute);
             }
 
             string[] routeFragments = route.Split('-');
             int enumeration = int.Parse(routeFragments.Last()) + 1;
             routeFragments[routeFragments.Length - 1] = enumeration.ToString();
 
-            return this.GetPageRouteWithSuffix(string.Join("-", routeFragments));
+            return this.GetPageRouteWithSuffix(pageId, string.Join("-", routeFragments));
         }
 
         # endregion

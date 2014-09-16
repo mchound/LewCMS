@@ -18,6 +18,8 @@ namespace LewCMS.Core
         string ParentId { get; set; }
         int Version { get; set; }
         object this[string propertyName] { get; set; }
+        DateTime CreatedAt { get; set; }
+        DateTime UpdatedAt { get; set; }
         void OnInit();
     }
 
@@ -29,6 +31,8 @@ namespace LewCMS.Core
         public string Name { get; set; }
         public string ParentId { get; set; }
         public int Version { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public object this[string propertyName]
         {
@@ -67,6 +71,7 @@ namespace LewCMS.Core
         public string PageRoute { get; set; }
         public string ParentId { get; set; }
         public string PageName { get; set; }
+        public int Version { get; set; }
 
         public PageMetaData()
         {
@@ -81,6 +86,7 @@ namespace LewCMS.Core
             this.PageRoute = page.Route;
             this.ParentId = page.ParentId;
             this.PageName = page.Name;
+            this.Version = page.Version;
 
             string propertyTypeName = string.Empty;
 

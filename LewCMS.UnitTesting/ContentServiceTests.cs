@@ -197,6 +197,42 @@ namespace LewCMS.UnitTesting
             Assert.AreEqual<int>(2, allPages.Count());
         }
 
+        [TestMethod]
+        public void Update_Page()
+        {
+            var contentService = ContentServiceTestHelper.Instance.ContentService;
+            this.CreatePage("66f37878-25bb-471c-9363-d15e400b6cbf", "MyFirstPage");
+            this.CreatePage("dd9f76ef-3e63-4a73-8170-9e84ec703b07", "MySecondPage");
+
+            IEnumerable<IPage> allPages = contentService.GetAllPages();
+            IPage firstPage = allPages.First();
+            IPage secondPage = allPages.Last();
+
+            Assert.AreEqual<int>(2, allPages.Count());
+            Assert.AreEqual<string>("66f37878-25bb-471c-9363-d15e400b6cbf", firstPage.PageType.Id);
+            Assert.AreEqual<string>("dd9f76ef-3e63-4a73-8170-9e84ec703b07", secondPage.PageType.Id);
+            Assert.AreEqual<string>("MyFirstPage", firstPage.Name);
+            Assert.AreEqual<string>("MySecondPage", secondPage.Name);
+            Assert.AreEqual<string>("/MyFirstPage".ToLower(), firstPage.Route);
+            Assert.AreEqual<string>("/MySecondPage".ToLower(), secondPage.Route);
+
+            firstPage.Name = "MySecondPage";
+            contentService.UpdatePage(firstPage);
+
+            allPages = contentService.GetAllPages();
+            firstPage = allPages.First();
+            secondPage = allPages.Last();
+
+            Assert.AreEqual<int>(2, allPages.Count());
+            Assert.AreEqual<string>("66f37878-25bb-471c-9363-d15e400b6cbf", firstPage.PageType.Id);
+            Assert.AreEqual<string>("dd9f76ef-3e63-4a73-8170-9e84ec703b07", secondPage.PageType.Id);
+            Assert.AreEqual<string>("MySecondPage", firstPage.Name);
+            Assert.AreEqual<string>("MySecondPage", secondPage.Name);
+            Assert.AreEqual<string>("/MySecondPage-1".ToLower(), firstPage.Route);
+            Assert.AreEqual<string>("/MySecondPage".ToLower(), secondPage.Route);
+
+        }
+
         private void DeleteAllPages()
         {
             var contentService = ContentServiceTestHelper.Instance.ContentService;

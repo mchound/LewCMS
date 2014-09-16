@@ -16,15 +16,16 @@ namespace LewCMS.Core.Service
     public interface IContentRepository
     {
         IEnumerable<IPageType> GetPageTypes();
-        IPage GetPage(string pageId);
+        IPage GetPage(string pageId, int version);
         IEnumerable<IPage> GetAllPages();
         IEnumerable<IPage> GetPages(Func<PageMetaData, bool> predicate);
         PageMetaData GetPageMetaData(Func<PageMetaData, bool> predicate);
         IEnumerable<PageMetaData> GetPagesMetaData();
         IEnumerable<PageMetaData> GetPagesMetaData(Func<PageMetaData, bool> predicate);
         IPage AddPage(IPage page);
-        void UpdatePage(IPage page);
+        IPage UpdatePage(IPage page);
         void DeletePage(string pageId);
+        void DeletePage(string pageId, int version);
     }
 
     public class ContentRepository : IContentRepository
@@ -75,13 +76,13 @@ namespace LewCMS.Core.Service
             return pageTypes;
         }
 
-        public IPage GetPage(string pageId)
+        public IPage GetPage(string pageId, int version = -1)
         {
-            IPage page = this._contentCacheService.GetPage(pageId);
+            IPage page = this._contentCacheService.GetPage(pageId, version);
 
             if(page == null)
             {
-                page = this.LoadPage(pageId);
+                page = this.LoadPage(pageId, version);
                 this._contentCacheService.CachePage(page);
             }
 
@@ -92,6 +93,8 @@ namespace LewCMS.Core.Service
         {
             // TODO: If cache is in sync. Use cached pages, else get all cached pages and compare with stored metadata file.
             IEnumerable<PageMetaData> pagesMetaData = this._contentCacheService.GetPagesMetaData() ?? this.LoadPagesMetaData();
+
+            pagesMetaData = pagesMetaData.GroupBy(p => p.PageId).Select(g => g.OrderByDescending(p => p.Version).First());
 
             foreach (PageMetaData metaData in pagesMetaData)
             {
@@ -116,7 +119,7 @@ namespace LewCMS.Core.Service
             
             if (this.PageIsCreated(page, pagesDirectory))
             {
-                throw new Exception("Page with that id is already persisted. Use update to change an existing page");
+                throw new Exception("Page with that id and version is already persisted. Either create a new page or set a new ID");
             }
 
             FileInfo shallowPage = this.CreateShallowPageFile(page, pagesDirectory);
@@ -136,9 +139,11 @@ namespace LewCMS.Core.Service
             return page;
         }
 
-        public void UpdatePage(IPage page)
+        public IPage UpdatePage(IPage page)
         {
-            throw new NotImplementedException();
+            page.Version++;
+            page.UpdatedAt = DateTime.Now;
+            return this.AddPage(page);
         }
 
         public void DeletePage(string pageId)
@@ -154,6 +159,21 @@ namespace LewCMS.Core.Service
 
             this._contentCacheService.RemovePage(pageId);
             
+        }
+
+        public void DeletePage(string pageId, int version)
+        {
+            try
+            {
+                this.DeletePageFromFile(pageId, version);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Error trying to delete page with id: {0} and verion: {1}", pageId, version), ex);
+            }
+
+            this._contentCacheService.RemovePage(pageId, version);
+
         }
 
         public PageMetaData GetPageMetaData(Func<PageMetaData, bool> predicate)
@@ -193,14 +213,23 @@ namespace LewCMS.Core.Service
             return this.LoadPagesMetaData().First(m => m.PageId == pageId);
         }
 
-        private IPage LoadPage(string pageId)
+        private IPage LoadPage(string pageId, int version)
         {
             PageMetaData pageMetaData = this.GetPageMetaData(pageId);
             DirectoryInfo pagesFolder = this.GetDirectory(ContentRepository.PAGES_FOLDER_NAME);
-            IEnumerable<FileInfo> allVersions = pagesFolder.GetFiles(string.Format("{0}[*].json", pageId)).OrderBy(f => f.Name);
-            FileInfo latestVersion = allVersions.Last();
+            FileInfo fi;
 
-            return this._serializer.DeserializeFromFile<IPage>(latestVersion.FullName, pageMetaData.GetPageInstanceType());
+            if (version == -1)
+            {
+                IEnumerable<FileInfo> allVersions = pagesFolder.GetFiles(string.Format("{0}[*].json", pageId)).OrderBy(f => f.Name);
+                fi = allVersions.Last();
+            }
+            else
+            {
+                fi = pagesFolder.GetFiles(string.Format("{0}[{1}].json", pageId, version)).First();
+            }
+
+            return this._serializer.DeserializeFromFile<IPage>(fi.FullName, pageMetaData.GetPageInstanceType());
         }
 
         private void SavePage(IPage page, DirectoryInfo pagesDirectory)
@@ -235,7 +264,7 @@ namespace LewCMS.Core.Service
 
         private FileInfo CreateShallowPageFile(IPage page, DirectoryInfo pagesDirectory)
         {
-            string filePath = string.Format(@"{0}\{1}[1].json", pagesDirectory.FullName, page.Id);
+            string filePath = string.Format(@"{0}\{1}[{2}].json", pagesDirectory.FullName, page.Id, page.Version);
             return new FileInfo(filePath);
         }
 
@@ -248,18 +277,18 @@ namespace LewCMS.Core.Service
         private IEnumerable<IPage> LoadAllPages()
         {
             IEnumerable<PageMetaData> metaData = this.LoadPagesMetaData();
-            return metaData.Select(m => this.LoadPage(m.PageId));
+            return metaData.Select(m => this.LoadPage(m.PageId, -1));
         }
 
         /// <summary>
-        /// Checks if any page with the page's id already exists in the given folder.
+        /// Checks if any page with the page's id and version already exists in the given folder.
         /// </summary>
         /// <param name="page">The page instance</param>
         /// <param name="pagesDirectory">The directory to search</param>
-        /// <returns>True: if a page with the page's id already exists. False if no file with the page's id exists in the given folder.</returns>
+        /// <returns>True: if a page with the page's id and version already exists. False if no file with the page's id and version exists in the given folder.</returns>
         private bool PageIsCreated(IPage page, DirectoryInfo pagesDirectory)
         {
-            string searchPattern = string.Concat(page.Id, "[*].xml");
+            string searchPattern = string.Format("{0}[{1}].xml", page.Id, page.Version);
             var earlierVersionsOfPage = pagesDirectory.EnumerateFiles(searchPattern, SearchOption.TopDirectoryOnly);
 
             return earlierVersionsOfPage == null ? true : false;
@@ -280,12 +309,25 @@ namespace LewCMS.Core.Service
         private void DeletePageFromFile(string pageId)
         {
             List<PageMetaData> pagesMetaData = this.LoadPagesMetaData();
-            PageMetaData pageMetaData = pagesMetaData.FirstOrDefault(m => m.PageId == pageId);
-            pagesMetaData.Remove(pageMetaData);
+
+            pagesMetaData.RemoveAll(p => p.PageId == pageId);
 
             DirectoryInfo pagesDirectoryInfo = this.GetDirectory(ContentRepository.PAGES_FOLDER_NAME);
 
-            pagesDirectoryInfo.GetFiles(string.Format("{0}[*].json", pageId)).First().Delete();
+            pagesDirectoryInfo.GetFiles(string.Format("{0}[*].json", pageId)).ToList().ForEach(f => f.Delete());
+
+            this.SavePagesMetaData(pagesMetaData);
+        }
+
+        private void DeletePageFromFile(string pageId, int version)
+        {
+            List<PageMetaData> pagesMetaData = this.LoadPagesMetaData();
+
+            pagesMetaData.RemoveAll(p => p.PageId == pageId && p.Version == version);
+
+            DirectoryInfo pagesDirectoryInfo = this.GetDirectory(ContentRepository.PAGES_FOLDER_NAME);
+
+            pagesDirectoryInfo.GetFiles(string.Format("{0}[{1}].json", pageId, version)).First().Delete();
 
             this.SavePagesMetaData(pagesMetaData);
         }
