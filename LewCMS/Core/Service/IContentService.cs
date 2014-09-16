@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+using LewCMS.Core.Utilities;
+
 namespace LewCMS.Core.Service
 {
     public interface IContentService
@@ -48,7 +50,7 @@ namespace LewCMS.Core.Service
             var pageType = this.GetPageTypes().FirstOrDefault(p => p.Id == pageTypeId);
             IPage page = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(pageType.TypeName)) as IPage;
             page.Id = Guid.NewGuid().ToString();
-            page.Route = this.CreatePageRoute(page.Id, pageName, parentId);
+            page.Route = RouteHelper.CreatePageRoute(this._contentRepository, page.Id, pageName, parentId);
             page.Name = pageName;
             page.Version = 1;
             page.PageType = pageType as PageType;
@@ -85,36 +87,36 @@ namespace LewCMS.Core.Service
 
         # region Private Methods
 
-        private string CreatePageRoute(string pageId, string pageName, string parentId)
-        {
-            string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._contentRepository.GetPageMetaData(m => m.PageId == parentId).PageRoute;
-            string route = string.Concat(parentRoute, "/", HttpUtility.UrlEncode(pageName.ToLower()).Replace("+", "-"));
-            return this.GetPageRouteWithSuffix(pageId, route, firstIteration: true);
-        }
+        //private string CreatePageRoute(string pageId, string pageName, string parentId)
+        //{
+        //    string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._contentRepository.GetPageMetaData(m => m.PageId == parentId).PageRoute;
+        //    string route = string.Concat(parentRoute, "/", HttpUtility.UrlEncode(pageName.ToLower()).Replace("+", "-"));
+        //    return this.GetPageRouteWithSuffix(pageId, route, firstIteration: true);
+        //}
 
-        private string GetPageRouteWithSuffix(string pageId, string route, bool firstIteration = false)
-        {
-            IEnumerable<PageMetaData> pagesMetaData = this._contentRepository.GetPagesMetaData(m => m.PageRoute.ToLower() == route.ToLower() && m.PageId != pageId);
+        //private string GetPageRouteWithSuffix(string pageId, string route, bool firstIteration = false)
+        //{
+        //    IEnumerable<PageMetaData> pagesMetaData = this._contentRepository.GetPagesMetaData(m => m.PageRoute.ToLower() == route.ToLower() && m.PageId != pageId);
 
-            if (!pagesMetaData.Any())
-            {
-                return route;
-            }
+        //    if (!pagesMetaData.Any())
+        //    {
+        //        return route;
+        //    }
 
-            string newRoute = route;
+        //    string newRoute = route;
 
-            if (firstIteration)
-            {
-                newRoute = string.Concat(newRoute, "-1");
-                return this.GetPageRouteWithSuffix(pageId, newRoute);
-            }
+        //    if (firstIteration)
+        //    {
+        //        newRoute = string.Concat(newRoute, "-1");
+        //        return this.GetPageRouteWithSuffix(pageId, newRoute);
+        //    }
 
-            string[] routeFragments = route.Split('-');
-            int enumeration = int.Parse(routeFragments.Last()) + 1;
-            routeFragments[routeFragments.Length - 1] = enumeration.ToString();
+        //    string[] routeFragments = route.Split('-');
+        //    int enumeration = int.Parse(routeFragments.Last()) + 1;
+        //    routeFragments[routeFragments.Length - 1] = enumeration.ToString();
 
-            return this.GetPageRouteWithSuffix(pageId, string.Join("-", routeFragments));
-        }
+        //    return this.GetPageRouteWithSuffix(pageId, string.Join("-", routeFragments));
+        //}
 
         # endregion
     }

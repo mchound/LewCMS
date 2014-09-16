@@ -20,6 +20,7 @@ namespace LewCMS.Core
         object this[string propertyName] { get; set; }
         DateTime CreatedAt { get; set; }
         DateTime UpdatedAt { get; set; }
+        ContentStatus Status { get; set; }
         void OnInit();
     }
 
@@ -33,6 +34,7 @@ namespace LewCMS.Core
         public int Version { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public ContentStatus Status { get; set; }
 
         public object this[string propertyName]
         {
@@ -61,6 +63,7 @@ namespace LewCMS.Core
         public string ParentId { get; set; }
         public string PageName { get; set; }
         public int Version { get; set; }
+        public ContentStatus Status { get; set; }
 
         public PageMetaData()
         {
@@ -76,6 +79,7 @@ namespace LewCMS.Core
             this.ParentId = page.ParentId;
             this.PageName = page.Name;
             this.Version = page.Version;
+            this.Status = page.Status;
 
             string propertyTypeName = string.Empty;
 
@@ -111,11 +115,6 @@ namespace LewCMS.Core
 
                 yield return type;
             }
-        }
-
-        public Type GetPropertyType()
-        {
-
         }
     }
 }
