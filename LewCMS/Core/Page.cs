@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LewCMS.Core
 {
-    public interface IPage : ISerializable
+    public interface IPage
     {
         PageType PageType { get; set; }
         string Id { get; set; }
@@ -50,20 +50,9 @@ namespace LewCMS.Core
         {
             
         }
-
-        public void SerializeToFile(string filePath)
-        {
-            StreamWriter sw = new StreamWriter(filePath);
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.TypeNameHandling = TypeNameHandling.All;
-            string json = JsonConvert.SerializeObject(this, settings);
-            sw.Write(json);
-            sw.Close();
-            sw.Dispose();
-        }
     }
 
-    public class PageMetaData : ISerializable
+    public class PageMetaData
     {
         public string PageId { get; set; }
         public string PageTypeName { get; set; }
@@ -124,13 +113,9 @@ namespace LewCMS.Core
             }
         }
 
-        public void SerializeToFile(string filePath)
+        public Type GetPropertyType()
         {
-            StreamWriter sw = new StreamWriter(filePath);
-            string json = JsonConvert.SerializeObject(this);
-            sw.Write(json);
-            sw.Close();
-            sw.Dispose();
+
         }
     }
 }

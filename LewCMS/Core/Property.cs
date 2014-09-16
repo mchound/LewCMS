@@ -12,7 +12,7 @@ namespace LewCMS.Core
         string Name { get; set; }
         object Get();
         void Set(object value);
-        void Set(JObject jValue);
+        void Set(JToken jValue);
     }
 
     public abstract class Property : IProperty
