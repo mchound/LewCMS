@@ -20,6 +20,8 @@ namespace LewCMS.BackStage.Mvc
                 new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional },
                 new[] { "LewCMS.BackStage.Controllers"}
             );
+
+            
         }
     }
 }

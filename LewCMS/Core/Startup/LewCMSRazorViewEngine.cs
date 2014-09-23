@@ -43,7 +43,7 @@ namespace LewCMS.Core.Startup
                 "~/Areas/{2}/Views/{1}/{0}.vbhtml",
                 "~/Areas/{2}/Views/Shared/{0}.cshtml",
                 "~/Areas/{2}/Views/Shared/{0}.vbhtml"
-            };    
+            };
         }
     }
 }

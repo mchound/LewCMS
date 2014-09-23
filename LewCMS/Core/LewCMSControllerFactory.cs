@@ -19,7 +19,7 @@ namespace LewCMS.Core
 
             if (page == null)
                 return base.CreateController(requestContext, controllerName);
-
+            
             RequestContext customRequestContext = requestContext;
             customRequestContext.RouteData.Values["controller"] = page.PageType.ControllerName;
             Type controllerType = base.GetControllerType(requestContext, page.PageType.ControllerName);

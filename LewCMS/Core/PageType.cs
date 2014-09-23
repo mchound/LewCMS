@@ -15,7 +15,6 @@ namespace LewCMS.Core
         string TypeName { get; set; }
         string ControllerName { get; set; }
         List<Property> Properties { get; set; }
-        //void LoadProperties(IPage page);
     }
 
     public class PageType : IPageType
@@ -30,13 +29,5 @@ namespace LewCMS.Core
 	    {
             this.Properties = new List<Property>();
 	    }
-
-        //public void LoadProperties(IPage page)
-        //{
-        //    foreach (IProperty property in this.Properties)
-        //    {
-        //        property.Set(page[property.Name]);
-        //    }
-        //}
     }
 }

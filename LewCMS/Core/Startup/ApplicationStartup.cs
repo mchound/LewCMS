@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Reflection;
 using System.Web.Hosting;
 using LewCMS.Core.VirtualFileSystem;
+using System.Web.Http.Dispatcher;
 
 namespace LewCMS.Core.Startup
 {
@@ -19,7 +20,9 @@ namespace LewCMS.Core.Startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerSelector), new LewCMSHttpControllerSelector(GlobalConfiguration.Configuration));
             ControllerBuilder.Current.SetControllerFactory(typeof(LewCMSControllerFactory));
+            //GlobalConfiguration.Configuration.Services.Replace(typeof(IAssembliesResolver), new LewCMSAssemblyResolver());
             HostingEnvironment.RegisterVirtualPathProvider(new LewCMSVirtualPathProvider(Configuration.BACKSTAGE_FILE_PATH));
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Insert(0, new LewCMSRazorViewEngine());

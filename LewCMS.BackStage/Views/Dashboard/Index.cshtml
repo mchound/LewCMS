@@ -1,6 +1,32 @@
 ﻿@using System.Web.Mvc.Html;
 @inherits System.Web.Mvc.WebViewPage
 
+
 <h2>Dashboard</h2>
 
-@Html.ActionLink("New Page", "New", "Page")
+<button id="btn-new-page">New Page</button>
+
+<script>
+
+    $(function () {
+
+        $('#btn-new-page').click(function () {
+
+            $.ajax({
+                url: '/LewCMS-api/test',
+                //data: {pageTypeId: 'pageTypeId-1-2-3', pageName: ''},
+                type: 'GET',
+                success: function (response) {
+                    var v = 1;
+                },
+                error: function (one, two, three) {
+                    var v = 1;
+                }
+            });
+
+        });
+
+    });
+
+</script>
+
