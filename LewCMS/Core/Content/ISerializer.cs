@@ -16,6 +16,11 @@ namespace LewCMS.Core.Content
 
     public class LewCMSJsonSerializer : ISerializer
     {
+        public LewCMSJsonSerializer()
+        {
+
+        }
+
         public string Serialize<T>(T obj)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings();

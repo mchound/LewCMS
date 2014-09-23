@@ -1,6 +1,6 @@
 ﻿using LewCMS;
 using LewCMS.Core;
-using LewCMS.Core.Service;
+using LewCMS.Core.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,11 @@ namespace MyWebApplication.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+
+        }
+
         public HomeController(IContentService contentService)
         {
             IContentService serv = contentService;

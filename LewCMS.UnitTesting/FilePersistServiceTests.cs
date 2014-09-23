@@ -32,7 +32,7 @@ namespace LewCMS.UnitTesting
 
             Application.Current.SetApplicationAssembly(Assembly.GetExecutingAssembly());
             ServicesTestHelper.Instance.SetInitializeService(new InitializeService());
-            ServicesTestHelper.Instance.SetFilePersistsService(new FilePersistService(new LewCMSJsonSerializer(), ServicesTestHelper.FILE_PERSIST_PATH));
+            ServicesTestHelper.Instance.SetFilePersistsService(new FilePersistService(new LewCMSJsonSerializer()));
         }
 
         [TestInitialize]

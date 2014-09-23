@@ -15,6 +15,11 @@ namespace LewCMS.Core.Content
 
     public class InitializeService : IInitializeService
     {
+        public InitializeService()
+        {
+
+        }
+
         public IEnumerable<IPageType> GetPageTypes(Assembly applicationAssembly)
         {
             IEnumerable<Type> pageTypeTypes = applicationAssembly.GetTypes().Where(t => t != typeof(Page) && typeof(Page).IsAssignableFrom(t));

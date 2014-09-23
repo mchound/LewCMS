@@ -12,6 +12,7 @@ namespace LewCMS
 			var container = new UnityContainer();
             
             container.RegisterType<IContentService, ContentService>();
+            container.RegisterType<IPersistService, FilePersistService>();
             container.RegisterType<IContentRepository, ContentRepository>();
             container.RegisterType<IContentCacheService, ContentCacheService>();
             container.RegisterType<IInitializeService, InitializeService>();

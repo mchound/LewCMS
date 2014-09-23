@@ -60,7 +60,6 @@
     <Compile Include="ContentServiceTests.cs" />
     <Compile Include="InitializeServiceTests.cs" />
     <Compile Include="ServicesTestHelper.cs" />
-    <Compile Include="_ContentServiceTests.cs" />
     <Compile Include="CustomProperties\Person.cs" />
     <Compile Include="PageTypes\MyFirstPageType.cs" />
     <Compile Include="PageTypes\MySecondPageType.cs" />

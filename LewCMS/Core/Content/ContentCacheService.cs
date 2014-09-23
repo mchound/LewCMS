@@ -15,6 +15,11 @@ namespace LewCMS.Core.Content
         private const string PAGE_INFO_CACHE_KEY_FORMAT = "LewCMS.Cache.PageInfo";
         private const string PERSISTED_PAGE_INFO_CACHE_KEY_FORMAT = "LewCMS.Cache.PersistedPagesList";
 
+        public ContentCacheService()
+        {
+
+        }
+
         public void SavePersistedPagesList(IEnumerable<IPageInfo> pageInfos)
         {
             this.InsertIntoCache(PERSISTED_PAGE_INFO_CACHE_KEY_FORMAT, pageInfos);

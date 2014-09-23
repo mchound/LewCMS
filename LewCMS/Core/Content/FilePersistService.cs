@@ -21,11 +21,11 @@ namespace LewCMS.Core.Content
         private string _pageTypesFolderPath;
         private ISerializer _serializer;
 
-        public FilePersistService(ISerializer serializer, string filePersistPath)
+        public FilePersistService(ISerializer serializer)
         {
             this._serializer = serializer;
-            this._pageFolderPath = string.Concat(filePersistPath, @"\", PAGES_FOLDER_NAME);
-            this._pageTypesFolderPath = string.Concat(filePersistPath, @"\", PAGE_TYPES_FOLDER_NAME);
+            this._pageFolderPath = string.Concat(Configuration.PERSITS_VIRTUAL_FILE_PATH, @"\", PAGES_FOLDER_NAME);
+            this._pageTypesFolderPath = string.Concat(Configuration.PERSITS_VIRTUAL_FILE_PATH, @"\", PAGE_TYPES_FOLDER_NAME);
             this.CreateFolderStructure();
         }
 

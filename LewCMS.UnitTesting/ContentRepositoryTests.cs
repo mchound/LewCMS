@@ -33,7 +33,7 @@ namespace LewCMS.UnitTesting
             Application.Current.SetApplicationAssembly(Assembly.GetExecutingAssembly());
             var initializeService = new InitializeService();
             var serializer = new LewCMSJsonSerializer();
-            var filePersistService = new FilePersistService(serializer, ServicesTestHelper.FILE_PERSIST_PATH);
+            var filePersistService = new FilePersistService(serializer);
             var contentCacheService = new ContentCacheService();
             var contentRepository = new ContentRepository(contentCacheService, filePersistService, initializeService);
 
