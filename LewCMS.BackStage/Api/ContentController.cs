@@ -7,11 +7,17 @@ using System.Web.Http;
 
 namespace LewCMS.BackStage.Api
 {
+    public class PageModel
+    {
+        public string PageTypeId { get; set; }
+        public string PageName { get; set; }
+    }
+
     public class ContentController : ApiController
     {
-        [HttpGet]
-        [Route("LewCMS-api/test")]
-        public HttpResponseMessage Create()
+        [HttpPost]
+        [Route("LewCMS-api/create")]
+        public HttpResponseMessage Create(PageModel page)
         {
             return Request.CreateResponse<string>(HttpStatusCode.OK, string.Empty);
         }

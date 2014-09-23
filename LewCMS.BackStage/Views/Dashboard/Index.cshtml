@@ -13,9 +13,9 @@
         $('#btn-new-page').click(function () {
 
             $.ajax({
-                url: '/LewCMS-api/test',
-                //data: {pageTypeId: 'pageTypeId-1-2-3', pageName: ''},
-                type: 'GET',
+                url: '/LewCMS-api/create',
+                data: {pageTypeId: 'pageTypeId-1-2-3', pageName: ''},
+                type: 'POST',
                 success: function (response) {
                     var v = 1;
                 },
