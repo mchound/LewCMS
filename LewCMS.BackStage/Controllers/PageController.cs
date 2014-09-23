@@ -39,8 +39,8 @@ namespace LewCMS.BackStage.Controllers
 
         public ActionResult Edit(string id)
         {
-            IPage page = this._cms.Pages.First(p => p.Id == id);
-            page.PageType.LoadProperties(page);
+            //IPage page = this._cms.Pages.First(p => p.Id == id);
+            //page.PageType.LoadProperties(page);
 
             return View();
         }

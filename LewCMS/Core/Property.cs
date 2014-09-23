@@ -29,7 +29,7 @@ namespace LewCMS.Core
             throw new NotImplementedException();
         }
 
-        public virtual void Set(JObject jValue)
+        public virtual void Set(JToken jValue)
         {
             throw new NotImplementedException();
         }

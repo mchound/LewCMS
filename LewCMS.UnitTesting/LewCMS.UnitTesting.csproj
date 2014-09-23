@@ -55,12 +55,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ContentServiceTestHelper.cs" />
+    <Compile Include="CachePersistServiceTests.cs" />
+    <Compile Include="ContentRepositoryTests.cs" />
+    <Compile Include="InitializeServiceTests.cs" />
+    <Compile Include="ServicesTestHelper.cs" />
     <Compile Include="ContentServiceTests.cs" />
     <Compile Include="CustomProperties\Person.cs" />
     <Compile Include="PageTypes\MyFirstPageType.cs" />
     <Compile Include="PageTypes\MySecondPageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FilePersistServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LewCMS\LewCMS.csproj">

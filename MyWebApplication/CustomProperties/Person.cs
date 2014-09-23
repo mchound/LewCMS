@@ -35,9 +35,9 @@ namespace MyWebApplication.CustomProperties
             this.Age = person.Age;
         }
 
-        public override void Set(JObject jValue)
+        public override void Set(JToken jToken)
         {
-            Person person = jValue.ToObject<Person>();
+            Person person = jToken.ToObject<Person>();
 
             this.FirstName = person.FirstName;
             this.LastName = person.LastName;

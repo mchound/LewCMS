@@ -1,4 +1,4 @@
-﻿using LewCMS.Core.Service;
+﻿using LewCMS.Core.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 
 namespace LewCMS.UnitTesting
 {
-    public class ContentServiceTestHelper
+    public class ServicesTestHelper
     {
-        private static ContentServiceTestHelper _instance = new ContentServiceTestHelper();
+        private static ServicesTestHelper _instance = new ServicesTestHelper();
         private IContentService _contentService;
         private IInitializeService _initializeService;
         private IContentCacheService _contentCacheService;
         private IContentRepository _contentRepository;
+        private IPersistService _filePersistsService;
 
-        public ContentServiceTestHelper()
+        //public static string FILE_PERSIST_PATH = @"C:\tolu00\Playground\LewCMS\LewCMS.UnitTesting\App_Data";
+        public static string FILE_PERSIST_PATH = @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data\LewCMS";
+
+        public ServicesTestHelper()
         {
 
         }
 
-        public static ContentServiceTestHelper Instance 
+        public static ServicesTestHelper Instance 
         {
             get { return _instance; }
         }
@@ -45,6 +49,11 @@ namespace LewCMS.UnitTesting
             get { return this._contentRepository; }
         }
 
+        public IPersistService PersistsService
+        {
+            get { return this._filePersistsService; }
+        }
+
         public void SetContentService(IContentService contentService)
         {
             this._contentService = contentService;
@@ -63,6 +72,11 @@ namespace LewCMS.UnitTesting
         public void SetContentRepository(IContentRepository contentRepository)
         {
             this._contentRepository = contentRepository;
+        }
+
+        public void SetFilePersistsService(IPersistService filePersistsService)
+        {
+            this._filePersistsService = filePersistsService;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewCMS
+namespace LewCMS.Enums
 {
     public enum ContentStatus
     {
@@ -12,5 +12,17 @@ namespace LewCMS
         PendingPublish = 1,
         Published = 2,
         Overdue = 3
+    }
+
+    public enum ContentVersionSelect
+    {
+        All = 0,
+        Latest = 1
+    }
+
+    public enum PageInfoAction
+    {
+        AddOrUpdate = 0,
+        Delete = 1
     }
 }

@@ -66,7 +66,7 @@ namespace LewCMS.Core.Service
 
         public IPage UpdatePage(IPage page)
         {
-            page.Route = this.CreatePageRoute(page.Id, page.Name, page.ParentId);
+            page.Route = RouteHelper.CreatePageRoute(this._contentRepository, page.Id, page.Name, page.ParentId);
             return this._contentRepository.UpdatePage(page);
         }
 

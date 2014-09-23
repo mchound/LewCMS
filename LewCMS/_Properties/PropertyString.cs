@@ -27,9 +27,9 @@ namespace LewCMS.Properties
             this._value = value == null ? string.Empty : (string)value;
         }
 
-        public override void Set(JObject jValue)
+        public override void Set(JToken jValue)
         {
-            this.Set(jValue.ToObject<string>());
+            this._value = jValue.ToObject<string>();
         }
     }
 }

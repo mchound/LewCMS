@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using LewCMS.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +22,7 @@ namespace LewCMS.Core
         DateTime CreatedAt { get; set; }
         DateTime UpdatedAt { get; set; }
         ContentStatus Status { get; set; }
+        IPage Clone();
         void OnInit();
     }
 
@@ -52,69 +54,26 @@ namespace LewCMS.Core
         {
             
         }
-    }
 
-    public class PageMetaData
-    {
-        public string PageId { get; set; }
-        public string PageTypeName { get; set; }
-        public List<string> PropertyTypeNames { get; set; }
-        public string PageRoute { get; set; }
-        public string ParentId { get; set; }
-        public string PageName { get; set; }
-        public int Version { get; set; }
-        public ContentStatus Status { get; set; }
-
-        public PageMetaData()
+        public IPage Clone()
         {
+            IPage clone = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(this.PageType.TypeName)) as IPage;
+            clone.PageType = this.PageType;
+            clone.CreatedAt = this.CreatedAt;
+            clone.Id = this.Id;
+            clone.Name = this.Name;
+            clone.ParentId = this.ParentId;
+            clone.Route = this.Route;
+            clone.Status = this.Status;
+            clone.UpdatedAt = this.UpdatedAt;
+            clone.Version = this.Version;
 
-        }
-
-        public PageMetaData(IPage page)
-        {
-            this.PageId = page.Id;
-            this.PageTypeName = page.PageType.TypeName;
-            this.PropertyTypeNames = new List<string>();
-            this.PageRoute = page.Route;
-            this.ParentId = page.ParentId;
-            this.PageName = page.Name;
-            this.Version = page.Version;
-            this.Status = page.Status;
-
-            string propertyTypeName = string.Empty;
-
-            foreach (var property in page.PageType.Properties)
+            foreach (var prop in this.PageType.Properties)
             {
-                propertyTypeName = property.GetType().FullName;
-
-                if(!string.IsNullOrWhiteSpace(propertyTypeName))
-                {
-                    this.PropertyTypeNames.Add(propertyTypeName);
-                }
-                
+                clone[prop.Name] = this[prop.Name];
             }
-        }
 
-        public Type GetPageInstanceType()
-        {
-            return Application.Current.ApplicationAssembly.GetType(this.PageTypeName);
-        }
-
-        public IEnumerable<Type> GetPropertyTypes()
-        {
-            Type type = null;
-
-            foreach (var propertyTypeName in this.PropertyTypeNames)
-            {
-                type = Application.Current.ApplicationAssembly.GetType(propertyTypeName);
-
-                if(type == null)
-                {
-                    type = Assembly.GetExecutingAssembly().GetType(propertyTypeName);
-                }
-
-                yield return type;
-            }
+            return clone;
         }
     }
 }
