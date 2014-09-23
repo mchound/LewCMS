@@ -56,7 +56,7 @@ namespace LewCMS.Core.Content
 
             IPage page = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(pageType.TypeName)) as IPage;
             page.Id = Guid.NewGuid().ToString();
-            page.Route = this._routeManager.CreatePageRoute(page.Id, pageName, parentId);
+            page.Route = this._routeManager.CreatePageRoute(page.Id, _pageName, parentId);
             page.Name = pageName;
             page.Version = 1;
             page.PageType = pageType as PageType;
@@ -142,5 +142,10 @@ namespace LewCMS.Core.Content
             this._contentRepository.Delete(pageId, version);
         }
 
+
+        public IEnumerable<IPageType> GetPageTypes()
+        {
+            return this._contentRepository.GetPageTypes();
+        }
     }
 }

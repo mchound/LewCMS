@@ -1,8 +1,7 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Unity.Mvc5;
-using LewCMS.Core.Service;
-using LewCMS.Core.Serialization;
+using LewCMS.Core.Content;
 
 namespace LewCMS
 {
@@ -17,6 +16,7 @@ namespace LewCMS
             container.RegisterType<IContentCacheService, ContentCacheService>();
             container.RegisterType<IInitializeService, InitializeService>();
             container.RegisterType<ISerializer, LewCMSJsonSerializer>();
+            container.RegisterType<IRouteManager, RouteManager>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

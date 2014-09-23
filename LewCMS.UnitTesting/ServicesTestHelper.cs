@@ -16,8 +16,8 @@ namespace LewCMS.UnitTesting
         private IContentRepository _contentRepository;
         private IPersistService _filePersistsService;
 
-        //public static string FILE_PERSIST_PATH = @"C:\tolu00\Playground\LewCMS\LewCMS.UnitTesting\App_Data";
-        public static string FILE_PERSIST_PATH = @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data\LewCMS";
+        public static string FILE_PERSIST_PATH = @"C:\tolu00\Playground\LewCMS\LewCMS.UnitTesting\App_Data\LewCMS";
+        //public static string FILE_PERSIST_PATH = @"C:\Users\Tobias\Documents\Visual Studio 2013\Projects\MyWebApplication\LewCMS.UnitTesting\App_Data\LewCMS";
 
         public ServicesTestHelper()
         {

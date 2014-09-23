@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using LewCMS.Enums;
 
-namespace LewCMS.Core.Content
+namespace LewCMS.Core
 {
     public interface IPageInfo
     {

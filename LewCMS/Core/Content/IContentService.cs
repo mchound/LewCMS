@@ -1,5 +1,4 @@
-﻿using LewCMS.Core.Utilities;
-using LewCMS.Enums;
+﻿using LewCMS.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +32,7 @@ namespace LewCMS.Core.Content
         IEnumerable<IPage> Get(ContentVersionSelect contentVersionSelect);
         IEnumerable<IPage> Get(Func<IPageInfo, bool> predicate);
         IEnumerable<IPage> Get(Func<IPageInfo, bool> predicate, ContentVersionSelect contentVersionSelect);
+
+        IEnumerable<IPageType> GetPageTypes();
     }
 }
