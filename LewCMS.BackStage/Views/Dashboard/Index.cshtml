@@ -10,21 +10,23 @@
 
     $(function () {
 
-        $('#btn-new-page').click(function () {
+        console.log(lewCMS.getPageTypes());
 
-            $.ajax({
-                url: '/LewCMS-api/create',
-                data: {pageTypeId: 'pageTypeId-1-2-3', pageName: ''},
-                type: 'POST',
-                success: function (response) {
-                    var v = 1;
-                },
-                error: function (one, two, three) {
-                    var v = 1;
-                }
-            });
+        //$('#btn-new-page').click(function () {
 
-        });
+        //    $.ajax({
+        //        url: '/LewCMS-api/create',
+        //        data: {pageTypeId: 'pageTypeId-1-2-3', pageName: ''},
+        //        type: 'POST',
+        //        success: function (response) {
+        //            var v = 1;
+        //        },
+        //        error: function (one, two, three) {
+        //            var v = 1;
+        //        }
+        //    });
+
+        //});
 
     });
 

@@ -49,6 +49,8 @@ namespace LewCMS.Core.Startup
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.IgnoreRoute("{*staticfile}", new { staticfile = @".*\.(css|js|gif|jpg)(/.*)?" });
         }
     }
 

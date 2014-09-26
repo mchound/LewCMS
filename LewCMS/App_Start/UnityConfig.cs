@@ -1,7 +1,7 @@
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
-using Unity.Mvc5;
 using LewCMS.Core.Content;
+using Microsoft.Practices.Unity;
+//using System.Web.Http;
+using System.Web.Mvc;
 
 namespace LewCMS
 {
@@ -11,15 +11,19 @@ namespace LewCMS
         {
 			var container = new UnityContainer();
             
-            container.RegisterType<IContentService, ContentService>();
+            // register all your components with the container here
+            // it is NOT necessary to register your controllers
+
+            container.RegisterType<IInitializeService, InitializeService>();
             container.RegisterType<IPersistService, FilePersistService>();
+            container.RegisterType<IRouteManager, RouteManager>();
             container.RegisterType<IContentRepository, ContentRepository>();
             container.RegisterType<IContentCacheService, ContentCacheService>();
-            container.RegisterType<IInitializeService, InitializeService>();
+            container.RegisterType<IContentService, ContentService>();
             container.RegisterType<ISerializer, LewCMSJsonSerializer>();
-            container.RegisterType<IRouteManager, RouteManager>();
-
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            
+            System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
+            DependencyResolver.SetResolver(new Unity.Mvc5.UnityDependencyResolver(container));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LewCMS.Core.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,8 +14,19 @@ namespace LewCMS.BackStage.Api
         public string PageName { get; set; }
     }
 
-    public class ContentController : ApiController
+    public class ContentController : BaseApiController
     {
+
+        public ContentController(IContentService contentService) : base(contentService)
+        {}
+
+        [HttpGet]
+        [Route("LewCMS-api/pageTypes")]
+        public HttpResponseMessage GetPageTypes()
+        {
+            return Request.CreateResponse<object>(HttpStatusCode.OK, new { data = this._contentService.GetPageTypes() });
+        }
+
         [HttpPost]
         [Route("LewCMS-api/create")]
         public HttpResponseMessage Create(PageModel page)

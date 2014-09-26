@@ -77,11 +77,11 @@ namespace LewCMS.Core.VirtualFileSystem
         {
             string virtPath = virtualPath.Replace("~", string.Empty);
 
-            bool result = (virtPath.StartsWith(LewCMSVirtualPathProvider.BACKSTAGE_VIRTUAL_PATH) &&
+            bool result = (virtPath.ToLower().StartsWith(LewCMSVirtualPathProvider.BACKSTAGE_VIRTUAL_PATH.ToLower()) &&
                     exists &&
                     File.Exists(virtPath.Replace(LewCMSVirtualPathProvider.BACKSTAGE_VIRTUAL_PATH, this._backStagePhysicalPath)))
                     ||
-                    (virtPath.StartsWith(LewCMSVirtualPathProvider.BACKSTAGE_VIRTUAL_PATH) && !exists);
+                    (virtPath.ToLower().StartsWith(LewCMSVirtualPathProvider.BACKSTAGE_VIRTUAL_PATH.ToLower()) && !exists);
 
             return result;
 
