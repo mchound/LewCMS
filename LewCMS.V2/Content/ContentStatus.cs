@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewCMS.V2.Content
+namespace LewCMS.V2
 {
     public enum ContentStatus
     {

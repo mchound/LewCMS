@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace LewCMS.V2
 {
-    public interface ISectionType : IContentType
+    public enum ContentInfoAction
     {
-
-    }
-
-    public class SectionType : ContentType, ISectionType
-    {
-
+        AddOrUpdate = 0,
+        Delete = 1
     }
 }

@@ -4,14 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewCMS.V2
+namespace LewCMS.V2.Attributes
 {
-    public interface IPageType : IContentType
-    {
-        string ControllerName { get; set; }
-    }
-
-    public class PageType : ContentType, IPageType
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class PageTypeAttribute : ContentTypeAttribute
     {
         public string ControllerName { get; set; }
     }

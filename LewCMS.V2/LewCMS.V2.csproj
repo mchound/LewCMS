@@ -45,15 +45,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Content\Attributes\ContentAttribute.cs" />
+    <Compile Include="Content\Attributes\PageTypeAttribute.cs" />
+    <Compile Include="Content\Attributes\PropertyAttribute.cs" />
+    <Compile Include="Content\ContentInfoAction.cs" />
     <Compile Include="Content\ContentStatus.cs" />
+    <Compile Include="Content\IContentInfo.cs" />
+    <Compile Include="Content\IGlobalConfig.cs" />
     <Compile Include="Content\IContent.cs" />
     <Compile Include="Content\IContentType.cs" />
     <Compile Include="Content\IGlobalConfigType.cs" />
     <Compile Include="Content\IPage.cs" />
+    <Compile Include="Content\IPageInfo.cs" />
     <Compile Include="Content\IPageType.cs" />
     <Compile Include="Content\IProperty.cs" />
+    <Compile Include="Content\ISection.cs" />
     <Compile Include="Content\ISectionType.cs" />
+    <Compile Include="Services\DefaultFilePersistService.cs" />
+    <Compile Include="Services\IPersistsService.cs" />
+    <Compile Include="Services\ISerializeService.cs" />
+    <Compile Include="_Properties\DefaultProperties\PropertyString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IInitializeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

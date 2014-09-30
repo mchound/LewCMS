@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +12,7 @@ namespace LewCMS.V2
     {
         private static Application _current = new Application();
         private Assembly _applicationAssembly;
+        private CultureInfo _defaultCulture;
 
         public static Application Current
         {
@@ -22,9 +24,19 @@ namespace LewCMS.V2
             get { return this._applicationAssembly; }
         }
 
+        public CultureInfo DefaultCulture
+        {
+            get { return this._defaultCulture ?? CultureInfo.GetCultureInfo("en"); }
+        }
+
         public void SetApplicationAssembly(Assembly applicationAssembly)
         {
             this._applicationAssembly = applicationAssembly;
+        }
+
+        public void SetDefaultCulture(CultureInfo cultureInfo)
+        {
+            this._defaultCulture = cultureInfo;
         }
     }
 }

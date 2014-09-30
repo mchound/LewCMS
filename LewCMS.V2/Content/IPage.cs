@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewCMS.V2.Content
+namespace LewCMS.V2
 {
     public interface IPage : IContent
     {
@@ -12,53 +12,23 @@ namespace LewCMS.V2.Content
         string Route { get; set; }
     }
 
-    public abstract class Page : IPage
+    public abstract class Page : Content, IPage
     {
-        public IContentType ContentType { get; set; }
-        public string Id { get; set; }
         public string Route { get; set; }
-        public string Name { get; set; }
         public string ParentId { get; set; }
-        public int Version { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public ContentStatus Status { get; set; }
-
-        public object this[string propertyName]
+        public override IContentInfo ContentInfo
         {
-            get
+            get 
             {
-                return this.GetType().GetProperty(propertyName).GetValue(this, null);
-            }
-            set
-            {
-                this.GetType().GetProperty(propertyName).SetValue(this, value, null);
+                return new PageInfo(this);
             }
         }
 
-        public virtual void OnInit()
+        public override IContent Clone()
         {
-
-        }
-
-        public IContent Clone()
-        {
-            IPage clone = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(this.ContentType.TypeName)) as IPage;
-            clone.ContentType = this.ContentType;
-            clone.CreatedAt = this.CreatedAt;
-            clone.Id = this.Id;
-            clone.Name = this.Name;
-            clone.ParentId = this.ParentId;
+            IPage clone = base.Clone() as IPage;
             clone.Route = this.Route;
-            clone.Status = this.Status;
-            clone.UpdatedAt = this.UpdatedAt;
-            clone.Version = this.Version;
-
-            foreach (var prop in this.ContentType.Properties)
-            {
-                clone[prop.Name] = this[prop.Name];
-            }
-
+            clone.ParentId = this.ParentId;
             return clone;
         }
     }

@@ -1,7 +1,7 @@
-﻿using LewCMS.V2.Content;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +18,60 @@ namespace LewCMS.V2
         DateTime CreatedAt { get; set; }
         DateTime UpdatedAt { get; set; }
         ContentStatus Status { get; set; }
+        CultureInfo Culture { get; set; }
+        IContentInfo ContentInfo { get; }
 
         IContent Clone();
         void OnInit();
+    }
+
+    public abstract class Content : IContent
+    {
+        public IContentType ContentType { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int Version { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public ContentStatus Status { get; set; }
+        public CultureInfo Culture { get; set; }
+        public abstract IContentInfo ContentInfo { get; }
+
+        public virtual object this[string propertyName]
+        {
+            get
+            {
+                return this.GetType().GetProperty(propertyName).GetValue(this, null);
+            }
+            set
+            {
+                this.GetType().GetProperty(propertyName).SetValue(this, value, null);
+            }
+        }
+
+        public virtual void OnInit()
+        {
+            
+        }
+
+        public virtual IContent Clone()
+        {
+            IContent clone = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(this.ContentType.TypeName)) as IContent;
+            clone.ContentType = this.ContentType;
+            clone.Id = this.Id;
+            clone.Name = this.Name;
+            clone.Version = this.Version;
+            clone.CreatedAt = this.CreatedAt;
+            clone.UpdatedAt = this.UpdatedAt;
+            clone.Culture = this.Culture;
+            clone.Status = this.Status;
+
+            foreach (var prop in this.ContentType.Properties)
+            {
+                clone[prop.Name] = this[prop.Name];
+            }
+
+            return clone;
+        }
     }
 }

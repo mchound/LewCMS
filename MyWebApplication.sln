@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWebApplication", "MyWebApplication\MyWebApplication.csproj", "{832487D8-7109-410A-94B7-4FF085136D82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS", "LewCMS\LewCMS.csproj", "{F3F29762-84AA-4CBE-93A5-BAC3F8A6FD73}"
@@ -19,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C36CBC
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS.V2", "LewCMS.V2\LewCMS.V2.csproj", "{941B32C1-1EE7-4E5B-B291-D31B7CF6DC6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS.V2.Test", "LewCMS.V2.Test\LewCMS.V2.Test.csproj", "{CF86B167-FC0A-46E2-840F-47607479BDB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +46,10 @@ Global
 		{941B32C1-1EE7-4E5B-B291-D31B7CF6DC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941B32C1-1EE7-4E5B-B291-D31B7CF6DC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941B32C1-1EE7-4E5B-B291-D31B7CF6DC6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
