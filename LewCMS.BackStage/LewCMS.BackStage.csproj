@@ -108,11 +108,47 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="css\styles.css">
-      <DependentUpon>styles.less</DependentUpon>
+    <Content Include="css\components\blueprint.css">
+      <DependentUpon>blueprint.less</DependentUpon>
     </Content>
-    <Content Include="css\styles.min.css">
-      <DependentUpon>styles.css</DependentUpon>
+    <Content Include="css\components\blueprint.min.css">
+      <DependentUpon>blueprint.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\page-tree.css">
+      <DependentUpon>page-tree.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\page-tree.min.css">
+      <DependentUpon>page-tree.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\pane.css">
+      <DependentUpon>panes.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\pane.min.css">
+      <DependentUpon>panes.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\panes.css">
+      <DependentUpon>panes.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\panes.min.css">
+      <DependentUpon>panes.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\reset.css">
+      <DependentUpon>reset.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\reset.min.css">
+      <DependentUpon>reset.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\utilities.css">
+      <DependentUpon>utilities.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\utilities.min.css">
+      <DependentUpon>utilities.less</DependentUpon>
+    </Content>
+    <Content Include="css\default.css">
+      <DependentUpon>default.less</DependentUpon>
+    </Content>
+    <Content Include="css\default.min.css">
+      <DependentUpon>default.less</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -121,7 +157,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="css\components\reset.less" />
+    <Content Include="css\components\utilities.less" />
+    <Content Include="css\components\blueprint.less" />
+    <Content Include="css\components\panes.less" />
+    <Content Include="css\components\page-tree.less" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <None Include="react\components\page-tree\page-tree.jsx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -152,7 +194,7 @@
     <Content Include="Views\Page\New.cshtml" />
     <Content Include="Views\Page\Create.cshtml" />
     <Content Include="Views\Page\Edit.cshtml" />
-    <Content Include="css\styles.less" />
+    <Content Include="css\default.less" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\lewCMS-0.1.js" />
     <None Include="Web.Debug.config">
@@ -164,7 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="css\Parts\" />
+    <Folder Include="css\mixins\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

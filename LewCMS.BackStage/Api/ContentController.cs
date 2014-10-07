@@ -27,6 +27,20 @@ namespace LewCMS.BackStage.Api
             return Request.CreateResponse<object>(HttpStatusCode.OK, new { data = this._contentService.GetPageTypes() });
         }
 
+        [HttpGet]
+        [Route("LewCMS-api/page-tree")]
+        public HttpResponseMessage GetPageTree()
+        {
+            List<object> pageTree = new List<object>()
+            {
+                new {title = "One", children = new[] { new {title = "One_1"}, new {title = "One_2"}}},
+                new {title = "Two", children = new[] { new {title = "Two_1"}, new {title = "Two_2"}}},
+                new {title = "Three"}
+            };
+
+            return Request.CreateResponse<object>(HttpStatusCode.OK, pageTree);
+        }
+
         [HttpPost]
         [Route("LewCMS-api/create")]
         public HttpResponseMessage Create(PageModel page)

@@ -1,0 +1,18 @@
+[data-lew-style="page-tree"],
+[data-lew-style="page-tree"] ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+[data-lew-style="page-tree"] ul {
+  background-color: #eaeaea;
+}
+[data-lew-style="page-tree"] ul ul {
+  background-color: #f7f7f7;
+}
+[data-lew-style="page-tree"] ul ul ul {
+  background-color: #ffffff;
+}
+[data-lew-style="page-tree"] li {
+  padding: 5px 0 5px 0;
+}
