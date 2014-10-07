@@ -22,6 +22,8 @@ namespace LewCMS.V2.Test.SectionTypes
         {
             base.OnInit();
 
+            Person1 = new Person();
+
             Prop1 = "Prop1";
             Prop2 = "Prop2";
             Prop3 = "Prop3";
@@ -47,6 +49,8 @@ namespace LewCMS.V2.Test.SectionTypes
         public override void OnInit()
         {
             base.OnInit();
+
+            Person1 = new Person();
 
             Prop1 = "Prop1_2";
             Prop2 = "Prop2_2";

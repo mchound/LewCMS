@@ -19,8 +19,8 @@ namespace LewCMS.V2
         DateTime UpdatedAt { get; set; }
         ContentStatus Status { get; set; }
         CultureInfo Culture { get; set; }
-        IContentInfo ContentInfo { get; }
 
+        IContentInfo ContentInfo();
         IContent Clone();
         void OnInit();
     }
@@ -35,7 +35,11 @@ namespace LewCMS.V2
         public DateTime UpdatedAt { get; set; }
         public ContentStatus Status { get; set; }
         public CultureInfo Culture { get; set; }
-        public abstract IContentInfo ContentInfo { get; }
+
+        public Content()
+        {
+            this.Culture = Application.Current.DefaultCulture;
+        }
 
         public virtual object this[string propertyName]
         {
@@ -73,5 +77,8 @@ namespace LewCMS.V2
 
             return clone;
         }
+
+
+        public abstract IContentInfo ContentInfo();
     }
 }

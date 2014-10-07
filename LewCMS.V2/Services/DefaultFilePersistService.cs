@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,54 +9,83 @@ namespace LewCMS.V2.Services
 {
     public class DefaultFilePersistService : BasePersistService
     {
+        private ISerializeService _serializeService;
+        private string _folderPath;
+        private const string FOLDER_NAME = "Content";
+
         protected override string CONTENT_KEY_FORMAT
-        {sd<get<d
-            get { throw new NotImplementedException(); }
+        {
+            get { return "Content-{0}[version-{1}][lang-{2}].json"; }
         }
 
         protected override string CONTENT_DIRECTORY_KEY_FORMAT
         {
-            get { throw new NotImplementedException(); }
+            get { return Path.Combine(this._folderPath, "ContentDirectory.json"); }
         }
 
         protected override string CONTENT_TYPES_KEY_FORMAT
         {
-            get { throw new NotImplementedException(); }
+            get { return Path.Combine(this._folderPath, "ContentTypes.json"); }
+        }
+
+        public DefaultFilePersistService(ISerializeService serializeService)
+        {
+            this._serializeService = serializeService;
+            this._folderPath = Path.Combine(Configuration.PERSITS_VIRTUAL_FILE_PATH, FOLDER_NAME);
+            this.CreateFolderStructure();
         }
 
         protected override string CreateKey(IContent content)
         {
-            throw new NotImplementedException();
+            return this.CreateKey(content.Id, content.Version, content.Culture.TwoLetterISOLanguageName);
         }
 
         protected override string CreateKey(IContentInfo contentInfo)
         {
-            throw new NotImplementedException();
+            return this.CreateKey(contentInfo.Id, contentInfo.Version, contentInfo.Culture.TwoLetterISOLanguageName);
         }
 
-        protected override string CreateKey(string id, string version, string language)
+        protected override string CreateKey(string id, int version, string language)
         {
-            throw new NotImplementedException();
+            return Path.Combine(this._folderPath, string.Format(this.CONTENT_KEY_FORMAT, id, version.ToString(), language));
         }
 
-        protected override void SavePageInfos(IEnumerable<IContentInfo> contentInfo)
+        protected override void Save<T>(string key, T content)
         {
-            throw new NotImplementedException();
-        }
-
-        protected override IEnumerable<IContentInfo> Save<T>(string key, T content)
-        {
-            throw new NotImplementedException();
+            this.CreateFolderStructure();
+            string serializedObject = this._serializeService.Serialize<T>(content);
+            StreamWriter sw = new StreamWriter(key);
+            sw.Write(serializedObject);
+            sw.Close();
+            sw.Dispose();
         }
 
         protected override T Load<T>(string key)
         {
-            throw new NotImplementedException();
+            if (!File.Exists(key))
+            {
+                return default(T);
+            }
+            StreamReader sr = new StreamReader(key);
+            string serializedObject = sr.ReadToEnd();
+            sr.Close();
+            return this._serializeService.Deserialize<T>(serializedObject);
         }
 
         protected override void Delete(string key)
         {
-            throw new NotImplementedException();
+            if(File.Exists(key))
+            {
+                File.Delete(key);
+            }
+        }
+
+        private void CreateFolderStructure()
+        {
+            if (!Directory.Exists(this._folderPath))
+            {
+                Directory.CreateDirectory(this._folderPath);
+            }
         }
     }
 }

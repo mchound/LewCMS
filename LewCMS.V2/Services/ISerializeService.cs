@@ -10,7 +10,7 @@ namespace LewCMS.V2.Services
     public interface ISerializeService
     {
         string Serialize<T>(T obj);
-        T Deserialize<T>(string serializedString) where T : class;
+        T Deserialize<T>(string serializedString);
         T Deserialize<T>(string serializedString, Type objectType) where T : class;
     }
 
@@ -28,11 +28,11 @@ namespace LewCMS.V2.Services
             return JsonConvert.SerializeObject(obj, settings);
         }
 
-        public T Deserialize<T>(string serializedString) where T : class
+        public T Deserialize<T>(string serializedString)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.TypeNameHandling = TypeNameHandling.All;
-            return JsonConvert.DeserializeObject<T>(serializedString, settings) as T;
+            return (T)JsonConvert.DeserializeObject<T>(serializedString, settings);
         }
 
         public T Deserialize<T>(string serializedString, Type objectType) where T : class

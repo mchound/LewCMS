@@ -57,6 +57,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CustomProperties\Person.cs" />
+    <Compile Include="CachePersistsServiceTests.cs" />
+    <Compile Include="ContentRepositoryTests.cs" />
+    <Compile Include="FilePersistsServiceTests.cs" />
     <Compile Include="GlobalConfigTypes\GlobalConfigTypes.cs" />
     <Compile Include="PageTypes\PageTypes.cs" />
     <Compile Include="InitializeServiceTests.cs" />

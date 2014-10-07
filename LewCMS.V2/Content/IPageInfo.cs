@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LewCMS.V2
 {
-    public interface IPageInfo
+    public interface IPageInfo : IContentInfo
     {
         string Route { get; set; }
         string ParentId { get; set; }
@@ -17,10 +17,20 @@ namespace LewCMS.V2
         public string Route { get; set; }
         public string ParentId { get; set; }
 
+        public PageInfo()
+        {
+
+        }
+
         public PageInfo(IPage page) : base(page)
         {
             this.Route = page.Route;
             this.ParentId = page.ParentId;
+        }
+
+        public override Type ContentTypeInterface
+        {
+            get { return typeof(IPage); }
         }
     }
 }

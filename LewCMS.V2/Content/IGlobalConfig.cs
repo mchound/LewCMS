@@ -12,10 +12,9 @@ namespace LewCMS.V2
 
     public abstract class GlobalConfig : Content, IGlobalConfig
     {
-
-        public override IContentInfo ContentInfo
+        public override IContentInfo ContentInfo()
         {
-            get { throw new NotImplementedException(); }
+            return new GlobalConfigInfo(this);
         }
     }
 }

@@ -16,20 +16,18 @@ namespace LewCMS.V2
     {
         public string Route { get; set; }
         public string ParentId { get; set; }
-        public override IContentInfo ContentInfo
-        {
-            get 
-            {
-                return new PageInfo(this);
-            }
-        }
-
+        
         public override IContent Clone()
         {
             IPage clone = base.Clone() as IPage;
             clone.Route = this.Route;
             clone.ParentId = this.ParentId;
             return clone;
+        }
+
+        public override IContentInfo ContentInfo()
+        {
+            return new PageInfo(this);
         }
     }
 }

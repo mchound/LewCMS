@@ -15,9 +15,10 @@ namespace LewCMS.V2
         string Name { get; set; }
         int Version { get; set; }
         CultureInfo Culture { get; set; }
-        Type ContentInstanceType { get; }
+        Type ContentType { get; }
         ContentStatus Status { get; set; }
         List<string> PropertyTypeNames { get; set; }
+        Type ContentTypeInterface { get; }
     }
 
     public abstract class ContentInfo : IContentInfo
@@ -29,12 +30,12 @@ namespace LewCMS.V2
         public ContentStatus Status { get; set; }
         public CultureInfo Culture { get; set; }
         public List<string> PropertyTypeNames { get; set; }
-        public Type ContentType
+        public Type ContentType { get; set; }
+        public abstract Type ContentTypeInterface { get; }
+
+        public ContentInfo()
         {
-            get
-            {
-                return Application.Current.ApplicationAssembly.GetType(this.ContentTypeName);
-            }
+
         }
 
         public ContentInfo(IContent content)
@@ -46,6 +47,7 @@ namespace LewCMS.V2
             this.Version = content.Version;
             this.Status = content.Status;
             this.Culture = content.Culture;
+            this.ContentType = content.GetType();
 
             string propertyTypeName = string.Empty;
 
@@ -78,10 +80,6 @@ namespace LewCMS.V2
             }
         }
 
-        public Type ContentInstanceType
-        {
-            get { throw new NotImplementedException(); }
-        }
-
+        
     }
 }

@@ -12,6 +12,8 @@ namespace LewCMS.V2
         string DisplayName { get; set; }
         string TypeName { get; set; }
         List<Property> Properties { get; set; }
+        IContent CreateInstance(string name);
+        T CreateInstance<T>(string name) where T : class, IContent;
     }
 
     public abstract class ContentType : IContentType
@@ -24,6 +26,28 @@ namespace LewCMS.V2
         public ContentType()
         {
             this.Properties = new List<Property>();
+        }
+
+
+        public virtual IContent CreateInstance(string name)
+        {
+            IContent content = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(this.TypeName)) as IContent;
+            content.Name = name;
+            content.Id = Guid.NewGuid().ToString();
+            content.Version = 1;
+            content.ContentType = this;
+            content.CreatedAt = DateTime.Now;
+            content.UpdatedAt = content.CreatedAt;
+            content.Culture = Application.Current.DefaultCulture;
+
+            content.OnInit();
+
+            return content;
+        }
+
+        public virtual T CreateInstance<T>(string name) where T : class, IContent
+        {
+            return this.CreateInstance(name) as T;
         }
     }
 }

@@ -19,6 +19,8 @@ namespace LewCMS.V2.Test.PageTypes
         {
             base.OnInit();
 
+            Person1 = new Person();
+
             Prop1 = "Prop1_1";
             Prop2 = "Prop2_1";
             Person1.Age = 100;
@@ -38,6 +40,8 @@ namespace LewCMS.V2.Test.PageTypes
         public override void OnInit()
         {
             base.OnInit();
+
+            Person1 = new Person();
 
             Prop1 = "Prop1_2";
             Prop2 = "Prop2_2";

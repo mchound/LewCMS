@@ -13,19 +13,24 @@ namespace LewCMS.V2.Services
 
         IEnumerable<IContentInfo> Save(IContent content);
 
-        IContent LoadContentFor(Func<IContentInfo, bool> predicate);
         IContent LoadContentFor(IContentInfo contentInfo);
+        IContent LoadContentFor(Func<IContentInfo, bool> predicate);
+        Tcontent LoadContentFor<Tcontent, Tinfo>(Func<Tinfo, bool> predicate)where Tcontent : class where Tinfo : class,IContentInfo;
 
         IEnumerable<IContent> LoadContent();
+        IEnumerable<T> LoadContent<T>() where T : class;
         IEnumerable<IContent> LoadContent(Func<IContentInfo, bool> predicate);
+        IEnumerable<Tcontent> LoadContent<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class where Tinfo : class,IContentInfo;
         
         IContentInfo LoadContentInfoFor(Func<IContentInfo, bool> predicate);
+        T LoadContentInfoFor<T>(Func<T, bool> predicate) where T : class, IContentInfo;
 
         IEnumerable<IContentInfo> LoadContentInfo();
         IEnumerable<IContentInfo> LoadContentInfo(Func<IContentInfo, bool> predicate);
 
         IEnumerable<IContentType> LoadContentTypes();
 
+        IEnumerable<IContentInfo> Delete(IContentInfo contentInfo);
         IEnumerable<IContentInfo> Delete(Func<IContentInfo, bool> predicate);
     }
 
@@ -69,10 +74,20 @@ namespace LewCMS.V2.Services
             return this.LoadContentFor(contentInfo);
         }
 
+        public virtual Tcontent LoadContentFor<Tcontent, Tinfo>(Func<Tinfo, bool> predicate)where Tcontent : class where Tinfo : class,IContentInfo
+        {
+            return this.LoadContentInfo(ci => ci is Tinfo).Select(ci => ci as Tinfo).Where(predicate).Select(ti => this.LoadContentFor(ti) as Tcontent).FirstOrDefault();
+        }
+
 
         public virtual IEnumerable<IContent> LoadContent()
         {
             return this.LoadContentInfo().Select(ci => this.LoadContentFor(ci));
+        }
+
+        public virtual IEnumerable<T> LoadContent<T>() where T : class
+        {
+            return this.LoadContentInfo(ci => ci.ContentTypeInterface == typeof(T)).Select(ci => this.LoadContentFor(ci) as T);
         }
 
         public virtual IEnumerable<IContent> LoadContent(Func<IContentInfo, bool> predicate)
@@ -80,10 +95,20 @@ namespace LewCMS.V2.Services
             return this.LoadContentInfo(predicate).Select(ci => this.LoadContentFor(ci));
         }
 
+        public virtual IEnumerable<Tcontent> LoadContent<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class where Tinfo : class,IContentInfo
+        {
+            return this.LoadContentInfo(ci => ci is Tinfo).Select(ci => ci as Tinfo).Where(predicate).Select(ti => this.LoadContentFor(ti) as Tcontent);
+        }
+
 
         public virtual IContentInfo LoadContentInfoFor(Func<IContentInfo, bool> predicate)
         {
             return this.LoadContentInfo().FirstOrDefault(predicate);
+        }
+
+        public virtual T LoadContentInfoFor<T>(Func<T, bool> predicate) where T : class, IContentInfo
+        {
+            return this.LoadContentInfo(ci => ci is T).Select(ci => ci as T).FirstOrDefault(predicate);
         }
 
 
@@ -95,6 +120,12 @@ namespace LewCMS.V2.Services
         public virtual IEnumerable<IContentInfo> LoadContentInfo(Func<IContentInfo, bool> predicate)
         {
             return this.LoadContentInfo().Where(predicate);
+        }
+
+        
+        public virtual void SaveContentInfo(IEnumerable<IContentInfo> contentInfo)
+        {
+            this.Save<IEnumerable<IContentInfo>>(this.CONTENT_DIRECTORY_KEY_FORMAT, contentInfo);
         }
 
 
@@ -119,22 +150,31 @@ namespace LewCMS.V2.Services
             return afterDeleteContentInfo;
         }
 
+        public virtual IEnumerable<IContentInfo> Delete(IContentInfo contentInfo)
+        {
+            IContent content = this.LoadContentFor(contentInfo);
+            string key = this.CreateKey(contentInfo);
+            this.Delete(key);
+            return this.UpdateContentInfo(content, ContentInfoAction.Delete);
+        }
+
+
         protected virtual IEnumerable<IContentInfo> UpdateContentInfo(IContent content, ContentInfoAction contentInfoAction)
         {
             IEnumerable<IContentInfo> _contentInfos = this.LoadContentInfo();
             List<IContentInfo> contentInfos = _contentInfos == null ? new List<IContentInfo>() : _contentInfos.ToList();
-            IContentInfo _contentInfo = _contentInfos.FirstOrDefault(ci => ci.Id == content.Id && ci.Version == content.Version && ci.Culture == content.Culture);
+            IContentInfo _contentInfo = contentInfos.FirstOrDefault(ci => ci.Id == content.Id && ci.Version == content.Version && ci.Culture == content.Culture);
 
             switch (contentInfoAction)
             {
                 case ContentInfoAction.AddOrUpdate:
                     if (_contentInfo == null)
                     {
-                        contentInfos.Add(content.ContentInfo);
+                        contentInfos.Add(content.ContentInfo());
                     }
                     else
                     {
-                        _contentInfo = content.ContentInfo;
+                        _contentInfo = content.ContentInfo();
                     }
                     break;
                 case ContentInfoAction.Delete:
@@ -144,17 +184,16 @@ namespace LewCMS.V2.Services
                     break;
             }
 
-            this.SavePageInfos(contentInfos);
+            this.SaveContentInfo(contentInfos);
 
             return contentInfos;
         }
 
         protected abstract string CreateKey(IContent content);
         protected abstract string CreateKey(IContentInfo contentInfo);
-        protected abstract string CreateKey(string id, string version, string language);
-        protected abstract void SavePageInfos(IEnumerable<IContentInfo> contentInfo);
-        protected abstract IEnumerable<IContentInfo> Save<T>(string key, T content);
-        protected abstract T Load<T>(string key);
+        protected abstract string CreateKey(string id, int version, string language);
+        protected abstract void Save<T>(string key, T content);
+        protected abstract T Load<T>(string key) where T : class;
         protected abstract void Delete(string key);
 
         

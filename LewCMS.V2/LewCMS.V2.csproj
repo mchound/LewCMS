@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,21 +50,27 @@
     <Compile Include="Content\Attributes\ContentAttribute.cs" />
     <Compile Include="Content\Attributes\PageTypeAttribute.cs" />
     <Compile Include="Content\Attributes\PropertyAttribute.cs" />
-    <Compile Include="Content\ContentInfoAction.cs" />
-    <Compile Include="Content\ContentStatus.cs" />
+    <Compile Include="Content\ContentEnums.cs" />
     <Compile Include="Content\IContentInfo.cs" />
     <Compile Include="Content\IGlobalConfig.cs" />
     <Compile Include="Content\IContent.cs" />
     <Compile Include="Content\IContentType.cs" />
     <Compile Include="Content\IGlobalConfigType.cs" />
     <Compile Include="Content\IPage.cs" />
+    <Compile Include="Content\IGlobalConfigInfo.cs" />
+    <Compile Include="Content\ISectionInfo.cs" />
     <Compile Include="Content\IPageInfo.cs" />
     <Compile Include="Content\IPageType.cs" />
     <Compile Include="Content\IProperty.cs" />
     <Compile Include="Content\ISection.cs" />
     <Compile Include="Content\ISectionType.cs" />
+    <Compile Include="Services\DefaultCachePersistService.cs" />
+    <Compile Include="Services\DefaultContentRepository.cs" />
     <Compile Include="Services\DefaultFilePersistService.cs" />
+    <Compile Include="Services\IContentRepository.cs" />
+    <Compile Include="Services\IContentService.cs" />
     <Compile Include="Services\IPersistsService.cs" />
+    <Compile Include="Services\IRouteManager.cs" />
     <Compile Include="Services\ISerializeService.cs" />
     <Compile Include="_Properties\DefaultProperties\PropertyString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

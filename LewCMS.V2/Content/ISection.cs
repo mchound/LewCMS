@@ -12,9 +12,9 @@ namespace LewCMS.V2
 
     public abstract class Section : Content, ISection
     {
-        public override IContentInfo ContentInfo
+        public override IContentInfo ContentInfo()
         {
-            get { throw new NotImplementedException(); }
+            return new SectionInfo(this);
         }
     }
 }
