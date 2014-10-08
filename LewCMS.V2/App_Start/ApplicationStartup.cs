@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Routing;
+﻿using System.Web.Routing;
 using System.Web.Mvc;
-using System.Web.Http;
 using System.Reflection;
 using System.Web.Hosting;
-using LewCMS.Core.VirtualFileSystem;
-using System.Web.Http.Dispatcher;
-using LewCMS.Core.Startup;
-using LewCMS.Core;
+using LewCMS.V2.Mvc;
+using LewCMS.V2.VirtualFileSystem;
+using LewCMS.V2;
+using System.Web.Http;
 
-namespace LewCMS.V2
+namespace LewCMS.Core.Startup
 {
     public class LewCMSStartup
     {
@@ -30,7 +24,7 @@ namespace LewCMS.V2
             ViewEngines.Engines.Insert(0, new LewCMSRazorViewEngine());
 
             Application.Current.SetApplicationAssembly(Assembly.GetCallingAssembly());
-            UnityConfig.RegisterComponents();
+            //UnityConfig.RegisterComponents();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using LewCMS.Core;
+﻿using LewCMS.V2;
+using LewCMS.V2.Attributes;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

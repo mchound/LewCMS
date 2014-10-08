@@ -1,6 +1,5 @@
 ﻿using LewCMS;
 using LewCMS.Core;
-using LewCMS.Core.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace MyWebApplication.Controllers
 {
@@ -18,12 +20,12 @@ namespace MyWebApplication.Controllers
 
         }
 
-        public HomeController(IContentService contentService)
-        {
-            IContentService serv = contentService;
+        //public HomeController(IContentService contentService)
+        //{
+        //    IContentService serv = contentService;
 
-            var pageTypes = serv.GetPageTypes();
-        }
+        //    var pageTypes = serv.GetPageTypes();
+        //}
 
         public ActionResult Index()
         {

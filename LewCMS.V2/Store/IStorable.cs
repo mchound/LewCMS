@@ -19,4 +19,15 @@ namespace LewCMS.V2.Store
         string StoreDirectory { get; }
         Type RepresentedInterface { get; }
     }
+
+    public abstract class BaseInfo : IStoreInfo
+    {
+        Jag borde lägga till id här så det vi ska spara åtminstonde har Id att lämna en nyckel på
+        public abstract string StoreKey { get; }
+
+        public abstract string StoreDirectory { get; }
+
+        public abstract Type RepresentedInterface { get; }
+    }
+
 }

@@ -33,6 +33,14 @@ namespace LewCMS.V2
             get { return typeof(IPage); }
         }
 
+        public override string StoreKey
+        {
+            get
+            {
+                return string.Format("Content-{0}[version-{1}][lang-{2}]", this.Id, this.Version, this.Culture.TwoLetterISOLanguageName);
+            }
+        }
+
         public override string StoreDirectory
         {
             get { return "Pages"; }

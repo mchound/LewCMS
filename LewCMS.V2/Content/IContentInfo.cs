@@ -19,10 +19,9 @@ namespace LewCMS.V2
         Type ContentType { get; }
         ContentStatus Status { get; set; }
         List<string> PropertyTypeNames { get; set; }
-        Type RepresentedInterface { get; }
     }
 
-    public abstract class ContentInfo : IContentInfo
+    public abstract class ContentInfo : BaseInfo, IContentInfo
     {
         public string Id { get; set; }
         public string ContentTypeName { get; set; }
@@ -32,15 +31,6 @@ namespace LewCMS.V2
         public CultureInfo Culture { get; set; }
         public List<string> PropertyTypeNames { get; set; }
         public Type ContentType { get; set; }
-        public abstract Type RepresentedInterface { get; }
-        public abstract string StoreDirectory { get; }
-        public virtual string StoreKey
-        {
-            get
-            {
-                return string.Format("Content-{0}[version-{1}][lang-{2}]", this.Id, this.Version, this.Culture.TwoLetterISOLanguageName);
-            }
-        }
 
         public ContentInfo()
         {

@@ -1,4 +1,5 @@
-﻿using LewCMS.Core;
+﻿using LewCMS.V2;
+using LewCMS.V2.Attributes;
 using MyWebApplication.CustomProperties;
 using System;
 using System.Collections.Generic;

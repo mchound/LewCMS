@@ -67,12 +67,6 @@
     <Compile Include="FilePersistServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LewCMS\LewCMS.csproj">
-      <Project>{f3f29762-84aa-4cbe-93a5-bac3f8a6fd73}</Project>
-      <Name>LewCMS</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
