@@ -14,16 +14,14 @@ namespace LewCMS.V2.Test
     public class FilePersistsServiceTests
     {
 
-        private static IPersistService service = new DefaultFilePersistService(new DefaultJsonSerializer());
+        private static IStoreService service = new DefaultFileStoreService(new DefaultJsonSerializer());
 
         [ClassInitialize]
         public static void InitializeTestClass(TestContext testContext)
         {
-            string contentFolder = Path.Combine(Configuration.PERSITS_VIRTUAL_FILE_PATH, "Content");
-
-            if (Directory.Exists(contentFolder))
+            if (Directory.Exists(Configuration.PERSITS_VIRTUAL_FILE_PATH))
             {
-                Directory.Delete(contentFolder, true);
+                Directory.Delete(Configuration.PERSITS_VIRTUAL_FILE_PATH, true);
             }
 
             Application.Current.SetApplicationAssembly(Assembly.GetExecutingAssembly());
@@ -32,18 +30,16 @@ namespace LewCMS.V2.Test
         [TestCleanup]
         public void CleanUpTests()
         {
-            string contentFolder = Path.Combine(Configuration.PERSITS_VIRTUAL_FILE_PATH, "Content");
-
-            if (Directory.Exists(contentFolder))
+            if (Directory.Exists(Configuration.PERSITS_VIRTUAL_FILE_PATH))
             {
-                Directory.Delete(contentFolder, true);
+                Directory.Delete(Configuration.PERSITS_VIRTUAL_FILE_PATH, true);
             }
         }
 
         [TestInitialize]
         public void TestInit()
         {
-            service.Initialize(new DefaultInitializeService());
+            service.Initialize(new DefaultInitializeService().GetContentTypes(Application.Current.ApplicationAssembly));
         }
 
         [TestMethod]
@@ -80,18 +76,18 @@ namespace LewCMS.V2.Test
             service.Save(globalConfig1);
             service.Save(globalConfig2);
 
-            IEnumerable<IPage> pages = service.LoadContent<IPage>();
-            IEnumerable<ISection> sections = service.LoadContent<ISection>();
-            IEnumerable<IGlobalConfig> globalConfigs = service.LoadContent<IGlobalConfig>();
+            IEnumerable<IPage> pages = service.Load<IPage>();
+            IEnumerable<ISection> sections = service.Load<ISection>();
+            IEnumerable<IGlobalConfig> globalConfigs = service.Load<IGlobalConfig>();
 
-            IPage page11 = service.LoadContentFor<IPage, IPageInfo>(pi => pi.Id == page1.Id);
-            IPage page22 = service.LoadContentFor<IPage, IPageInfo>(pi => pi.Id == page2.Id);
+            IPage page11 = service.LoadFor<IPage, IPageInfo>(pi => pi.Id == page1.Id);
+            IPage page22 = service.LoadFor<IPage, IPageInfo>(pi => pi.Id == page2.Id);
 
-            ISection section11 = service.LoadContentFor<ISection, ISectionInfo>(si => si.Id == section1.Id);
-            ISection section22 = service.LoadContentFor<ISection, ISectionInfo>(si => si.Id == section2.Id);
+            ISection section11 = service.LoadFor<ISection, ISectionInfo>(si => si.Id == section1.Id);
+            ISection section22 = service.LoadFor<ISection, ISectionInfo>(si => si.Id == section2.Id);
 
-            IGlobalConfig globalConfig11 = service.LoadContentFor<IGlobalConfig, IGlobalConfigInfo>(gi => gi.Id == globalConfig1.Id);
-            IGlobalConfig globalConfig22 = service.LoadContentFor<IGlobalConfig, IGlobalConfigInfo>(gi => gi.Id == globalConfig2.Id);
+            IGlobalConfig globalConfig11 = service.LoadFor<IGlobalConfig, IGlobalConfigInfo>(gi => gi.Id == globalConfig1.Id);
+            IGlobalConfig globalConfig22 = service.LoadFor<IGlobalConfig, IGlobalConfigInfo>(gi => gi.Id == globalConfig2.Id);
 
             Assert.AreEqual<int>(2, pages.Count());
             Assert.AreEqual<int>(2, sections.Count());
@@ -104,16 +100,16 @@ namespace LewCMS.V2.Test
             Assert.AreEqual<string>(globalConfig1.Name, globalConfig11.Name);
             Assert.AreEqual<string>(globalConfig2.Name, globalConfig22.Name);
 
-            service.Delete(page11.ContentInfo());
-            service.Delete(page22.ContentInfo());
-            service.Delete(section11.ContentInfo());
-            service.Delete(section22.ContentInfo());
-            service.Delete(globalConfig11.ContentInfo());
-            service.Delete(globalConfig22.ContentInfo());
+            service.Delete(page11.GetStoreInfo());
+            service.Delete(page22.GetStoreInfo());
+            service.Delete(section11.GetStoreInfo());
+            service.Delete(section22.GetStoreInfo());
+            service.Delete(globalConfig11.GetStoreInfo());
+            service.Delete(globalConfig22.GetStoreInfo());
 
-            pages = service.LoadContent<IPage>();
-            sections = service.LoadContent<ISection>();
-            globalConfigs = service.LoadContent<IGlobalConfig>();
+            pages = service.Load<IPage>();
+            sections = service.Load<ISection>();
+            globalConfigs = service.Load<IGlobalConfig>();
 
             Assert.AreEqual<int>(0, pages.Count());
             Assert.AreEqual<int>(0, sections.Count());
@@ -122,17 +118,7 @@ namespace LewCMS.V2.Test
 
         private IContent CreateContent(IContentType contentType, string name)
         {
-            IContent content = Activator.CreateInstance(Application.Current.ApplicationAssembly.GetType(contentType.TypeName)) as IContent;
-            content.Id = Guid.NewGuid().ToString();
-            content.ContentType = contentType;
-            content.Name = name;
-            content.Version = 1;
-            content.CreatedAt = DateTime.Now;
-            content.UpdatedAt = content.CreatedAt;
-
-            content.OnInit();
-
-            return content;
+            return contentType.CreateInstance(name);
         }
 
         private IPage CreatePage(IPageType pageType, string pageName)

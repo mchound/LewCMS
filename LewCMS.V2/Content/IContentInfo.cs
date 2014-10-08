@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LewCMS.V2.Store;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LewCMS.V2
 {
-    public interface IContentInfo
+    public interface IContentInfo : IStoreInfo
     {
         string Id { get; set; }
         string ContentTypeName { get; set; }
@@ -18,7 +19,7 @@ namespace LewCMS.V2
         Type ContentType { get; }
         ContentStatus Status { get; set; }
         List<string> PropertyTypeNames { get; set; }
-        Type ContentTypeInterface { get; }
+        Type RepresentedInterface { get; }
     }
 
     public abstract class ContentInfo : IContentInfo
@@ -31,7 +32,15 @@ namespace LewCMS.V2
         public CultureInfo Culture { get; set; }
         public List<string> PropertyTypeNames { get; set; }
         public Type ContentType { get; set; }
-        public abstract Type ContentTypeInterface { get; }
+        public abstract Type RepresentedInterface { get; }
+        public abstract string StoreDirectory { get; }
+        public virtual string StoreKey
+        {
+            get
+            {
+                return string.Format("Content-{0}[version-{1}][lang-{2}]", this.Id, this.Version, this.Culture.TwoLetterISOLanguageName);
+            }
+        }
 
         public ContentInfo()
         {

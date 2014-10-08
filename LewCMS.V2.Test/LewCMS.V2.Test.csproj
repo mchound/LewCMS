@@ -56,10 +56,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="RepositoryTests.cs" />
     <Compile Include="CustomProperties\Person.cs" />
-    <Compile Include="CachePersistsServiceTests.cs" />
-    <Compile Include="ContentRepositoryTests.cs" />
-    <Compile Include="FilePersistsServiceTests.cs" />
+    <Compile Include="CacheStoreServiceTests.cs" />
+    <Compile Include="FileStoreServiceTests.cs" />
+    <Compile Include="old\CachePersistsServiceTests.cs" />
+    <Compile Include="old\ContentRepositoryTests.cs" />
+    <Compile Include="old\FilePersistsServiceTests.cs" />
     <Compile Include="GlobalConfigTypes\GlobalConfigTypes.cs" />
     <Compile Include="PageTypes\PageTypes.cs" />
     <Compile Include="InitializeServiceTests.cs" />

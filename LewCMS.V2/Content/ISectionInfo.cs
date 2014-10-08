@@ -20,9 +20,14 @@ namespace LewCMS.V2
 
         public SectionInfo(ISection section) : base(section){}
 
-        public override Type ContentTypeInterface
+        public override Type RepresentedInterface
         {
             get { return typeof(ISection); }
+        }
+
+        public override string StoreDirectory
+        {
+            get { return "Sections"; }
         }
     }
 }

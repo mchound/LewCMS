@@ -14,8 +14,8 @@ namespace LewCMS.V2.Services
         IEnumerable<ISectionType> GetSectionTypes();
         IEnumerable<ISectionType> GetSectionTypes(Func<ISectionInfo, bool> predicate);
 
-        IEnumerable<IGlobalConfigType> GetSectionTypes();
-        IEnumerable<IGlobalConfigType> GetSectionTypes(Func<IGlobalConfigInfo, bool> predicate);
+        IEnumerable<IGlobalConfigType> GetGlobalConfigTypes();
+        IEnumerable<IGlobalConfigType> GetGlobalConfigTypes(Func<IGlobalConfigInfo, bool> predicate);
 
         IContent GetContentFor(Func<IContentInfo, bool> predicate);
         T GetContentFor<T>(Func<IContentInfo, bool> predicate) where T : class, IContent;
@@ -31,7 +31,7 @@ namespace LewCMS.V2.Services
         IPage CreatePage(IPageType pageType, string name, string parentId);
     }
 
-    public class DefaultContentService : IContentService
+    public class DefaultContentService
     {
 
         IContentRepository _contentRepository;

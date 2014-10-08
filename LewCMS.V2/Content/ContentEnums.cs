@@ -12,6 +12,12 @@ namespace LewCMS.V2
         Delete = 1
     }
 
+    public enum StoreInfoAction
+    {
+        AddOrUpdate = 0,
+        Delete = 1
+    }
+
     public enum ContentStatus
     {
         Working = 0,

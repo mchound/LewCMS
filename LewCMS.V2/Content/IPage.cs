@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LewCMS.V2.Store;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,11 @@ namespace LewCMS.V2
     {
         public string Route { get; set; }
         public string ParentId { get; set; }
-        
+        public override string StoreDirectory
+        {
+            get { return "Pages"; }
+        }
+
         public override IContent Clone()
         {
             IPage clone = base.Clone() as IPage;
@@ -25,7 +30,7 @@ namespace LewCMS.V2
             return clone;
         }
 
-        public override IContentInfo ContentInfo()
+        public override IStoreInfo GetStoreInfo()
         {
             return new PageInfo(this);
         }

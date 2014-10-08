@@ -28,9 +28,14 @@ namespace LewCMS.V2
             this.ParentId = page.ParentId;
         }
 
-        public override Type ContentTypeInterface
+        public override Type RepresentedInterface
         {
             get { return typeof(IPage); }
+        }
+
+        public override string StoreDirectory
+        {
+            get { return "Pages"; }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using LewCMS.V2.Store;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LewCMS.V2
 {
-    public interface IContent
+    public interface IContent : IStorable
     {
         object this[string propertyName] { get; set; }
         IContentType ContentType { get; set; }
@@ -20,7 +21,6 @@ namespace LewCMS.V2
         ContentStatus Status { get; set; }
         CultureInfo Culture { get; set; }
 
-        IContentInfo ContentInfo();
         IContent Clone();
         void OnInit();
     }
@@ -35,6 +35,14 @@ namespace LewCMS.V2
         public DateTime UpdatedAt { get; set; }
         public ContentStatus Status { get; set; }
         public CultureInfo Culture { get; set; }
+        public abstract string StoreDirectory {get;}
+        public virtual string StoreKey 
+        {
+            get
+            {
+                return string.Format("Content-{0}[version-{1}][lang-{2}]", this.Id, this.Version, this.Culture.TwoLetterISOLanguageName);
+            }
+        }
 
         public Content()
         {
@@ -79,6 +87,7 @@ namespace LewCMS.V2
         }
 
 
-        public abstract IContentInfo ContentInfo();
+        public abstract IStoreInfo GetStoreInfo();
+
     }
 }

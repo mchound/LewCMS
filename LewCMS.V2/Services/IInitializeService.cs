@@ -14,6 +14,7 @@ namespace LewCMS.V2.Services
         IEnumerable<IPageType> GetPageTypes(Assembly applicationAssembly);
         IEnumerable<ISectionType> GetSectionTypes(Assembly applicationAssembly);
         IEnumerable<IGlobalConfigType> GetGlobalConfigTypes(Assembly applicationAssembly);
+        IEnumerable<IContentType> GetContentTypes(Assembly applicationAssembly);
     }
 
     public class DefaultInitializeService : IInitializeService
@@ -21,6 +22,15 @@ namespace LewCMS.V2.Services
         public DefaultInitializeService()
         {
 
+        }
+
+        public IEnumerable<IContentType> GetContentTypes(Assembly applicationAssembly)
+        {
+            List<IContentType> contentTypes = new List<IContentType>();
+            contentTypes.AddRange(this.GetPageTypes(applicationAssembly));
+            contentTypes.AddRange(this.GetSectionTypes(applicationAssembly));
+            contentTypes.AddRange(this.GetGlobalConfigTypes(applicationAssembly));
+            return contentTypes;
         }
 
         public IEnumerable<IPageType> GetPageTypes(Assembly applicationAssembly)
@@ -100,5 +110,6 @@ namespace LewCMS.V2.Services
                 yield return property as Property;
             }
         }
+
     }
 }

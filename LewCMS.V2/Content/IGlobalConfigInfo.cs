@@ -20,9 +20,14 @@ namespace LewCMS.V2
 
         public GlobalConfigInfo(IGlobalConfig globalConfig) : base(globalConfig) { }
 
-        public override Type ContentTypeInterface
+        public override Type RepresentedInterface
         {
             get { return typeof(IGlobalConfig); }
+        }
+
+        public override string StoreDirectory
+        {
+            get { return "GlobalConfigs"; }
         }
     }
 }
