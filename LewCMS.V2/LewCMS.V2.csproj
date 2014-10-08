@@ -69,13 +69,8 @@
     <Compile Include="Services\DefaultRepository.cs" />
     <Compile Include="Services\IRepository.cs" />
     <Compile Include="Store\IStorable.cs" />
-    <Compile Include="old\DefaultCachePersistService.cs" />
-    <Compile Include="old\DefaultContentRepository.cs" />
-    <Compile Include="old\DefaultFilePersistService.cs" />
-    <Compile Include="old\IContentRepository.cs" />
     <Compile Include="Services\IContentService.cs" />
     <Compile Include="Services\IStoreService.cs" />
-    <Compile Include="old\IPersistsService.cs" />
     <Compile Include="Services\IRouteManager.cs" />
     <Compile Include="Services\ISerializeService.cs" />
     <Compile Include="_Properties\DefaultProperties\PropertyString.cs" />

@@ -14,23 +14,23 @@ namespace LewCMS.V2.Services
 
     public class RouteManager : IRouteManager
     {
-        IContentRepository _contentRepository;
+        IRepository _repository;
 
-        public RouteManager(IContentRepository contentRepository)
+        public RouteManager(IRepository repository)
         {
-            this._contentRepository = contentRepository;
+            this._repository = repository;
         }
 
         public string CreatePageRoute(string pageId, string pageName, string parentId)
         {
-            string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._contentRepository.GetContentInfoFor<IPageInfo>(pi => pi.Id == parentId).Route;
+            string parentRoute = string.IsNullOrWhiteSpace(parentId) ? string.Empty : this._repository.GetStoreInfo<IPageInfo>(pi => pi.Id == parentId).FirstOrDefault().Route;
             string route = string.Concat(parentRoute, "/", HttpUtility.UrlEncode(pageName.ToLower()).Replace("+", "-"));
             return this.AdjustForDuplicateRoutes(pageId, route, firstIteration: true);
         }
 
         private string AdjustForDuplicateRoutes(string pageId, string route, bool firstIteration = false)
         {
-            IEnumerable<IPageInfo> pagesMetaData = this._contentRepository.GetContentInfo().Select(ci => ci as IPageInfo).Where(pi => pi.Route.ToLower() == route.ToLower() && pi.Id != pageId);
+            IEnumerable<IPageInfo> pagesMetaData = this._repository.GetStoreInfo<IPageInfo>().Select(ci => ci as IPageInfo).Where(pi => pi.Route.ToLower() == route.ToLower() && pi.Id != pageId);
 
             if (!pagesMetaData.Any())
             {

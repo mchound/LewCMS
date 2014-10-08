@@ -18,6 +18,9 @@ namespace LewCMS.V2.Services
         IEnumerable<T> Get<T>() where T : class, IStorable;
         IEnumerable<Tstorable> Get<Tstorable, Tinfo>(Func<Tinfo, bool> predicate) where Tstorable : class,IStorable where Tinfo : class,IStoreInfo;
 
+        IEnumerable<Tinfo> GetStoreInfo<Tinfo>() where Tinfo : class, IStoreInfo;
+        IEnumerable<Tinfo> GetStoreInfo<Tinfo>(Func<Tinfo, bool> predicate) where Tinfo : class, IStoreInfo;
+
         IEnumerable<IContentType> GetContentTypes();
 
         IEnumerable<IStoreInfo> Delete(IStoreInfo storeInfo);

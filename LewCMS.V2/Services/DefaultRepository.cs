@@ -117,6 +117,16 @@ namespace LewCMS.V2.Services
             return _storeInfo;
         }
 
+        public IEnumerable<Tinfo> GetStoreInfo<Tinfo>() where Tinfo : class, IStoreInfo
+        {
+            return this.GetStoreInfo(si => si is Tinfo).Select(si => si as Tinfo);
+        }
+
+        public IEnumerable<Tinfo> GetStoreInfo<Tinfo>(Func<Tinfo, bool> predicate) where Tinfo : class, IStoreInfo
+        {
+            return this.GetStoreInfo(si => si is Tinfo).Select(si => si as Tinfo).Where(predicate);
+        }
+
         protected virtual IEnumerable<IStoreInfo> GetStoreInfo()
         {
             IEnumerable<IStoreInfo> storeInfo = this._cacheStoreService.LoadPersistedStoreInfo();
