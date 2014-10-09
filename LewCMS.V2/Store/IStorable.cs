@@ -8,6 +8,7 @@ namespace LewCMS.V2.Store
 {
     public interface IStorable
     {
+        string Id { get; set; }
         string StoreKey { get; }
         string StoreDirectory { get; }
         IStoreInfo GetStoreInfo();
@@ -15,6 +16,7 @@ namespace LewCMS.V2.Store
 
     public interface IStoreInfo
     {
+        string Id { get; set; }
         string StoreKey { get; }
         string StoreDirectory { get; }
         Type RepresentedInterface { get; }
@@ -22,7 +24,8 @@ namespace LewCMS.V2.Store
 
     public abstract class BaseInfo : IStoreInfo
     {
-        Jag borde lägga till id här så det vi ska spara åtminstonde har Id att lämna en nyckel på
+        public string Id { get; set; }
+
         public abstract string StoreKey { get; }
 
         public abstract string StoreDirectory { get; }

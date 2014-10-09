@@ -11,7 +11,6 @@ namespace LewCMS.V2
 {
     public interface IContentInfo : IStoreInfo
     {
-        string Id { get; set; }
         string ContentTypeName { get; set; }
         string Name { get; set; }
         int Version { get; set; }
@@ -23,7 +22,6 @@ namespace LewCMS.V2
 
     public abstract class ContentInfo : BaseInfo, IContentInfo
     {
-        public string Id { get; set; }
         public string ContentTypeName { get; set; }
         public string Name { get; set; }
         public int Version { get; set; }
