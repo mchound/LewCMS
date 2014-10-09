@@ -1,0 +1,1 @@
+{"$type":"LewCMS.V2.Users.ApplicationUser, LewCMS.V2","Id":"a882915b-4e20-42d0-a163-339c9f4586ad","UserName":"admin@lewcms.com","Email":null,"StoreKey":"a882915b-4e20-42d0-a163-339c9f4586ad","StoreDirectory":"Users","RepresentedInterface":"LewCMS.V2.Users.IApplicationUser, LewCMS.V2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"}

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using LewCMS.V2.Contents;
+using LewCMS.V2.Store;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace LewCMS.V2.Services
+namespace LewCMS.V2
 {
     public interface IRouteManager
     {
@@ -30,9 +32,9 @@ namespace LewCMS.V2.Services
 
         private string AdjustForDuplicateRoutes(string pageId, string route, bool firstIteration = false)
         {
-            IEnumerable<IPageInfo> pagesMetaData = this._repository.GetStoreInfo<IPageInfo>().Select(ci => ci as IPageInfo).Where(pi => pi.Route.ToLower() == route.ToLower() && pi.Id != pageId);
+            IEnumerable<IPageInfo> storeInfos = this._repository.GetStoreInfo<IPageInfo>().Select(ci => ci as IPageInfo).Where(pi => pi.Route.ToLower() == route.ToLower() && pi.Id != pageId);
 
-            if (!pagesMetaData.Any())
+            if (!storeInfos.Any())
             {
                 return route;
             }

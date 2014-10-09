@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LewCMS.V2.Contents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace LewCMS.V2.Mvc
             //CMS cms = CMS.Instance();
             //IPage page = cms.GetPageFromRoute(requestContext.HttpContext.Request.Path);
 
-            return base.CreateController(requestContext, controllerName);
+           return base.CreateController(requestContext, controllerName);
 
             IPage page = null;
 

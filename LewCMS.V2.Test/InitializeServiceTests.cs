@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
-using LewCMS.V2.Services;
+using LewCMS.V2.Startup;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using LewCMS.V2.Contents;
 
 namespace LewCMS.V2.Test
 {

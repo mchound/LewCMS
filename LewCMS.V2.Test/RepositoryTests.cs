@@ -1,4 +1,9 @@
-﻿using LewCMS.V2.Services;
+﻿using LewCMS.V2.Contents;
+using LewCMS.V2.Serialization;
+using LewCMS.V2.Startup;
+using LewCMS.V2.Store;
+using LewCMS.V2.Store.Cache;
+using LewCMS.V2.Store.FileSystem;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -14,7 +19,7 @@ namespace LewCMS.V2.Test
     public class RepositoryTests
     {
 
-        private static IStoreService fileStoreService = new DefaultFileStoreService(new DefaultJsonSerializer());
+        private static IFileStoreService fileStoreService = new DefaultFileStoreService(new DefaultJsonSerializer());
         private static ICacheStoreService cacheStoreService = new DefaultCacheStoreService();
         private static IRepository repository;
 
@@ -44,7 +49,7 @@ namespace LewCMS.V2.Test
         [TestInitialize]
         public void TestInit()
         {
-            
+            repository = new DefaultRepository(new DefaultInitializeService(), fileStoreService, cacheStoreService);
         }
 
         [TestMethod]

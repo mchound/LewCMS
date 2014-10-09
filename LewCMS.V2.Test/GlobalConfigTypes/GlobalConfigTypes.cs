@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using LewCMS.V2.Attributes;
+using LewCMS.V2.Contents;
+using LewCMS.V2.Contents.Attributes;
 using LewCMS.V2.Test.CustomProperties;
 
 namespace LewCMS.V2.Test.SectionTypes

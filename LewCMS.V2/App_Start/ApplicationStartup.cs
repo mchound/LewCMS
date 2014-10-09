@@ -6,6 +6,11 @@ using LewCMS.V2.Mvc;
 using LewCMS.V2.VirtualFileSystem;
 using LewCMS.V2;
 using System.Web.Http;
+using LewCMS.V2.Users;
+using LewCMS.V2.Store;
+using System.Linq;
+using Microsoft.AspNet.Identity;
+using System;
 
 namespace LewCMS.Core.Startup
 {
@@ -16,15 +21,33 @@ namespace LewCMS.Core.Startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerSelector), new LewCMSHttpControllerSelector(GlobalConfiguration.Configuration));
-            ControllerBuilder.Current.SetControllerFactory(typeof(LewCMSControllerFactory));
-            //GlobalConfiguration.Configuration.Services.Replace(typeof(IAssembliesResolver), new LewCMSAssemblyResolver());
+            //ControllerBuilder.Current.SetControllerFactory(typeof(LewCMSControllerFactory));
             HostingEnvironment.RegisterVirtualPathProvider(new LewCMSVirtualPathProvider(Configuration.BACKSTAGE_FILE_PATH));
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Insert(0, new LewCMSRazorViewEngine());
 
             Application.Current.SetApplicationAssembly(Assembly.GetCallingAssembly());
-            //UnityConfig.RegisterComponents();
+            UnityConfig.RegisterComponents();
+
+            CreateAdminUser();
+        }
+
+        private static void CreateAdminUser()
+        {
+            IRepository repository = DependencyResolver.Current.GetService<IRepository>();
+            IUserService userService = DependencyResolver.Current.GetService<IUserService>();
+            
+            if(repository.Get<IApplicationUser>().Count() <= 0)
+            {
+                ApplicationUser user = new ApplicationUser
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = "admin@lewcms.com"
+                };
+
+                UserManager<ApplicationUser, string> userManager = new UserManager<ApplicationUser, string>(userService);
+                IdentityResult result = userManager.Create<ApplicationUser, string>(user, "admin1234");
+            }
         }
     }
 

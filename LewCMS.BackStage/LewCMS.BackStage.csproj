@@ -138,6 +138,15 @@
     <Content Include="css\components\blueprint.min.css">
       <DependentUpon>blueprint.less</DependentUpon>
     </Content>
+    <Content Include="css\components\box.min.css">
+      <DependentUpon>box.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\colors.min.css">
+      <DependentUpon>colors.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\form.min.css">
+      <DependentUpon>form.less</DependentUpon>
+    </Content>
     <Content Include="css\components\page-tree.css">
       <DependentUpon>page-tree.less</DependentUpon>
     </Content>
@@ -174,6 +183,9 @@
     <Content Include="css\default.min.css">
       <DependentUpon>default.less</DependentUpon>
     </Content>
+    <Content Include="css\settings.min.css">
+      <DependentUpon>settings.less</DependentUpon>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -186,6 +198,11 @@
     <Content Include="css\components\blueprint.less" />
     <Content Include="css\components\panes.less" />
     <Content Include="css\components\page-tree.less" />
+    <Content Include="css\components\box.less" />
+    <Content Include="css\settings.less" />
+    <Content Include="css\components\form.less" />
+    <Content Include="css\components\colors.less" />
+    <Content Include="css\components\buttons.less" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <None Include="react\components\page-tree\page-tree.jsx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -200,7 +217,9 @@
   <ItemGroup>
     <Compile Include="Api\BaseController.cs" />
     <Compile Include="Api\ContentController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Mvc\LewCMSAreaRegistration.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,6 +240,7 @@
     <Content Include="css\default.less" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\lewCMS-0.1.js" />
+    <Content Include="Views\Dashboard\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -231,7 +251,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="css\mixins\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LewCMS.V2\LewCMS.V2.csproj">

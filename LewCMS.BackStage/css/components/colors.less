@@ -1,0 +1,41 @@
+﻿@import "../settings";
+
+[class^="clr-"]{
+
+    &[class*="success"]{
+        
+        &[class*="--bg"]{
+            background-color: @color-var-success;
+            color: @color-var-white;
+        }
+
+        &[class*="--hvr"]{
+            background-color: darken(@color-var-success, 5%);
+        }
+
+        &[class*="--txt"]{
+            color: @color-var-success;
+        }
+
+    }
+
+    &[class*="alert"]{
+        
+        &[class*="--bg"]{
+            background-color: @color-var-alert;
+            color: @color-var-white;
+        }
+
+        &[class*="--hvr"]{
+            background-color: darken(@color-var-alert, 5%);
+        }
+
+        &[class*="--txt"]{
+            color: @color-var-alert;
+        }
+
+    }
+
+    
+
+}

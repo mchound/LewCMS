@@ -50,6 +50,17 @@
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -105,47 +116,61 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Mvc5">
+      <HintPath>..\packages\Unity.Mvc5.1.1\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.WebApi">
+      <HintPath>..\packages\Unity.WebAPI.5.1\lib\net45\Unity.WebApi.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="App_Start\ApplicationStartup.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Store\Cache\ICacheStoreService.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Content\Attributes\ContentAttribute.cs" />
-    <Compile Include="Content\Attributes\PageTypeAttribute.cs" />
-    <Compile Include="Content\Attributes\PropertyAttribute.cs" />
-    <Compile Include="Content\ContentEnums.cs" />
-    <Compile Include="Content\IContentInfo.cs" />
-    <Compile Include="Content\IGlobalConfig.cs" />
-    <Compile Include="Content\IContent.cs" />
-    <Compile Include="Content\IContentType.cs" />
-    <Compile Include="Content\IGlobalConfigType.cs" />
-    <Compile Include="Content\IPage.cs" />
-    <Compile Include="Content\IGlobalConfigInfo.cs" />
-    <Compile Include="Content\ISectionInfo.cs" />
-    <Compile Include="Content\IPageInfo.cs" />
-    <Compile Include="Content\IPageType.cs" />
-    <Compile Include="Content\IProperty.cs" />
-    <Compile Include="Content\ISection.cs" />
-    <Compile Include="Content\ISectionType.cs" />
+    <Compile Include="Contents\Attributes\ContentAttribute.cs" />
+    <Compile Include="Contents\Attributes\PageTypeAttribute.cs" />
+    <Compile Include="Contents\Attributes\PropertyAttribute.cs" />
+    <Compile Include="Contents\ContentEnums.cs" />
+    <Compile Include="Contents\IContentInfo.cs" />
+    <Compile Include="Contents\IGlobalConfig.cs" />
+    <Compile Include="Contents\IContent.cs" />
+    <Compile Include="Contents\IContentType.cs" />
+    <Compile Include="Contents\IGlobalConfigType.cs" />
+    <Compile Include="Contents\IPage.cs" />
+    <Compile Include="Contents\IGlobalConfigInfo.cs" />
+    <Compile Include="Contents\ISectionInfo.cs" />
+    <Compile Include="Contents\IPageInfo.cs" />
+    <Compile Include="Contents\IPageType.cs" />
+    <Compile Include="Contents\IProperty.cs" />
+    <Compile Include="Contents\ISection.cs" />
+    <Compile Include="Contents\ISectionType.cs" />
     <Compile Include="Mvc\LewCMSControllerFactory.cs" />
     <Compile Include="Mvc\LewCMSRazorViewEngine.cs" />
-    <Compile Include="Services\DefaultCacheStoreService.cs" />
-    <Compile Include="Services\DefaultFileStoreService.cs" />
-    <Compile Include="Services\DefaultRepository.cs" />
-    <Compile Include="Services\IRepository.cs" />
-    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Store\Cache\DefaultCacheStoreService.cs" />
+    <Compile Include="Store\FileSystem\DefaultFileStoreService.cs" />
+    <Compile Include="Store\DefaultRepository.cs" />
+    <Compile Include="Store\IRepository.cs" />
+    <Compile Include="App_Start\AuthStartup.cs" />
+    <Compile Include="Store\FileSystem\IFileStoreService.cs" />
     <Compile Include="Store\IStorable.cs" />
-    <Compile Include="Services\IContentService.cs" />
-    <Compile Include="Services\IStoreService.cs" />
+    <Compile Include="Contents\IContentService.cs" />
+    <Compile Include="Store\IStoreService.cs" />
     <Compile Include="Services\IRouteManager.cs" />
-    <Compile Include="Services\ISerializeService.cs" />
+    <Compile Include="Store\Serialization\ISerializeService.cs" />
+    <Compile Include="Users\IApplicationUser.cs" />
+    <Compile Include="Users\IUserManager.cs" />
+    <Compile Include="Users\IUserPassword.cs" />
     <Compile Include="Users\IUserStoreService.cs" />
+    <Compile Include="Users\UserService.cs" />
     <Compile Include="VirtualFileSystem\LewCMSVirtualDirectory.cs" />
     <Compile Include="VirtualFileSystem\LewCMSVirtualFile.cs" />
     <Compile Include="VirtualFileSystem\LewCMSVirtualPathProvider.cs" />
     <Compile Include="_Properties\DefaultProperties\PropertyString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IInitializeService.cs" />
+    <Compile Include="App_Start\IInitializeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

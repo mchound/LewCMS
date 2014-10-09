@@ -1,0 +1,14 @@
+﻿using LewCMS.V2.Store;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LewCMS.V2.Store.FileSystem
+{
+    public interface IFileStoreService : IStoreService
+    {
+
+    }
+}

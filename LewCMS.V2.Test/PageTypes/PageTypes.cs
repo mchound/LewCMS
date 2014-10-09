@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using LewCMS.V2.Attributes;
+using LewCMS.V2.Contents;
+using LewCMS.V2.Contents.Attributes;
 
 namespace LewCMS.V2.Test.PageTypes
 {

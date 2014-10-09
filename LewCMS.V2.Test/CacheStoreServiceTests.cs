@@ -1,4 +1,6 @@
-﻿using LewCMS.V2.Services;
+﻿using LewCMS.V2.Contents;
+using LewCMS.V2.Startup;
+using LewCMS.V2.Store.Cache;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

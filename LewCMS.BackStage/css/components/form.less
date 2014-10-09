@@ -1,0 +1,44 @@
+﻿@import "../settings";
+
+@input-padding: 10px;
+
+[data-lew-style="form"]{
+
+    padding-top: @size-xxl;
+    padding-bottom: @size-xxl;
+    
+    input{
+        padding: @input-padding;
+        border-radius: 0;
+        background-color: @color-var-white;
+        border: 1px solid @color-var-gray-1;
+    }
+
+    button{
+        padding: @input-padding;
+    }
+
+    fieldset{
+        border: none;
+        margin-top: @size-l;
+        padding-left: @size-l; 
+        padding-right: @size-l;
+
+        label,
+        input,
+        button{
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        label{
+            margin-bottom: @size-xs;
+        }
+    }
+
+    fieldset:first-child{
+        margin-top: 0;
+    }
+
+}

@@ -1,0 +1,52 @@
+﻿using LewCMS.V2.Users;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace LewCMS.BackStage.Controllers
+{
+    public abstract class BaseController : Controller
+    {
+        private IAuthenticationManager _authenticationManager;
+        public IAuthenticationManager AuthenticationManager 
+        { 
+            get
+            {
+                return _authenticationManager ?? (_authenticationManager = HttpContext.GetOwinContext().Authentication);
+            }
+        }
+
+        private IUserManager _userManager;
+        public IUserManager UserManager
+        {
+            get { return _userManager; }
+        }
+
+        private SignInManager<ApplicationUser, string> _signInManager;
+
+        public SignInManager<ApplicationUser, string> SignInManager
+        {
+            get 
+            {
+                if (_signInManager == null)
+                {
+                    _signInManager = new SignInManager<ApplicationUser, string>(this.UserManager as DefaultUserManager, AuthenticationManager);
+                }
+
+                return _signInManager; 
+            }
+            
+        }
+        
+        public BaseController(IUserManager userManager)
+        {
+            this._userManager = userManager;
+        }
+
+    }
+}
