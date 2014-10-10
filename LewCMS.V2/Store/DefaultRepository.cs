@@ -13,20 +13,13 @@ namespace LewCMS.V2.Store
 {
     public class DefaultRepository : IRepository
     {
-        private IInitializeService _initializeService;
         private IStoreService _fileStoreService;
         private ICacheStoreService _cacheStoreService;
 
-        public DefaultRepository(IInitializeService initializeService, IFileStoreService fileStoreService, ICacheStoreService cacheStoreService)
+        public DefaultRepository(IFileStoreService fileStoreService, ICacheStoreService cacheStoreService)
         {
-            this._initializeService = initializeService;
             this._fileStoreService = fileStoreService;
             this._cacheStoreService = cacheStoreService;
-
-            IEnumerable<IContentType> contentTypes = this._initializeService.GetContentTypes(Application.Current.ApplicationAssembly);
-            
-            this._fileStoreService.Initialize(contentTypes);
-            this._cacheStoreService.Initialize(contentTypes);
         }
 
         public void Save(IStorable storable)
@@ -90,19 +83,6 @@ namespace LewCMS.V2.Store
             {
                 yield return this.GetFor(info) as Tstorable;
             }
-        }
-
-        public IEnumerable<IContentType> GetContentTypes()
-        {
-            IEnumerable<IContentType> contentTypes = this._cacheStoreService.LoadContentTypes();
-
-            if (contentTypes == null)
-            {
-                contentTypes = this._fileStoreService.LoadContentTypes();
-                this._cacheStoreService.SaveContentTypes(contentTypes);
-            }
-
-            return contentTypes;
         }
 
         public IEnumerable<IStoreInfo> Delete(IStoreInfo storeInfo)

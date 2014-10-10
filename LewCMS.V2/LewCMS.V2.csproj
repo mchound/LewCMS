@@ -127,6 +127,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="App_Start\ApplicationStartup.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Contents\IContentTypeCollection.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Store\Cache\ICacheStoreService.cs" />
     <Compile Include="Configuration.cs" />

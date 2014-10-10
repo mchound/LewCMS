@@ -13,7 +13,6 @@ namespace LewCMS.V2.Store.Cache
     {
         void SavePersistedStoreInfo(IEnumerable<IStoreInfo> storeInfo);
         IEnumerable<IStoreInfo> LoadPersistedStoreInfo();
-        void SaveContentTypes(IEnumerable<IContentType> contentTypes);
         void ClearCache();
     }
 }

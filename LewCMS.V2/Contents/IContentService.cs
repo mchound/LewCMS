@@ -1,46 +1,32 @@
-﻿using System;
+﻿using LewCMS.V2.Contents;
+using LewCMS.V2.Services;
+using LewCMS.V2.Store;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LewCMS.V2.Startup
 {
-    //public interface IContentService
-    //{
-    //    IEnumerable<IPageType> GetPageTypes();
-    //    IEnumerable<IPageType> GetPageTypes(Func<IPageInfo, bool> predicate);
+    public interface IContentService
+    {
+        void Initialize(IInitializeService initializeService, Assembly applicationAssembly);
+    }
 
-    //    IEnumerable<ISectionType> GetSectionTypes();
-    //    IEnumerable<ISectionType> GetSectionTypes(Func<ISectionInfo, bool> predicate);
+    public class DefaultContentService : BaseService, IContentService
+    {
+        public DefaultContentService(IRepository repository) : base(repository) { }
 
-    //    IEnumerable<IGlobalConfigType> GetGlobalConfigTypes();
-    //    IEnumerable<IGlobalConfigType> GetGlobalConfigTypes(Func<IGlobalConfigInfo, bool> predicate);
+        public void Initialize(IInitializeService initializeService, Assembly applicationAssembly)
+        {
+            IContentTypeCollection contentTypeCollection = new ContentTypeCollection();
+            contentTypeCollection.PageTypes = initializeService.GetPageTypes(applicationAssembly).ToList();
+            contentTypeCollection.SectionTypes = initializeService.GetSectionTypes(applicationAssembly).ToList();
+            contentTypeCollection.GlobalConfigTypes = initializeService.GetGlobalConfigTypes(applicationAssembly).ToList();
+            this.Repository.Save(contentTypeCollection);
+        }
+    }
 
-    //    IContent GetContentFor(Func<IContentInfo, bool> predicate);
-    //    T GetContentFor<T>(Func<IContentInfo, bool> predicate) where T : class, IContent;
-    //    Tcontent GetContentFor<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class, IContent where Tinfo : class, IContentInfo;
-
-    //    IEnumerable<IContent> GetContent();
-    //    IEnumerable<IContent> GetContent(Func<IContentInfo, bool> predicate);
-    //    IEnumerable<T> GetContent<T>(Func<IContentInfo, bool> predicate) where T : class, IContent;
-    //    IEnumerable<Tcontent> GetContent<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class, IContent where Tinfo : class, IContentInfo;
-
-    //    IContent CreateContent(IContentType contentType, string name);
-    //    IPage CreatePage(IPageType pageType, string name);
-    //    IPage CreatePage(IPageType pageType, string name, string parentId);
-    //}
-
-    //public class DefaultContentService
-    //{
-
-    //    IContentRepository _contentRepository;
-    //    IRouteManager _routeManager;
-
-    //    public DefaultContentService(IContentRepository contentRepository, IRouteManager routeManager)
-    //    {
-    //        this._contentRepository = contentRepository;
-    //        this._routeManager = routeManager;
-    //    }
-    //}
 }

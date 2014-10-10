@@ -10,8 +10,6 @@ namespace LewCMS.V2.Store
 {
     public interface IStoreService
     {
-        void Initialize(IEnumerable<IContentType> contentTypes);
-
         IEnumerable<IStoreInfo> Save(IStorable storable);
 
         IStorable LoadFor(IStoreInfo storeInfo);
@@ -24,8 +22,6 @@ namespace LewCMS.V2.Store
         IEnumerable<IStoreInfo> LoadStoreInfo();
         IEnumerable<IStoreInfo> LoadStoreInfo(Func<IStoreInfo, bool> predicate);
 
-        IEnumerable<IContentType> LoadContentTypes();
-
         IEnumerable<IStoreInfo> Delete(IStoreInfo storeInfo);
         IEnumerable<IStoreInfo> Delete(Func<IStoreInfo, bool> predicate);
     }
@@ -34,11 +30,6 @@ namespace LewCMS.V2.Store
     {
         protected abstract string STORE_DIRECTORY_KEY_FORMAT { get; }
         protected abstract string CONTENT_TYPES_KEY_FORMAT { get; }
-
-        public void Initialize(IEnumerable<IContentType> contentTypes)
-        {
-            this.Save<IEnumerable<IContentType>>(this.CONTENT_TYPES_KEY_FORMAT, contentTypes);
-        }
 
         public IEnumerable<IStoreInfo> Save(IStorable storable)
         {
@@ -143,11 +134,6 @@ namespace LewCMS.V2.Store
         public IEnumerable<IStoreInfo> LoadStoreInfo(Func<IStoreInfo, bool> predicate)
         {
             return this.LoadStoreInfo().Where(predicate);
-        }
-
-        public IEnumerable<IContentType> LoadContentTypes()
-        {
-            return this.Load<IEnumerable<IContentType>>(this.CONTENT_TYPES_KEY_FORMAT);
         }
 
         protected abstract string CreateKey(IStorable storable);

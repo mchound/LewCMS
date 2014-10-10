@@ -26,6 +26,7 @@ namespace LewCMS.V2
             container.RegisterType<ICacheStoreService, DefaultCacheStoreService>();
             container.RegisterType<ISerializeService, DefaultJsonSerializer>();
             container.RegisterType<IUserManager, DefaultUserManager>();
+            container.RegisterType<IContentService, DefaultContentService>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
             DependencyResolver.SetResolver(new Unity.Mvc5.UnityDependencyResolver(container));

@@ -23,8 +23,6 @@ namespace LewCMS.V2.Store
         IEnumerable<Tinfo> GetStoreInfo<Tinfo>() where Tinfo : class, IStoreInfo;
         IEnumerable<Tinfo> GetStoreInfo<Tinfo>(Func<Tinfo, bool> predicate) where Tinfo : class, IStoreInfo;
 
-        IEnumerable<IContentType> GetContentTypes();
-
         IEnumerable<IStoreInfo> Delete(IStoreInfo storeInfo);
         IEnumerable<IStoreInfo> Delete(Func<IStoreInfo, bool> predicate);
     }

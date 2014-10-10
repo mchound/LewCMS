@@ -20,6 +20,16 @@ namespace LewCMS.V2.Test
 
         private static IStoreService service = new DefaultFileStoreService(new DefaultJsonSerializer());
 
+        public static IContentTypeCollection GetContentTypeCollection()
+        {
+            IInitializeService initializeService = new DefaultInitializeService();
+            IContentTypeCollection contentTypeCollection = new ContentTypeCollection();
+            contentTypeCollection.PageTypes = initializeService.GetPageTypes(Application.Current.ApplicationAssembly).ToList();
+            contentTypeCollection.SectionTypes = initializeService.GetSectionTypes(Application.Current.ApplicationAssembly).ToList();
+            contentTypeCollection.GlobalConfigTypes = initializeService.GetGlobalConfigTypes(Application.Current.ApplicationAssembly).ToList();
+            return contentTypeCollection;
+        }
+
         [ClassInitialize]
         public static void InitializeTestClass(TestContext testContext)
         {
@@ -29,6 +39,7 @@ namespace LewCMS.V2.Test
             }
 
             Application.Current.SetApplicationAssembly(Assembly.GetExecutingAssembly());
+            service.Save(FilePersistsServiceTests.GetContentTypeCollection());
         }
 
         [TestCleanup]
@@ -43,20 +54,22 @@ namespace LewCMS.V2.Test
         [TestInitialize]
         public void TestInit()
         {
-            service.Initialize(new DefaultInitializeService().GetContentTypes(Application.Current.ApplicationAssembly));
+            service.Save(FilePersistsServiceTests.GetContentTypeCollection());
         }
 
         [TestMethod]
         public void Init_Service()
         {
-            IEnumerable<IContentType> contentTypes = service.LoadContentTypes();
-            Assert.AreEqual<int>(6, contentTypes.Count());
+            IContentTypeCollection contentTypes = service.Load<IContentTypeCollection>().First();
+            Assert.AreEqual<int>(2, contentTypes.PageTypes.Count());
+            Assert.AreEqual<int>(2, contentTypes.SectionTypes.Count());
+            Assert.AreEqual<int>(2, contentTypes.GlobalConfigTypes.Count());
         }
 
         [TestMethod]
         public void Save_Load_And_Delete_Content()
         {
-            IEnumerable<IContentType> contentTypes = service.LoadContentTypes();
+            IEnumerable<IContentType> contentTypes = service.Load<IContentTypeCollection>().First().ContentTypes;
 
             IEnumerable<IPageType> pageTypes = contentTypes.Where(ct => ct is IPageType).Select(ct => ct as IPageType);
             IEnumerable<ISectionType> sectionTypes = contentTypes.Where(ct => ct is ISectionType).Select(ct => ct as ISectionType);

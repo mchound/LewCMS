@@ -11,6 +11,8 @@ using LewCMS.V2.Store;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using System;
+using LewCMS.V2.Contents;
+using LewCMS.V2.Startup;
 
 namespace LewCMS.Core.Startup
 {
@@ -30,6 +32,13 @@ namespace LewCMS.Core.Startup
             UnityConfig.RegisterComponents();
 
             CreateAdminUser();
+            InitializeContentService();
+        }
+
+        private static void InitializeContentService()
+        {
+            IContentService contentService = DependencyResolver.Current.GetService<IContentService>();
+            contentService.Initialize(DependencyResolver.Current.GetService<IInitializeService>(), Application.Current.ApplicationAssembly);
         }
 
         private static void CreateAdminUser()
