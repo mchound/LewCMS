@@ -1,0 +1,40 @@
+﻿/* ---------------------- COLORS ---------------------- */
+/*VARS*/
+/*SITE*/
+/*PANES*/
+/* ---------------------- TYPO ---------------------- */
+/*VARS*/
+/*SITE*/
+/* ---------------------- GUTTERS ---------------------- */
+[data-lew-style="form"] {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+[data-lew-style="form"] input {
+  padding: 10px;
+  border-radius: 0;
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+}
+[data-lew-style="form"] button {
+  padding: 10px;
+}
+[data-lew-style="form"] fieldset {
+  border: none;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+[data-lew-style="form"] fieldset label,
+[data-lew-style="form"] fieldset input,
+[data-lew-style="form"] fieldset button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+[data-lew-style="form"] fieldset label {
+  margin-bottom: 5px;
+}
+[data-lew-style="form"] fieldset:first-child {
+  margin-top: 0;
+}

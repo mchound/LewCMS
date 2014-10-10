@@ -144,6 +144,9 @@
     <Content Include="css\components\colors.min.css">
       <DependentUpon>colors.less</DependentUpon>
     </Content>
+    <Content Include="css\components\form.css">
+      <DependentUpon>form.less</DependentUpon>
+    </Content>
     <Content Include="css\components\form.min.css">
       <DependentUpon>form.less</DependentUpon>
     </Content>
@@ -182,6 +185,9 @@
     </Content>
     <Content Include="css\default.min.css">
       <DependentUpon>default.less</DependentUpon>
+    </Content>
+    <Content Include="css\settings.css">
+      <DependentUpon>settings.less</DependentUpon>
     </Content>
     <Content Include="css\settings.min.css">
       <DependentUpon>settings.less</DependentUpon>

@@ -1,18 +1,46 @@
-[data-lew-style="page-tree"],
+﻿/* ---------------------- COLORS ---------------------- */
+/*VARS*/
+/*SITE*/
+/*PANES*/
+/* ---------------------- TYPO ---------------------- */
+/*VARS*/
+/*SITE*/
+/* ---------------------- GUTTERS ---------------------- */
+[data-lew-style="page-tree"] {
+  padding-top: 20px;
+  font-size: 15px;
+}
 [data-lew-style="page-tree"] ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-[data-lew-style="page-tree"] ul {
-  background-color: #eaeaea;
+[data-lew-style="page-tree"] a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 150px 10px 23px;
+  display: block;
+  position: relative;
+}
+[data-lew-style="page-tree"] a:hover {
+  background-color: #262626;
+}
+[data-lew-style="page-tree"] .parent i {
+  position: absolute;
+  left: 2px;
+}
+[data-lew-style="page-tree"] .parent i:hover:before {
+  content: '\e801';
+}
+[data-lew-style="page-tree"] .parent.expanded i:hover:before {
+  content: '\e804';
+}
+[data-lew-style="page-tree"] .parent.expanded ul {
+  display: block;
 }
 [data-lew-style="page-tree"] ul ul {
-  background-color: #f7f7f7;
+  display: none;
 }
-[data-lew-style="page-tree"] ul ul ul {
-  background-color: #ffffff;
-}
-[data-lew-style="page-tree"] li {
-  padding: 5px 0 5px 0;
+[data-lew-style="page-tree"] ul ul a {
+  padding-left: 30px;
 }

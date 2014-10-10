@@ -51,37 +51,52 @@ var PageTree = React.createClass({
 });
 
 var PageTreeListItem = React.createClass({
- 
+	
+	getInitialState: function(){
+		return {isExpanded: false, isExpanding: false};
+	},
+
+	onExpandClick: function(e){
+		
+		this.setState({isExpanding: true});
+
+		if(this.state.isExpanded){
+			this.setState({isExpanded: false, isExpanding: false});
+		}
+		else {
+			setTimeout(function(){
+				this.setState({isExpanded: true, isExpanding: false});
+			}.bind(this), 2000);
+		}
+		
+
+	},
+
     render: function() {
 
-        var children = "";
+        var 
+		children = '',
+		liClassName = '',
+		parentIcon = '',
+		iconClassName = this.state.isExpanded ? 'icon-minus' : 'icon-plus';
+
+		iconClassName = this.state.isExpanding ? 'icon-plus-circled animate-spin' : iconClassName;
+
         if (this.props.page.children && this.props.page.children.length > 0) {
-            children = <PageTree pages={this.props.page.children} />
-            }
+            children = <PageTree pages={this.props.page.children} />;
+			parentIcon = <i className={iconClassName} onClick={this.onExpandClick}></i>;
+			liClassName = 'parent' + (this.state.isExpanded ? ' expanded' : '');
+        }
 
         return (
-            <li key={this.props.page.title}>    
-                <span>{this.props.page.title}</span>
+            <li key={this.props.page.title} className={liClassName}>
+                <a href="#">{parentIcon}{this.props.page.title}</a>
                 {children}
             </li>
         );
 }
 
 });
-
-var pages = {pages: [
-            {
-                title: 'One',
-                children: [ {title: 'One_1'}, {title: 'One_2'}]
-            },
-            {
-                title: 'Two',
-                children: [ ]
-            },
-            {
-                title: 'Three'
-            }
-]};
 
 React.renderComponent(
   PageTreeComponent({url: '/LewCMS-api/page-tree'}),

@@ -1,27 +1,59 @@
-﻿[data-lew-style="page-tree"]{
-    
-    @background-color: #ddd;
+﻿@import "../settings";
 
-    &, ul{
+[data-lew-style="page-tree"]{
+    
+    @font-color: #fff;
+    @font-size: 15px;
+
+    padding-top: @size-l;
+    font-size: @font-size;
+
+    ul{
         list-style: none;
         margin: 0;
         padding: 0;
     }
-    
-    ul{
-        
-        background-color: lighten(@background-color, 5%);
-
-        ul{
-            background-color: lighten(@background-color, 10%);
-
-            ul{
-                background-color: lighten(@background-color, 15%);
-            }
-        }
-    }
 
     li{
-        padding: 5px 0 5px 0;
+        
+    }
+
+    a{
+        color: @font-color;
+        text-decoration: none;
+        padding: 10px 150px 10px 23px;
+        display: block;
+        position: relative;
+
+        &:hover{
+            background-color: darken(@color-left-pane-bg, 5%);
+        }
+    }    
+
+
+
+    .parent i{
+        position: absolute;
+        left: 2px;
+    }
+
+    .parent i:hover:before{
+        content: '\e801';
+    }
+
+    .parent.expanded i:hover:before{
+        content: '\e804';
+    }
+
+    .parent.expanded ul{
+        display: block;
+    }
+
+    ul ul{
+        display: none;
+    }
+
+    ul ul a{
+        padding-left: 30px;
     }
 }
