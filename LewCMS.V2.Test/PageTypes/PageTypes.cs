@@ -8,7 +8,7 @@ using LewCMS.V2.Contents.Attributes;
 
 namespace LewCMS.V2.Test.PageTypes
 {
-    [PageType(Id = "66f37878-25bb-471c-9363-d15e400b6cbf", DisplayName = "My First Page Type", ControllerName = "TheController")]
+    [PageType(Id = "66f37878-25bb-471c-9363-d15e400b6cbf", DisplayName = "My First Page Type", ControllerName = "TheController", Category = "Standard")]
     public class MyFirstPageType : Page
     {
         public string Prop1 { get; set; }

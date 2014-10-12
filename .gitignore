@@ -79,3 +79,7 @@ _[Ss]cripts
 ######################
 *.psess
 *.vspx
+######################
+# Test data	     #
+######################
+/LewCMS.V2.Test/App_Data/LewCMS/*

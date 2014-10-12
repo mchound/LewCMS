@@ -11,5 +11,6 @@ namespace LewCMS.V2.Contents.Attributes
     {
         public string DisplayName { get; set; }
         public string Id { get; set; }
+        public string Category { get; set; }
     }
 }

@@ -84,6 +84,7 @@ namespace LewCMS.V2.Startup
             contentType.DisplayName = contentTypeAttribute.DisplayName ?? type.Name;
             contentType.Id = contentTypeAttribute.Id;
             contentType.Properties = this.GetContentTypeProperties(type, applicationAssembly).ToList();
+            contentType.Category = contentTypeAttribute.Category;
 
             return contentType as T;
         }

@@ -29,6 +29,7 @@ namespace LewCMS.V2.Test
             Assert.AreEqual<int>(2, pageTypes.Count());
             Assert.AreEqual<int>(2, sectionTypes.Count());
             Assert.AreEqual<int>(2, globalConfigTypes.Count());
+            Assert.AreEqual<string>("Standard", pageTypes.First().Category);
 
         }
 

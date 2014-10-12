@@ -11,6 +11,7 @@ namespace LewCMS.V2.Contents
         string Id { get; set; }
         string DisplayName { get; set; }
         string TypeName { get; set; }
+        string Category { get; set; }
         List<Property> Properties { get; set; }
         IContent CreateInstance(string name);
         T CreateInstance<T>(string name) where T : class, IContent;
@@ -22,6 +23,7 @@ namespace LewCMS.V2.Contents
         public string DisplayName { get; set; }
         public List<Property> Properties { get; set; }
         public string TypeName { get; set; }
+        public string Category { get; set; }
 
         public ContentType()
         {
