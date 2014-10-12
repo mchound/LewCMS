@@ -224,7 +224,8 @@
     <Compile Include="Api\ContentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\PageController.cs" />
-    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ClientModels\ContentTypeClientModel.cs" />
+    <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Mvc\LewCMSAreaRegistration.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,7 +245,7 @@
     <Content Include="Views\Page\Edit.cshtml" />
     <Content Include="css\default.less" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <Content Include="Scripts\lewCMS-0.1.js" />
+    <Content Include="Scripts\lewCMS.backstage-0.1.js" />
     <Content Include="Views\Dashboard\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

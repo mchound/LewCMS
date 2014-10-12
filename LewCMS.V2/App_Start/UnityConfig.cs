@@ -1,3 +1,4 @@
+using LewCMS.V2.Contents;
 using LewCMS.V2.Serialization;
 using LewCMS.V2.Startup;
 using LewCMS.V2.Store;

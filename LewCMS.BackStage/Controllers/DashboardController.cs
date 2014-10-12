@@ -1,4 +1,4 @@
-﻿using LewCMS.BackStage.Models;
+﻿using LewCMS.BackStage.Models.ViewModels;
 using LewCMS.V2.Users;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;

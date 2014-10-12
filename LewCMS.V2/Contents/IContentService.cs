@@ -1,5 +1,6 @@
 ﻿using LewCMS.V2.Contents;
 using LewCMS.V2.Services;
+using LewCMS.V2.Startup;
 using LewCMS.V2.Store;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LewCMS.V2.Startup
+namespace LewCMS.V2.Contents
 {
     public interface IContentService
     {
         void Initialize(IInitializeService initializeService, Assembly applicationAssembly);
+        IEnumerable<IPageType> GetPageTypes();
     }
 
     public class DefaultContentService : BaseService, IContentService
@@ -26,6 +28,16 @@ namespace LewCMS.V2.Startup
             contentTypeCollection.SectionTypes = initializeService.GetSectionTypes(applicationAssembly).ToList();
             contentTypeCollection.GlobalConfigTypes = initializeService.GetGlobalConfigTypes(applicationAssembly).ToList();
             this.Repository.Save(contentTypeCollection);
+        }
+
+        public IEnumerable<IPageType> GetPageTypes()
+        {
+            return this.GetContentTypeCollection().PageTypes;
+        }
+
+        private IContentTypeCollection GetContentTypeCollection()
+        {
+            return this.Repository.Get<IContentTypeCollection>().First();
         }
     }
 

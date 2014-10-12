@@ -1,4 +1,6 @@
-﻿using LewCMS.V2;
+﻿using LewCMS.BackStage.Models.ClientModels;
+using LewCMS.V2;
+using LewCMS.V2.Contents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +19,14 @@ namespace LewCMS.BackStage.Api
     public class ContentController : BaseApiController
     {
 
-        //public ContentController(IContentService contentService) : base(contentService)
-        //{}
+        public ContentController(IContentService contentService) : base(contentService)
+        { }
 
         [HttpGet]
         [Route("LewCMS-api/pageTypes")]
         public HttpResponseMessage GetPageTypes()
         {
-            //return Request.CreateResponse<object>(HttpStatusCode.OK, new { data = this._contentService.GetPageTypes() });
-            return Request.CreateResponse();
+            return Request.CreateResponse<object>(HttpStatusCode.OK, new { success = true, data = this._contentService.GetPageTypes().AsClientModels() });
         }
 
         [HttpGet]
@@ -40,6 +41,18 @@ namespace LewCMS.BackStage.Api
             };
 
             return Request.CreateResponse<object>(HttpStatusCode.OK, pageTree);
+        }
+
+        [HttpGet]
+        [Route("LewCMS-api/children")]
+        public HttpResponseMessage GetChildren(string parentId)
+        {
+            if (parentId == "gerrard")
+            {
+                return Request.CreateResponse<object>(HttpStatusCode.OK, new { success = true, data = "Hej;på;Dif".Split(';') });
+            }
+
+            return Request.CreateResponse<object>(HttpStatusCode.OK, new { success = false, errorMessage = "Only one legend"});
         }
 
         [HttpPost]
