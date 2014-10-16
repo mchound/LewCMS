@@ -1,0 +1,109 @@
+﻿@import "../settings";
+
+[data-lew-style="content-type-list"]{
+
+    padding: @size-l;
+    color: #444;
+
+    ul{
+        list-style: none;
+    }
+
+    h2{
+        border-bottom: 1px solid @color-header-border;
+        margin-bottom: 25px;
+        font-weight: @typo-var-font-weight-light;
+        padding-bottom: 15px;
+    }
+
+    h3{
+        font-weight: @typo-var-font-weight-light;
+    }
+
+    .category-list{
+
+        .category{
+            padding: 20px;
+            background-color: #fff;
+            margin-top: @size-l;
+
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+        
+    }
+
+    .content-list{
+
+        margin: 0 -15px;
+
+        &:after{
+            content: " ";
+            display: block;
+            clear: both;
+        }
+    }
+
+    .content-type-item{
+        float: left;
+        width: 25%;
+        box-sizing: border-box;
+        padding-left: 15px;
+        padding-right: 15px;
+        
+        @media(max-width: 1440px){
+            width: 33.333333%;
+        }
+
+        @media(max-width: 1200px){
+            width: 50%;
+        }
+
+        @media(max-width: 900px){
+            width: 100%;
+            margin-top: 25px;
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+
+    }
+
+    .content-type{
+        padding: 15px;
+        border: 1px solid @color-content-type-list-item-border;
+        cursor: pointer;
+
+        &:after{
+            content: " ";
+            clear: both;
+            display: table;
+        }
+            
+        &:hover{
+            background-color: @color-content-type-list-item-hover-bg;
+            border-color: darken(@color-content-type-list-item-border, 10%);
+        }
+    }
+
+    .content-image,
+    .content-info{
+        float: left;
+        box-sizing: border-box;
+    }
+
+    .content-image{
+        width: 26%;
+
+        img{
+            max-width: 100%;
+        }
+    }
+
+    .content-info{
+        width: 68%;
+        margin-left: 4%;
+    }
+
+}

@@ -35,7 +35,7 @@ namespace LewCMS.V2.Store
 
             if (storable == null)
             {
-                storable = this._cacheStoreService.LoadFor(storeInfo);
+                storable = this._fileStoreService.LoadFor(storeInfo);
                 this._cacheStoreService.Save(storable);
             }
 

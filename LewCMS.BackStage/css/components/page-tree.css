@@ -1,46 +1,241 @@
 ﻿/* ---------------------- COLORS ---------------------- */
 /*VARS*/
 /*SITE*/
-/*PANES*/
+/*LEFT PANE*/
+/*NAVBAR*/
+/*FORM*/
+/*BUTTON*/
+/*TITLE BAR*/
+/*UNDERLINE HEADER*/
+/*CONTENT TYPE LIST*/
+/*PAGE TREE*/
 /* ---------------------- TYPO ---------------------- */
 /*VARS*/
 /*SITE*/
 /* ---------------------- GUTTERS ---------------------- */
-[data-lew-style="page-tree"] {
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+/* '' */
+[data-lm-pageTree=""] {
   padding-top: 20px;
-  font-size: 15px;
+  width: 300px;
 }
-[data-lew-style="page-tree"] ul {
+[data-lm-pageTree=""] ul {
   list-style: none;
   margin: 0;
-  padding: 0;
 }
-[data-lew-style="page-tree"] a {
-  color: #ffffff;
+[data-lm-pageTree=""] li {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+[data-lm-pageTree=""] a {
+  color: #979898;
   text-decoration: none;
-  padding: 10px 150px 10px 23px;
+  padding: 15px 20px 15px 20px;
   display: block;
   position: relative;
+  white-space: nowrap;
+  margin-left: -20px;
+  margin-right: -20px;
+  border-bottom: 1px solid #313437;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
 }
-[data-lew-style="page-tree"] a:hover {
-  background-color: #262626;
+[data-lm-pageTree=""] a:hover {
+  color: #ffffff;
+  background-color: #202122;
 }
-[data-lew-style="page-tree"] .parent i {
+[data-lm-pageTree=""] a .icon-menu {
+  display: none;
+  margin-left: 15px;
+  color: #515557;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+[data-lm-pageTree=""] a .icon-menu:hover {
+  color: #ffffff;
+}
+[data-lm-pageTree=""] a:hover .icon-menu {
+  display: inline;
+}
+[data-lm-pageTree=""] .start-page .icon-startpage {
+  margin-right: 10px;
+}
+[data-lm-pageTree=""] .parent:hover .icon-parent {
+  color: #979898;
+}
+[data-lm-pageTree=""] .icon-parent {
   position: absolute;
-  left: 2px;
+  right: 10px;
 }
-[data-lew-style="page-tree"] .parent i:hover:before {
-  content: '\e801';
+[data-lm-pageTree=""] .icon-parent:hover:before {
+  color: #ffffff;
 }
-[data-lew-style="page-tree"] .parent.expanded i:hover:before {
-  content: '\e804';
+[data-lm-pageTree=""] ul [data-lm-itemmenu] {
+  display: block;
+  right: 20px;
 }
-[data-lew-style="page-tree"] .parent.expanded ul {
+[data-lm-pageTree=""] ul .expanded > ul {
   display: block;
 }
-[data-lew-style="page-tree"] ul ul {
+[data-lm-pageTree=""] ul ul {
   display: none;
+  margin: 0 -20px;
 }
-[data-lew-style="page-tree"] ul ul a {
-  padding-left: 30px;
+[data-lm-pageTree=""] ul ul a {
+  padding-left: 70px;
+}
+[data-lm-pageTree=""] ul ul ul a {
+  padding-left: 90px;
+}
+[data-lm-pageTree=""] ul ul ul ul a {
+  padding-left: 110px;
+}
+[data-lm-pageTree=""] ul ul ul ul ul a {
+  padding-left: 130px;
+}
+[data-lm-pageTree=""] ul ul ul ul ul ul a {
+  padding-left: 150px;
+}
+[data-lm-itemmenu] {
+  position: absolute;
+  background-color: #202122;
+  top: 100%;
+  right: 0;
+  width: 50%;
+  z-index: 2;
+}
+[data-lm-itemmenu] [data-lm-button] {
+  text-align: left;
+  padding-left: 20px;
+  color: #979898;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+[data-lm-itemmenu] [data-lm-button]:hover {
+  color: #ffffff;
 }

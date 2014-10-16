@@ -1,7 +1,100 @@
-﻿[data-lew-style="button"]{
+﻿@import "../settings";
+@import "../mixins";
 
-    background-color: none;
-    border: none;
-    padding: @size-s;
+[data-lm-button]{
+
+    padding: 10px;
+    min-width: 100px;
+    box-sizing: border-box;
     cursor: pointer;
+    outline: none;
+
+}
+
+[data-lm-button*="icon-"]{
+
+    &:before{
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+ 
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: .2em;
+        text-align: center;
+        /* opacity: .8; */
+ 
+        /* For safety - reset parent styles, that can break glyph codes*/
+        font-variant: normal;
+        text-transform: none;
+     
+        /* fix buttons height, for twitter bootstrap */
+        line-height: 1em;
+    }
+
+}
+
+
+[data-lm-button~="link"]{
+
+    
+    background-color: transparent;
+    border: none;
+
+}
+
+[data-lm-button*="clr-"]{
+    .transition(background-color 0.2s);
+}
+
+[data-lm-button~="clr-white"]{
+
+    background-color: @color-btn-white-bg;
+    color: @color-btn-white-text;
+    border: 1px solid @color-btn-border;
+
+    &:hover{
+        background-color: @color-btn-white-hvr-bg;
+    }
+
+}
+
+[data-lm-button~="clr-green"]{
+
+    background-color: @color-btn-green-bg;
+    border: 1px solid @color-btn-green-bg;
+    color: @color-btn-green-text;
+
+    &:hover{
+        background-color: darken(@color-btn-green-bg, 5%);
+        border-color: darken(@color-btn-green-bg, 5%);
+    }
+}
+
+[data-lm-button~="clr-gray"]{
+
+    background-color: @color-btn-gray-bg;
+    border: 1px solid @color-btn-gray-bg;
+    color: @color-btn-gray-text;
+
+    &:hover{
+        background-color: darken(@color-btn-gray-bg, 5%);
+        border-color: darken(@color-btn-gray-bg, 5%);
+    }
+}
+
+[data-lm-button~="icon-check"]{
+    
+    &:before{
+        .icon-check();
+    }
+}
+
+[data-lm-button~="icon-cancel"]{
+    
+    &:before{
+        .icon-cancel();
+    }
 }

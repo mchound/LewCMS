@@ -1,59 +1,130 @@
 ﻿@import "../settings";
+@import "../mixins";
 
-[data-lew-style="page-tree"]{
-    
-    @font-color: #fff;
+[data-lm-pageTree=""] {
+
+    @font-color: @color-left-pane-text;
+    @side-padding: 20px;
     @font-size: 15px;
+    @startPage-padding: 20px;
+    @startPage-icon-width: 30px;
+    @level-padding-origin: @startPage-padding + @startPage-icon-width;
+    @level-diff-padding: 20px;
 
     padding-top: @size-l;
-    font-size: @font-size;
+    width: 300px;
 
-    ul{
+    ul {
         list-style: none;
         margin: 0;
-        padding: 0;
     }
 
-    li{
-        
+    li {
+        margin-left: @side-padding;
+        margin-right: @side-padding;
     }
 
-    a{
+    a {
         color: @font-color;
         text-decoration: none;
-        padding: 10px 150px 10px 23px;
+        padding: 15px @startPage-padding 15px @startPage-padding;
         display: block;
         position: relative;
+        white-space: nowrap;
+        margin-left: -@side-padding;
+        margin-right: -@side-padding;
+        border-bottom: 1px solid @color-left-pane-border;
+        .textTransition();
 
-        &:hover{
+        &:hover {
+            color: @color-var-white;
             background-color: darken(@color-left-pane-bg, 5%);
         }
-    }    
 
+        .icon-menu {
+            display: none;
+            margin-left: 15px;
+            color: lighten(@color-left-pane-bg, 15%);
+            .textTransition();
 
+            &:hover {
+                color: @color-var-white;
+            }
+        }
 
-    .parent i{
+        &:hover .icon-menu {
+            display: inline;
+        }
+    }
+
+    .start-page .icon-startpage {
+        margin-right: 10px;
+    }
+
+    .parent:hover .icon-parent {
+        color: @color-left-pane-text;
+    }
+
+    .icon-parent {
         position: absolute;
-        left: 2px;
+        right: 10px;
+
+        &:hover:before {
+            color: @color-var-white;
+        }
     }
 
-    .parent i:hover:before{
-        content: '\e801';
+    ul [data-lm-itemmenu] {
+        display: block;
+        right: @side-padding;
     }
 
-    .parent.expanded i:hover:before{
-        content: '\e804';
-    }
-
-    .parent.expanded ul{
+    ul .expanded > ul {
         display: block;
     }
 
-    ul ul{
+    ul ul {
         display: none;
+        margin: 0 -@side-padding;
     }
 
-    ul ul a{
-        padding-left: 30px;
+    ul ul a {
+        padding-left: @level-padding-origin + 1 * @level-diff-padding;
+    }
+
+    ul ul ul a {
+        padding-left: @level-padding-origin + 2 * @level-diff-padding;
+    }
+
+    ul ul ul ul a {
+        padding-left: @level-padding-origin + 3 * @level-diff-padding;
+    }
+
+    ul ul ul ul ul a {
+        padding-left: @level-padding-origin + 4 * @level-diff-padding;
+    }
+
+    ul ul ul ul ul ul a {
+        padding-left: @level-padding-origin + 5 * @level-diff-padding;
+    }
+}
+
+[data-lm-itemmenu] {
+    position: absolute;
+    background-color: darken(@color-left-pane-bg, 5%);
+    top: 100%;
+    right: 0;
+    width: 50%;
+    z-index: 2;
+
+    [data-lm-button] {
+        text-align: left;
+        padding-left: 20px;
+        color: @color-left-pane-text;
+        .textTransition();
+
+        &:hover {
+            color: @color-var-white;
+        }
     }
 }

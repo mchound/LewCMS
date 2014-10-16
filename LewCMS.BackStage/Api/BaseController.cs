@@ -1,4 +1,5 @@
-﻿using LewCMS.V2.Contents;
+﻿using LewCMS.V2;
+using LewCMS.V2.Contents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace LewCMS.BackStage.Api
     public abstract class BaseApiController : ApiController
     {
         protected IContentService _contentService;
+        protected IRouteManager _routeManager;
 
-        public BaseApiController(IContentService contentService)
+        public BaseApiController(IContentService contentService, IRouteManager routeManager)
         {
             this._contentService = contentService;
+            this._routeManager = routeManager;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@import "../settings";
+@import "../mixins";
 
 @input-padding: 10px;
 
@@ -41,4 +42,78 @@
         margin-top: 0;
     }
 
+}
+
+[data-lm-form]{
+
+    *{
+        outline: none;
+    }
+
+    &[data-submit-tried="true"] [data-lm-textbox].error{
+        
+        input{
+            border: 1px solid @color-input-error-border;
+        }
+
+        .error-message{
+            display: block;
+        }
+    }
+
+    label{
+        display: block;
+        margin-bottom: @size-s;
+        color: @color-label-text;
+    }
+
+}
+
+[data-lm-actionrow]{
+
+    .clearfix;
+    margin-left: -2%;
+    margin-right: -2%;
+
+    .action{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+}
+
+[data-lm-actionrow~="2"]{
+
+    .action{
+        width: 46%;
+    }
+}
+
+[data-lm-actionrow~="gutter-top"]{
+
+    padding-top: @size-m;
+
+}
+
+[data-lm-textbox]{
+
+    display: inline-block;
+    width: 320px;
+
+    input{
+        color: @color-input-text;
+        margin: 0;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid @color-input-border;
+        box-sizing: border-box;
+        height: 36px;
+    }
+
+    .error-message{
+        display: block;
+        padding-top: 5px;
+        color: @color-input-error-text;
+        display: none;
+    }
 }

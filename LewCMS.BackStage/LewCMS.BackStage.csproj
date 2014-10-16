@@ -137,8 +137,26 @@
     <Content Include="css\components\box.min.css">
       <DependentUpon>box.less</DependentUpon>
     </Content>
+    <Content Include="css\components\boxes.css">
+      <DependentUpon>boxes.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\boxes.min.css">
+      <DependentUpon>boxes.css</DependentUpon>
+    </Content>
+    <Content Include="css\components\buttons.css">
+      <DependentUpon>buttons.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\buttons.min.css">
+      <DependentUpon>buttons.css</DependentUpon>
+    </Content>
     <Content Include="css\components\colors.min.css">
       <DependentUpon>colors.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\content-type-list.css">
+      <DependentUpon>content-type-list.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\content-type-list.min.css">
+      <DependentUpon>content-type-list.css</DependentUpon>
     </Content>
     <Content Include="css\components\form.css">
       <DependentUpon>form.less</DependentUpon>
@@ -151,6 +169,18 @@
     </Content>
     <Content Include="css\components\icon-font.min.css">
       <DependentUpon>icon-font.css</DependentUpon>
+    </Content>
+    <Content Include="css\components\logo.css">
+      <DependentUpon>logo.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\logo.min.css">
+      <DependentUpon>logo.css</DependentUpon>
+    </Content>
+    <Content Include="css\components\navbar.css">
+      <DependentUpon>navbar.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\navbar.min.css">
+      <DependentUpon>navbar.css</DependentUpon>
     </Content>
     <Content Include="css\components\page-tree.css">
       <DependentUpon>page-tree.less</DependentUpon>
@@ -176,6 +206,12 @@
     <Content Include="css\components\reset.min.css">
       <DependentUpon>reset.less</DependentUpon>
     </Content>
+    <Content Include="css\components\title-bar.css">
+      <DependentUpon>title-bar.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\title-bar.min.css">
+      <DependentUpon>title-bar.css</DependentUpon>
+    </Content>
     <Content Include="css\components\utilities.css">
       <DependentUpon>utilities.less</DependentUpon>
     </Content>
@@ -187,6 +223,12 @@
     </Content>
     <Content Include="css\default.min.css">
       <DependentUpon>default.less</DependentUpon>
+    </Content>
+    <Content Include="css\mixins.css">
+      <DependentUpon>mixins.less</DependentUpon>
+    </Content>
+    <Content Include="css\mixins.min.css">
+      <DependentUpon>mixins.css</DependentUpon>
     </Content>
     <Content Include="css\settings.css">
       <DependentUpon>settings.less</DependentUpon>
@@ -210,8 +252,26 @@
     <Content Include="fonts\fontello.eot" />
     <Content Include="fonts\fontello.ttf" />
     <Content Include="fonts\fontello.woff" />
+    <Content Include="react\components\Boxes\StandardBox.jsx" />
+    <Content Include="css\components\boxes.less" />
+    <Content Include="css\components\logo.less" />
+    <Content Include="css\mixins.less" />
+    <None Include="react\components\Form\ValidationMixin.jsx" />
+    <None Include="react\components\CreateContent\ContentNameForm.jsx" />
+    <None Include="react\components\PageTree\ItemMenu.jsx" />
+    <Content Include="react\components\view\MainView\MainView.jsx" />
+    <Content Include="react\components\ContentTypeList\ContentTypeList.jsx" />
+    <Content Include="react\components\ContentTypeList\ContentTypeCategory.jsx" />
+    <Content Include="css\components\content-type-list.less" />
+    <Content Include="css\components\navbar.less" />
+    <Content Include="css\components\title-bar.less" />
+    <Content Include="react\components\TitleBar\TitleBar.jsx" />
+    <Content Include="react\components\CreateContent\CreateContent.jsx" />
+    <Content Include="react\components\Form\Form.jsx" />
+    <Content Include="react\components\PageTree\PageTree.jsx" />
+    <Content Include="react\components\PageTree\PageTreeListItem.jsx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <None Include="react\components\page-tree\page-tree.jsx" />
+    <None Include="react\components\PageTree\PageTreeComponent.jsx" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\lewCMS-0.1.1.js" />
@@ -224,7 +284,11 @@
     <Compile Include="Api\ContentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\PageController.cs" />
-    <Compile Include="Models\ClientModels\ContentTypeClientModel.cs" />
+    <Compile Include="Helpers\ClientModelHelpers.cs" />
+    <Compile Include="Helpers\ContentServiceExtensions.cs" />
+    <Compile Include="Helpers\WebApiHelpers.cs" />
+    <Compile Include="Models\ClientModels\ClientViewModels.cs" />
+    <Compile Include="Models\ViewModels\CreatePageModel.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Mvc\LewCMSAreaRegistration.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -257,6 +321,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="css\mixins\" />
+    <Folder Include="img\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LewCMS.V2\LewCMS.V2.csproj">
