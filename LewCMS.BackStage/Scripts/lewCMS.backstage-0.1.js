@@ -9,6 +9,7 @@
     _defaults = {
 
         apiUrl: '/LewCMS-api/',
+        editUIUrl: '/LewCMS-editUI/',
         culture: 'en'
 
     },
@@ -27,7 +28,24 @@
 
 	    ajax: {
 
-	        base: function (url, type, data, callback) {
+	        createUrlWithParameters: function(url, parameters){
+
+	            var _url = url;
+
+	            if (parameters) {
+	                _url += '?';
+
+	                for (var key in parameters) {
+	                    _url += key + '=' + parameters[key] + '&';
+	                }
+
+	                _url = _url.substring(0, _url.length - 1);
+	            }
+
+	            return _url;
+	        },
+
+	        apiBase: function (url, type, data, callback) {
 
 	            $.ajax({
 	                url: _defaults.apiUrl + url,
@@ -43,7 +61,23 @@
 
 	                },
 	                error: function (jqXHR, textStatus, errorThrown) {
-	                    callback.call(this, false, { jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown });
+	                    callback.call(this, false, {errorMessages: [errorThrown]});
+	                }
+	            });
+
+	        },
+
+	        editUIBase: function(url, type, data, callback){
+	            
+	            $.ajax({
+	                url: _defaults.editUIUrl + url,
+	                data: data,
+	                type: type,
+	                success: function (response) {
+	                    callback.call(this, true, response);
+	                },
+	                error: function (jqXHR, textStatus, errorThrown) {
+	                    callback.call(this, false, { errorMessages: [errorThrown] });
 	                }
 	            });
 
@@ -51,26 +85,33 @@
 
 	        get: function (url, callback, parameters) {
 
-	            var _url = url;
+	            var _url = _private.ajax.createUrlWithParameters(url, parameters);
 
-	            if (parameters) {
-	                _url += '?';
-
-	                for (var key in parameters) {
-	                    _url += key + '=' + parameters[key] + '&';
-	                }
-
-	                _url = _url.substring(0, _url.length - 1);
-	            }
-
-	            _private.ajax.base(_url, 'GET', null, callback);
+	            _private.ajax.apiBase(_url, 'GET', null, callback);
 	        },
 
 	        post: function (url, data, callback) {
-	            _private.ajax.base(url, 'POST', data, callback);
+	            _private.ajax.apiBase(url, 'POST', data, callback);
+	        },
+
+	        remove: function (url, callback, parameters) {
+
+	            var _url = _private.ajax.createUrlWithParameters(url, parameters);
+
+	            _private.ajax.apiBase(_url, 'DELETE', null, callback);
+	        },
+
+	        html: function (url, callback, parameters) {
+
+	            var _url = _private.ajax.createUrlWithParameters(url, parameters);
+
+	            _private.ajax.editUIBase(_url, 'GET', null, callback);
+
 	        }
 
-	    }
+	    },
+
+
 
 	},
 
@@ -101,6 +142,14 @@
 
 	        create: function (pageTypeId, name, parentId, callback) {
 	            _private.ajax.post('create/page', { contentTypeId: pageTypeId, name: name, parentId: parentId }, callback);
+	        },
+
+	        remove: function (id, callback) {
+	            _private.ajax.remove('delete/page', callback, { id: id });
+	        },
+
+	        edit: function (id, callback) {
+	            _private.ajax.html('Page', callback, { id: id });
 	        }
 
 	    }
@@ -135,16 +184,32 @@
 
         subscribeTo: {
 
-            changeMainView: function (subscriber, callback) {
-                eventSubscriptions.add('changeMainView', subscriber, callback);
+            changeMainView: function (subscriber, callback, condition) {
+                eventSubscriptions.add('changeMainView', subscriber, callback, condition);
             },
 
-            createPage: function (subscriber, callback) {
-                eventSubscriptions.add('createPage', subscriber, callback);
+            createPage: function (subscriber, callback, condition) {
+                eventSubscriptions.add('createPage', subscriber, callback, condition);
             },
 
-            pageCreated: function (subscriber, callback) {
-                eventSubscriptions.add('pageCreated', subscriber, callback);
+            pageCreated: function (subscriber, callback, condition) {
+                eventSubscriptions.add('pageCreated', subscriber, callback, condition);
+            },
+
+            generalError: function (subscriber, callback, condition) {
+                eventSubscriptions.add('generalError', subscriber, callback, condition);
+            },
+
+            showConfirmModal: function (subscriber, callback, condition) {
+                eventSubscriptions.add('showConfirmModal', subscriber, callback, condition);
+            },
+
+            pageDeleted: function (subscriber, callback, condition) {
+                eventSubscriptions.add('pageDeleted', subscriber, callback, condition);
+            },
+
+            editPage: function (subscriber, callback, condition) {
+                eventSubscriptions.add('editPage', subscriber, callback, condition);
             }
         },
 
@@ -160,13 +225,29 @@
 
             pageCreated: function (subscriber) {
                 eventSubscriptions.remove('pageCreated', subscriber);
+            },
+
+            generalError: function (subscriber) {
+                eventSubscriptions.remove('generalError', subscriber);
+            },
+
+            showConfirmModal: function (subscriber) {
+                eventSubscriptions.remove('showConfirmModal', subscriber);
+            },
+
+            pageDeleted: function (subscriber) {
+                eventSubscriptions.remove('pageDeleted', subscriber);
+            },
+
+            editPage: function (subscriber) {
+                eventSubscriptions.remove('editPage', subscriber);
             }
         },
 
         trigger: {
 
-            changeMainView: function (viewName, parameters) {
-                eventSubscriptions.trigger('changeMainView', [viewName].concat(parameters));
+            changeMainView: function () {
+                eventSubscriptions.trigger('changeMainView', arguments);
             },
 
             createPage: function () {
@@ -175,6 +256,22 @@
 
             pageCreated: function () {
                 eventSubscriptions.trigger('pageCreated', arguments);
+            },
+
+            generalError: function () {
+                eventSubscriptions.trigger('generalError', arguments);
+            },
+
+            showConfirmModal: function () {
+                eventSubscriptions.trigger('showConfirmModal', arguments);
+            },
+
+            pageDeleted: function () {
+                eventSubscriptions.trigger('pageDeleted', arguments);
+            },
+
+            editPage: function () {
+                eventSubscriptions.trigger('editPage', arguments);
             }
 
         }
@@ -183,11 +280,11 @@
 
     eventSubscriptions = {
 
-        add: function (eventName, subscriber, callback) {
+        add: function (eventName, subscriber, callback, condition) {
             if (!eventSubscriptions.subscriptions[eventName]) {
                 eventSubscriptions.subscriptions[eventName] = [];
             }
-            eventSubscriptions.subscriptions[eventName].push({ subscriber: subscriber, callback: callback });
+            eventSubscriptions.subscriptions[eventName].push({ subscriber: subscriber, callback: callback, condition: condition});
         },
 
         remove: function (eventName, subscriber) {
@@ -201,11 +298,17 @@
             }
         },
 
-        trigger: function (eventName, parameters) {
+        trigger: function (eventName) {
             var subscription = eventSubscriptions.subscriptions[eventName];
+            var args = arguments.length > 1 ? arguments[1] : null;
             if (subscription && subscription.length > 0) {
                 for (var i = 0; i < subscription.length; i++) {
-                    subscription[i].callback.apply(this, parameters);
+                    if (!!subscription[i].condition && subscription[i].condition.apply(this, args)) {
+                        subscription[i].callback.apply(this, args);
+                    } else if (!subscription[i].condition) {
+                        subscription[i].callback.apply(this, args);
+                    }
+                    
                 }
             }
         },

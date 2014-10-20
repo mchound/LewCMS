@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using LewCMS.BackStage.Helpers;
 using LewCMS.BackStage.Models.ClientViewModels;
+using System.Web;
 
 namespace LewCMS.BackStage.Api
 {
@@ -90,16 +91,31 @@ namespace LewCMS.BackStage.Api
         [Route("LewCMS-api/delete/page")]
         public HttpResponseMessage DeletePage(string id)
         {
-            try
+            IPage page = null;
+            if (string.IsNullOrWhiteSpace(id))
             {
-                this._contentService.Delete(ci => ci.Id == id);
-                return Request.CreateStandardOkResponse(id);
+                return Request.CreateStandardErrorResponse("Delete failed. No id provided");
             }
-            catch (Exception)
+            else
             {
-                return Request.CreateStandardErrorResponse(new string[] {string.Format("Couldn't delete page with id: {0}", id)});
+                page = this._contentService.GetFor<IPage, PageInfo>(pi => pi.Id == id);
+            }
+
+            if (page == null)
+            {
+                return Request.CreateStandardErrorResponse(string.Format("Delete failed. No page found with id: {0}", id));
+            }
+
+            if (this._contentService.GetChildren(page).Count() > 0)
+            {
+                return Request.CreateStandardErrorResponse("Page has children. Can't delete page with children");
+            }
+            else
+            {
+                page.InTrash = true;
+                this._contentService.Save(page);
+                return Request.CreateStandardOkResponse(new { id = page.Id, parentId = page.ParentId});
             }
         }
-
     }
 }

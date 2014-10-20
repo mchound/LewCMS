@@ -1,0 +1,59 @@
+﻿@import "../settings";
+@import "../mixins";
+
+.modal-backdrop{
+    background-color: @color-modal-backdrop-bg;
+    opacity: .5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+[data-lm-modal]{
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+
+    .modal-dialog{
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        width: 400px;
+        background-color: @color-modal-bg;
+        margin-top: 200px;
+    }
+
+    .body{
+        padding: @size-xxl @size-l;
+    }
+
+    .header{
+        border-bottom: 1px solid @color-modal-header-border;
+
+        h2{
+            padding: @size-l;
+            margin: 0;
+        }
+    }
+
+    .footer{
+        border-top: 1px solid @color-modal-header-border;
+        padding: @size-l;
+        text-align: right;
+
+        button{
+            margin-left: @size-s;
+
+            &:first-child{
+                margin-left: 0;
+            }
+        }
+    }
+
+}

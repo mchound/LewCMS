@@ -9,7 +9,7 @@ var PageTreeComponent = React.createClass({
 	componentWillMount: function(){
 	
 		lewCMS.store.pages.get.pageTree(function(success, response){
-			console.log(response);
+			
 			if(success && response){
 				var pageTree = response;
 				pageTree.isExpanded = true;
@@ -20,18 +20,28 @@ var PageTreeComponent = React.createClass({
 				this.setState({pages: [], serverOK: true});
 
 			} else {
-				return {pages: null, serverOK: false};
+				this.setState({pages: null, serverOK: false});
+				lewCMS.events.trigger.generalError({isSelfDestroying: false, errorMessage: 'Error trying to fetch Page Tree from server'});
 			}
 			
 		}.bind(this), 1);
-	},
 
-	componentDidMount: function(){
-	
-		lewCMS.events.subscribeTo.pageCreated('page-tree', function(page){
-			this.pageCreated(page);
-		}.bind(this));
+		// Page with this page as parent has been deleted
+		lewCMS.events.subscribeTo.pageDeleted(
+		
+			'pageTree', 
+			
+			function(pageInfo){
+			
+				this.setState({pages: []});
 
+			}.bind(this),
+			
+			function(pageInfo){
+				return pageInfo.parentId == null;
+			}.bind(this)
+				
+		);
 	},
 
 	pageCreated: function(page){

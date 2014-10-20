@@ -158,6 +158,12 @@
     <Content Include="css\components\content-type-list.min.css">
       <DependentUpon>content-type-list.css</DependentUpon>
     </Content>
+    <Content Include="css\components\errorsummary.css">
+      <DependentUpon>errorsummary.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\errorsummary.min.css">
+      <DependentUpon>errorsummary.css</DependentUpon>
+    </Content>
     <Content Include="css\components\form.css">
       <DependentUpon>form.less</DependentUpon>
     </Content>
@@ -175,6 +181,12 @@
     </Content>
     <Content Include="css\components\logo.min.css">
       <DependentUpon>logo.css</DependentUpon>
+    </Content>
+    <Content Include="css\components\modal.css">
+      <DependentUpon>modal.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\modal.min.css">
+      <DependentUpon>modal.css</DependentUpon>
     </Content>
     <Content Include="css\components\navbar.css">
       <DependentUpon>navbar.less</DependentUpon>
@@ -256,8 +268,13 @@
     <Content Include="css\components\boxes.less" />
     <Content Include="css\components\logo.less" />
     <Content Include="css\mixins.less" />
+    <Content Include="css\components\errorsummary.less" />
+    <Content Include="react\components\ErrorSummary\ErrorSummary.jsx" />
+    <Content Include="css\components\modal.less" />
     <None Include="react\components\Form\ValidationMixin.jsx" />
     <None Include="react\components\CreateContent\ContentNameForm.jsx" />
+    <Content Include="react\components\Modal\Modal.jsx" />
+    <Content Include="react\components\PageEdit\PageEdit.jsx" />
     <None Include="react\components\PageTree\ItemMenu.jsx" />
     <Content Include="react\components\view\MainView\MainView.jsx" />
     <Content Include="react\components\ContentTypeList\ContentTypeList.jsx" />
@@ -274,16 +291,18 @@
     <None Include="react\components\PageTree\PageTreeComponent.jsx" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\JSXTransformer.js" />
     <Content Include="Scripts\lewCMS-0.1.1.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\pitta-0.1.0.js" />
+    <Content Include="Scripts\react.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\BaseController.cs" />
     <Compile Include="Api\ContentController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Helpers\ClientModelHelpers.cs" />
     <Compile Include="Helpers\ContentServiceExtensions.cs" />
     <Compile Include="Helpers\WebApiHelpers.cs" />
@@ -303,14 +322,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Page\Index.cshtml" />
-    <Content Include="Views\Page\New.cshtml" />
-    <Content Include="Views\Page\Create.cshtml" />
-    <Content Include="Views\Page\Edit.cshtml" />
     <Content Include="css\default.less" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\lewCMS.backstage-0.1.js" />
     <Content Include="Views\Dashboard\Login.cshtml" />
+    <Content Include="Views\Content\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

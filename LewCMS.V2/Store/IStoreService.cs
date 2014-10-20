@@ -100,22 +100,22 @@ namespace LewCMS.V2.Store
         {
             IEnumerable<IStoreInfo> _storeInfos = this.LoadStoreInfo();
             List<IStoreInfo> storeInfos = _storeInfos == null ? new List<IStoreInfo>() : _storeInfos.ToList();
-            IStoreInfo _storeInfo = storeInfos.FirstOrDefault(si => si.StoreKey == storable.StoreKey);
+            int storeInfoIndex = storeInfos.FindIndex(si => si.StoreKey == storable.StoreKey);
 
             switch (storeInfoAction)
             {
                 case StoreInfoAction.AddOrUpdate:
-                    if (_storeInfo == null)
+                    if (storeInfoIndex < 0)
                     {
                         storeInfos.Add(storable.GetStoreInfo());
                     }
                     else
                     {
-                        _storeInfo = storable.GetStoreInfo();
+                        storeInfos[storeInfoIndex] = storable.GetStoreInfo();
                     }
                     break;
                 case StoreInfoAction.Delete:
-                    storeInfos.Remove(_storeInfo);
+                    storeInfos.RemoveAt(storeInfoIndex);
                     break;
                 default:
                     break;

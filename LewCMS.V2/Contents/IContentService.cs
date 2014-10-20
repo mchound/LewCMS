@@ -21,9 +21,13 @@ namespace LewCMS.V2.Contents
         IPageType GetPageType(Func<IPageType, bool> predicate);
 
         IEnumerable<T> GetContentInfo<T>(Func<T, bool> predicate) where T : class, IContentInfo;
+        IEnumerable<IPageInfo> GetPageInfo(Func<IPageInfo, bool> predicate);
 
         Tcontent GetFor<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class, IContent where Tinfo : class, IContentInfo;
         IEnumerable<Tcontent> Get<Tcontent, Tinfo>(Func<Tinfo, bool> predicate) where Tcontent : class, IContent where Tinfo : class, IContentInfo;
+
+        IPage GetPage(Func<IPageInfo, bool> predicate);
+        IEnumerable<IPage> GetPages(Func<IPageInfo, bool> predicate);
 
         void Save(IStorable storable);
 
@@ -74,11 +78,26 @@ namespace LewCMS.V2.Contents
         }
 
 
+        public IPage GetPage(Func<IPageInfo, bool> predicate)
+        {
+            return this.Repository.GetFor<IPage, IPageInfo>(pi => predicate(pi) && !pi.InTrash);
+        }
+
+        public IEnumerable<IPage> GetPages(Func<IPageInfo, bool> predicate)
+        {
+            return this.Repository.Get<IPage, IPageInfo>(pi => predicate(pi) && !pi.InTrash);
+        }
+
+
         public IEnumerable<T> GetContentInfo<T>(Func<T, bool> predicate) where T : class, IContentInfo
         {
             return this.Repository.GetStoreInfo<T>(predicate);
         }
 
+        public IEnumerable<IPageInfo> GetPageInfo(Func<IPageInfo, bool> predicate)
+        {
+            return this.Repository.GetStoreInfo<IPageInfo>(predicate);
+        }
 
         public void Save(IStorable storable)
         {
@@ -108,7 +127,6 @@ namespace LewCMS.V2.Contents
         {
             return this.Repository.Get<IContentTypeCollection>().First();
         }
-
     }
 
 }

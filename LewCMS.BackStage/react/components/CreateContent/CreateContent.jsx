@@ -1,4 +1,5 @@
-﻿/** @jsx React.DOM */
+﻿
+/** @jsx React.DOM */
 
 var CreateContent = React.createClass({
 	
@@ -37,7 +38,7 @@ var CreateContent = React.createClass({
 
 	onNameFormCancel: function(){
 	
-		lewCMS.events.trigger.changeMainView('dashboard');
+		lewCMS.events.trigger.changeMainView('dashboard2');
 
 	},
 

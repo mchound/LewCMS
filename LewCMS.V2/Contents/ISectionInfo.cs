@@ -8,17 +8,22 @@ namespace LewCMS.V2.Contents
 {
     public interface ISectionInfo : IContentInfo
     {
-        
+        bool InTrash { get; set; }
     }
 
     public class SectionInfo : ContentInfo, ISectionInfo
     {
+        public bool InTrash { get; set; }
+
         public SectionInfo()
         {
 
         }
 
-        public SectionInfo(ISection section) : base(section){}
+        public SectionInfo(ISection section) : base(section)
+        {
+            this.InTrash = section.InTrash;
+        }
 
         public override Type RepresentedInterface
         {

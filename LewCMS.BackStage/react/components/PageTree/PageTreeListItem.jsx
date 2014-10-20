@@ -8,12 +8,56 @@ var PageTreeListItem = React.createClass({
 
 	componentWillMount: function(){
 
-		lewCMS.events.global.subscribeTo.htmlClick('pageTree', function(){
-			if(this.state.showMenu){
-				this.setState({showMenu: false});
+		// HTML Click for hiding menu
+		lewCMS.events.global.subscribeTo.htmlClick(
+		
+			'pageTreeListItem' + this.props.page.id, 
+		
+			function(){
+				if(this.state.showMenu){
+					this.setState({showMenu: false});
 			}
+
 		}.bind(this));
 
+		// Sub Page created for this page
+		lewCMS.events.subscribeTo.pageCreated(
+
+			'pageTreeListItem' + this.props.page.id, 
+			
+			function(page){
+				this.expand();
+			}.bind(this),
+
+			function(page){
+				return page.parentId == this.props.page.id;
+			}.bind(this)
+			
+		);
+
+		// Page with this page as parent has been deleted
+		lewCMS.events.subscribeTo.pageDeleted(
+		
+			'pageTreeListItem' + this.props.page.id, 
+			
+			function(pageInfo){
+			
+				this.expand();
+
+			}.bind(this),
+			
+			function(pageInfo){
+				return pageInfo.parentId == this.props.page.id;
+			}.bind(this)
+				
+		);
+
+	},
+
+	componentDidUnmount: function(){
+		lewCMS.events.unSubscribeTo.pageDeleted('pageTreeListItem' + this.props.page.id);
+		lewCMS.events.unSubscribeTo.pageCreated('pageTreeListItem' + this.props.page.id);
+		lewCMS.events.global.unSubscribeTo.pageCreated('pageTreeListItem' + this.props.page.id);
 	},
 
 	componentDidMount: function(){
@@ -21,6 +65,7 @@ var PageTreeListItem = React.createClass({
 	},
 
 	onMenuClick: function(page, e){
+		e.stopPropagation();
 		this.setState({showMenu: !this.state.showMenu});
 	},
 
@@ -28,15 +73,8 @@ var PageTreeListItem = React.createClass({
 		this.setState({showMenu: false});
 	},
 
-	onParentIconClick: function(){
+	expand: function(){
 		
-		if(this.state.isExpanded){
-		
-			this.setState({isExpanded: false});
-			return;
-
-		}
-
 		this.setState({isExpanding: true});
 
 		lewCMS.store.pages.get.pageTree(function(success, response){
@@ -52,7 +90,29 @@ var PageTreeListItem = React.createClass({
 			}
 
 		}.bind(this), 1, this.props.page.id);
+
+	},
+
+	onParentIconClick: function(e){
+		
+		e.stopPropagation();
+
+		if(this.state.isExpanded){
+		
+			this.setState({isExpanded: false});
+			return;
+
+		}
+
+		this.expand();
 	
+	},
+
+	onItemClick: function(e){
+	
+		e.preventDefault();
+		lewCMS.events.trigger.editPage(this.props.page.id);
+
 	},
 
 	render: function() {
@@ -80,13 +140,13 @@ var PageTreeListItem = React.createClass({
 		parentIconClass = parentIconClassName(),
 		parentIcon = this.state.page.hasChildren ? <i className={parentIconClass} onClick={this.onParentIconClick}></i> : null;
 		
-        if (this.state.page.hasChildren) {
+        if (this.state.page.hasChildren && this.state.isExpanded) {
             children = <PageTree pages={this.state.page.children} />;
         }
 
         return (
-            <li key={this.state.page.name} className={createLiClassName()}>
-                <a href="#">
+            <li key={this.state.page.id} className={createLiClassName()}>
+                <a href="#" onClick={this.onItemClick}>
 					{startPageIcon}
 					{this.state.page.name}
 					<i className="icon-menu icon-dot-3" onClick={this.onMenuClick.bind(this, this.state.page)} data-prevent-html-click></i>

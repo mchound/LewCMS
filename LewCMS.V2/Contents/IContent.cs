@@ -86,7 +86,6 @@ namespace LewCMS.V2.Contents
             return clone;
         }
 
-
         public abstract IStoreInfo GetStoreInfo();
 
     }

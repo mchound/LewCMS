@@ -28,5 +28,10 @@ namespace LewCMS.BackStage.Helpers
         {
             return request.CreateResponse<object>(HttpStatusCode.OK, new { success = false, errorMessages = errors });
         }
+
+        public static System.Net.Http.HttpResponseMessage CreateStandardErrorResponse(this System.Net.Http.HttpRequestMessage request, string error)
+        {
+            return request.CreateStandardErrorResponse(new string[] {error});
+        }
     }
 }

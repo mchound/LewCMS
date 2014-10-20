@@ -7,7 +7,15 @@ var MainView = React.createClass({
 	},
 
 	componentWillMount: function(){
-	
+		
+		lewCMS.events.subscribeTo.changeMainView(
+			'mainView', 
+			function (viewName) {
+				this.component = null;
+				this.setState({view: viewName});
+			}.bind(this)
+		);
+
 		lewCMS.events.subscribeTo.createPage('mainView', function (parentId) {
 			this.component = <CreateContent storeSection="pages" parentId={parentId} langSection="createPage" />
 			this.setState({view: 'createPage'});
@@ -16,6 +24,11 @@ var MainView = React.createClass({
 		lewCMS.events.subscribeTo.pageCreated('mainView', function(page){
 			this.component = '';
 			this.setState({view: 'dashboard'});
+		}.bind(this));
+
+		lewCMS.events.subscribeTo.editPage('mainView', function(id){
+			this.component = <PageEdit id={id} />
+			this.setState({view: 'pageEdit'});
 		}.bind(this));
 
 	},

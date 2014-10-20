@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This is the Back Stage</title>
     <script src="~/BackStage/LewCMS/Scripts/jquery-2.1.1.min.js"></script>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,100" rel="stylesheet" type="text/css" />
+    @*<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,100" rel="stylesheet" type="text/css" />*@
     <link href="~/BackStage/LewCMS/css/default.min.css" rel="stylesheet" />
-    <script src="http://fb.me/react-0.11.2.js"></script>
-    <script src="http://fb.me/JSXTransformer-0.11.2.js"></script>
+    <script src="~/BackStage/LewCMS/Scripts/react.min.js"></script>
+    <script src="~/BackStage/LewCMS/Scripts/JSXTransformer.js"></script>
 </head>
 <body>
 
@@ -39,6 +39,12 @@
     </script>
     <script src="~/BackStage/LewCMS/react/components/Boxes/StandardBox.jsx" type="text/jsx">
     </script>
+    <script src="~/BackStage/LewCMS/react/components/ErrorSummary/ErrorSummary.jsx" type="text/jsx">
+    </script>
+    <script src="~/BackStage/LewCMS/react/components/Modal/Modal.jsx" type="text/jsx">
+    </script>
+    <script src="~/BackStage/LewCMS/react/components/PageEdit/PageEdit.jsx" type="text/jsx">
+    </script>
 
     <div data-lm-panes="">
 
@@ -48,13 +54,20 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJ8AAAA3CAYAAAASVJhjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGNzdGMTE3NDA3MjA2ODExODcxRjkyNzEwNDIyRUQ0MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFNEMxNUM1QzRDOEIxMUU0ODdCNzgwMzkxMDYzN0VDMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFNEMxNUM1QjRDOEIxMUU0ODdCNzgwMzkxMDYzN0VDMCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1LjEgTWFjaW50b3NoIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Rjc3RjExNzQwNzIwNjgxMTg3MUY5MjcxMDQyMkVENDEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc3RjExNzQwNzIwNjgxMTg3MUY5MjcxMDQyMkVENDEiLz4gPC9yZGY6RGVzY3Jp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" />
             </div>
 
-            <div id="page-tree" data-lm-pageTree="">
-                
+            <div id="page-tree" data-lm-pagetree="">
+
             </div>
         </div>
 
         <div data-lm-pane="center">
-            <nav data-lm-navbar=""></nav>
+
+            <nav data-lm-navbar="">
+
+                <div id="error-summary" data-lm-errorsummary>
+
+                </div>
+
+            </nav>
 
             <div id="main-view">
 
@@ -68,6 +81,10 @@
     </div>
 
     @RenderBody()
+
+    <div id="modal" data-lm-modal class="remove"></div>
+
+    <div id="modal-backdrop" class="modal-backdrop remove"></div>
 
     @RenderSection("scripts", false)
 </body>

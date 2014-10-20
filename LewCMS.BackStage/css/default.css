@@ -5,10 +5,13 @@
 /*NAVBAR*/
 /*FORM*/
 /*BUTTON*/
+/*ALERT*/
 /*TITLE BAR*/
 /*UNDERLINE HEADER*/
 /*CONTENT TYPE LIST*/
 /*PAGE TREE*/
+/*ERROR SUMMARY*/
+/*MODAL*/
 /* ---------------------- TYPO ---------------------- */
 /*VARS*/
 /*SITE*/
@@ -1856,6 +1859,10 @@ h5 {
   margin: -20px;
   margin-bottom: 0;
   border-bottom: 1px solid #e9e9e9;
+  padding: 30px;
+}
+[data-lm-navbar] [data-lm-errorsummary] {
+  float: right;
 }
 [data-lm-titlebar] {
   margin-left: -20px;
@@ -1895,4 +1902,104 @@ h5 {
 [data-lm-logo] img {
   width: 100%;
   max-width: 160px;
+}
+[data-lm-errorsummary] {
+  position: relative;
+}
+[data-lm-errorsummary] .error-count-wrapper {
+  color: #cc3f44;
+}
+[data-lm-errorsummary] .error-count-wrapper [class*="icon-"] {
+  font-size: 25px;
+  vertical-align: middle;
+}
+[data-lm-errorsummary] .error-count-wrapper [class*="icon-"]:before {
+  margin: 0;
+}
+[data-lm-errorsummary] .error-count {
+  font-size: 18px;
+  vertical-align: middle;
+}
+[data-lm-errorsummary] [data-error-count="0"] .error-count {
+  display: none;
+}
+[data-lm-errorsummary] .success {
+  color: #68b828;
+}
+[data-lm-errorsummary] .error {
+  cursor: pointer;
+}
+[data-lm-errorsummary] .delete {
+  font-size: 20px;
+  vertical-align: middle;
+}
+[data-lm-errorsummary] .delete:hover {
+  cursor: pointer;
+}
+[data-lm-errorsummary] .delete:hover:before {
+  content: '\e80c';
+}
+[data-lm-errorsummary] .errors {
+  position: absolute;
+  right: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: auto;
+  margin-right: 15px;
+  color: #555555;
+}
+[data-lm-errorsummary] .errors ul {
+  list-style: none;
+  padding: 5px 15px;
+}
+[data-lm-errorsummary] .errors li {
+  white-space: nowrap;
+  padding: 10px 15px;
+}
+.modal-backdrop {
+  background-color: #000000;
+  opacity: .5;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+[data-lm-modal] {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+[data-lm-modal] .modal-dialog {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  width: 400px;
+  background-color: #ffffff;
+  margin-top: 200px;
+}
+[data-lm-modal] .body {
+  padding: 30px 20px;
+}
+[data-lm-modal] .header {
+  border-bottom: 1px solid #f1f1f1;
+}
+[data-lm-modal] .header h2 {
+  padding: 20px;
+  margin: 0;
+}
+[data-lm-modal] .footer {
+  border-top: 1px solid #f1f1f1;
+  padding: 20px;
+  text-align: right;
+}
+[data-lm-modal] .footer button {
+  margin-left: 10px;
+}
+[data-lm-modal] .footer button:first-child {
+  margin-left: 0;
 }

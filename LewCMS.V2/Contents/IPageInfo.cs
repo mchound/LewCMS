@@ -10,12 +10,14 @@ namespace LewCMS.V2.Contents
     {
         string Route { get; set; }
         string ParentId { get; set; }
+        bool InTrash { get; set; }
     }
 
     public class PageInfo : ContentInfo, IPageInfo
     {
         public string Route { get; set; }
         public string ParentId { get; set; }
+        public bool InTrash { get; set; }
 
         public PageInfo()
         {
@@ -26,6 +28,7 @@ namespace LewCMS.V2.Contents
         {
             this.Route = page.Route;
             this.ParentId = page.ParentId;
+            this.InTrash = page.InTrash;
         }
 
         public override Type RepresentedInterface

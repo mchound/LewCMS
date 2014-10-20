@@ -11,7 +11,24 @@ var ItemMenu = React.createClass({
 	},
 
 	onDeleteClick: function(){
-		console.log('Delete');
+		
+		lewCMS.events.trigger.showConfirmModal('Trash Page', 'Are you sure you want to move the page to trash?', this.onDeleteConfirm);
+
+	},
+
+	onDeleteConfirm: function(){
+	
+		lewCMS.store.pages.remove(this.props.page.id, function(success, response){
+
+			if(success){
+				lewCMS.events.trigger.pageDeleted(response);
+			} else {
+				lewCMS.events.trigger.generalError({isSelfDestroying: false, errorMessage: response.errorMessages[0]});
+			}
+
+			
+		}.bind(this));
+
 	},
 
     render: function () {
@@ -22,7 +39,7 @@ var ItemMenu = React.createClass({
                 <li><button data-prevent-html-click data-lm-button="link">Cut</button></li>
                 <li><button data-prevent-html-click data-lm-button="link">Copy</button></li>
                 <li><button data-prevent-html-click data-lm-button="link">Paste</button></li>
-                <li><button data-prevent-html-click data-lm-button="link" onClick={this.onDeleteClick}>Delete</button></li>
+                <li><button data-prevent-html-click data-lm-button="link" onClick={this.onDeleteClick}>Trash</button></li>
             </ul>
         );
 

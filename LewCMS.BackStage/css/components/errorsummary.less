@@ -1,0 +1,71 @@
+﻿@import "../settings";
+@import "../mixins";
+
+[data-lm-errorsummary]{
+    
+    position: relative;
+
+    .error-count-wrapper{
+        color: @color-alert-error-bg;
+
+        [class*="icon-"]{
+            font-size: 25px;
+            vertical-align: middle;
+
+            &:before{
+                margin: 0;
+            }
+        }
+
+    }
+
+    .error-count{
+        font-size: 18px;
+        vertical-align: middle;
+    }
+
+    [data-error-count="0"] .error-count{
+        display: none;
+    }
+
+    .success{
+        color: @color-alert-success-bg;
+    }
+
+    .error{
+        cursor: pointer;
+    }
+
+    .delete{
+        font-size: 20px;
+        vertical-align: middle;
+        &:hover{
+            cursor: pointer;
+            &:before{
+                .icon-cancel-circled;
+            }
+        }
+    }
+
+    .errors{
+        position: absolute;
+        right: 100%;
+        top: 0;
+        background-color: @color-error-summary-bg;
+        border: 1px solid @color-error-summary-border;
+        width: auto;
+        margin-right: 15px;
+        color: @color-error-summary-text;
+
+        ul{
+            list-style: none;
+            padding: @size-xs @size-m;
+        }
+
+        li{
+            white-space: nowrap;
+            padding: 10px 15px;
+        }
+    }
+
+}

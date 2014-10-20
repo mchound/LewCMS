@@ -13,7 +13,7 @@ var PageTree = React.createClass({
 		});
 
         return (
-            <ul>
+            <ul key={this.props.pages[0].id}>
                 {pages}
             </ul>
         );

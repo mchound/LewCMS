@@ -19,20 +19,6 @@ namespace LewCMS.BackStage.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //UserManager<ApplicationUser, string> userManager = new UserManager<ApplicationUser, string>(new UserStoreService());
-
-            //ApplicationUser user = new ApplicationUser { Id = "b26a87e5-5aca-4af7-ba36-932e017f4b8c", UserName = "MyUserName" };
-
-            //IdentityResult result = this._userManager.Create<ApplicationUser, string>(user, "password");
-            
-            //if (!result.Succeeded)
-            //{
-            //    this._userManager.RemovePassword(user.Id);
-            //}
-
-            
-            //IAuthenticationManager authManager = HttpContext.GetOwinContext().Authentication;
-
             return View();
         }
 
