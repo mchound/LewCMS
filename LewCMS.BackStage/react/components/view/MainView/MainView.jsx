@@ -29,6 +29,7 @@ var MainView = React.createClass({
 		lewCMS.events.subscribeTo.editPage('mainView', function(id){
 			this.component = <PageEdit id={id} />
 			this.setState({view: 'pageEdit'});
+			this.forceUpdate();
 		}.bind(this));
 
 	},

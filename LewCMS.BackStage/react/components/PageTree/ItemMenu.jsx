@@ -2,7 +2,9 @@
 
 var ItemMenu = React.createClass({
 
-	onNewPageClick: function(){
+	onNewPageClick: function(e){
+
+		e.stopPropagation();
 		lewCMS.events.trigger.createPage(this.props.page.id);
 
 		if(!!this.props.itemMenuClicked){
@@ -10,14 +12,15 @@ var ItemMenu = React.createClass({
 		}
 	},
 
-	onDeleteClick: function(){
+	onDeleteClick: function(e){
 		
+		e.stopPropagation();
 		lewCMS.events.trigger.showConfirmModal('Trash Page', 'Are you sure you want to move the page to trash?', this.onDeleteConfirm);
 
 	},
 
 	onDeleteConfirm: function(){
-	
+		
 		lewCMS.store.pages.remove(this.props.page.id, function(success, response){
 
 			if(success){

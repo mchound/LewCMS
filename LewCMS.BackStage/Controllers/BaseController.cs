@@ -1,4 +1,5 @@
-﻿using LewCMS.V2.Users;
+﻿using LewCMS.V2.Contents;
+using LewCMS.V2.Users;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -27,6 +28,15 @@ namespace LewCMS.BackStage.Controllers
             get { return _userManager; }
         }
 
+        private IContentService _contentService;
+
+        public IContentService ContentService
+        {
+            get { return _contentService; }
+            set { _contentService = value; }
+        }
+
+
         private SignInManager<ApplicationUser, string> _signInManager;
 
         public SignInManager<ApplicationUser, string> SignInManager
@@ -43,9 +53,10 @@ namespace LewCMS.BackStage.Controllers
             
         }
         
-        public BaseController(IUserManager userManager)
+        public BaseController(IUserManager userManager, IContentService contentService)
         {
             this._userManager = userManager;
+            this._contentService = contentService;
         }
 
     }

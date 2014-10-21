@@ -1,4 +1,5 @@
 ﻿using LewCMS.BackStage.Models.ViewModels;
+using LewCMS.V2.Contents;
 using LewCMS.V2.Users;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -14,7 +15,7 @@ namespace LewCMS.BackStage.Controllers
 {
     public class DashboardController : BaseController
     {
-        public DashboardController(IUserManager userManager) : base(userManager) { }
+        public DashboardController(IUserManager userManager, IContentService contentService) : base(userManager, contentService) { }
 
         [Authorize]
         public ActionResult Index()

@@ -10,5 +10,6 @@ namespace LewCMS.V2.Contents
     public class PropertyAttribute : Attribute
     {
         public string View { get; set; }
+        public string ViewPath { get; set; }
     }
 }

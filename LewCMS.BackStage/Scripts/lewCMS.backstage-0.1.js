@@ -9,7 +9,7 @@
     _defaults = {
 
         apiUrl: '/LewCMS-api/',
-        editUIUrl: '/LewCMS-editUI/',
+        editUIUrl: '/LewCMS/content/edit/',
         culture: 'en'
 
     },
@@ -149,7 +149,7 @@
 	        },
 
 	        edit: function (id, callback) {
-	            _private.ajax.html('Page', callback, { id: id });
+	            _private.ajax.html('page', callback, { id: id });
 	        }
 
 	    }

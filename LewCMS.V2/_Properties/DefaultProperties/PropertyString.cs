@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace LewCMS.V2.Properties.DefaultProperties
 {
+    [Property(ViewPath = "~/BackStage/LewCMS/Views/Properties/String.cshtml")]
     public class PropertyString : Property
     {
         string _value;

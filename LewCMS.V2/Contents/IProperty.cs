@@ -10,6 +10,10 @@ namespace LewCMS.V2.Contents
     public interface IProperty
     {
         string Name { get; set; }
+        string View { get; set; }
+        string ViewPath { get; set; }
+        string DisplayName { get; set; }
+        string Description { get; set; }
         object Get();
         void Set(object value);
         void Set(JToken jValue);
@@ -18,6 +22,10 @@ namespace LewCMS.V2.Contents
     public abstract class Property : IProperty
     {
         public string Name { get; set; }
+        public string View { get; set; }
+        public string ViewPath { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
 
         public virtual object Get()
         {

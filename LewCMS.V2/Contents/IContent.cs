@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,11 +54,16 @@ namespace LewCMS.V2.Contents
         {
             get
             {
-                return this.GetType().GetProperty(propertyName).GetValue(this, null);
+                PropertyInfo propertyInfo =  this.GetType().GetProperty(propertyName);
+                return propertyInfo == null ? null : propertyInfo.GetValue(this, null);
             }
             set
             {
-                this.GetType().GetProperty(propertyName).SetValue(this, value, null);
+                PropertyInfo propertyInfo = this.GetType().GetProperty(propertyName);
+                if (propertyInfo != null)
+                {
+                    propertyInfo.SetValue(this, value, null);
+                }                
             }
         }
 

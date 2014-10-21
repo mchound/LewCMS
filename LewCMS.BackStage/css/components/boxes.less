@@ -1,14 +1,30 @@
 ﻿@import "../settings";
+@import "../mixins";
 
 [data-lm-box]{
 
     padding: 40px;
-    background-color: @color-var-white;
+    background-color: @color-box-white-bg;
     @media(max-width: 960px){
         padding: 20px;
     }
 
+    .header{
+        border-bottom: 1px solid @color-box-border-bg;
+        margin-bottom: @size-xl;
+
+        h2{
+            margin-bottom: @size-m;
+            font-weight: 100;
+        }
+
+        .description{
+
+        }
+    }
+
 }
+
 
 [data-lm-box~="auto-width"]{
     display: inline-block;

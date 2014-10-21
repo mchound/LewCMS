@@ -212,6 +212,12 @@
     <Content Include="css\components\panes.min.css">
       <DependentUpon>panes.less</DependentUpon>
     </Content>
+    <Content Include="css\components\propertylist.css">
+      <DependentUpon>propertylist.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\propertylist.min.css">
+      <DependentUpon>propertylist.css</DependentUpon>
+    </Content>
     <Content Include="css\components\reset.css">
       <DependentUpon>reset.less</DependentUpon>
     </Content>
@@ -271,6 +277,7 @@
     <Content Include="css\components\errorsummary.less" />
     <Content Include="react\components\ErrorSummary\ErrorSummary.jsx" />
     <Content Include="css\components\modal.less" />
+    <Content Include="css\components\propertylist.less" />
     <None Include="react\components\Form\ValidationMixin.jsx" />
     <None Include="react\components\CreateContent\ContentNameForm.jsx" />
     <Content Include="react\components\Modal\Modal.jsx" />
@@ -305,11 +312,11 @@
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Helpers\ClientModelHelpers.cs" />
     <Compile Include="Helpers\ContentServiceExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\WebApiHelpers.cs" />
     <Compile Include="Models\ClientModels\ClientViewModels.cs" />
     <Compile Include="Models\ViewModels\CreatePageModel.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
-    <Compile Include="Mvc\LewCMSAreaRegistration.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -326,7 +333,8 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\lewCMS.backstage-0.1.js" />
     <Content Include="Views\Dashboard\Login.cshtml" />
-    <Content Include="Views\Content\Index.cshtml" />
+    <Content Include="Views\Content\EditPage.cshtml" />
+    <Content Include="Views\Properties\String.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

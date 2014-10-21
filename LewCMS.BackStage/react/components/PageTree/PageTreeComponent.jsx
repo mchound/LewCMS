@@ -11,6 +11,7 @@ var PageTreeComponent = React.createClass({
 		lewCMS.store.pages.get.pageTree(function(success, response){
 			
 			if(success && response){
+			console.log(response)
 				var pageTree = response;
 				pageTree.isExpanded = true;
 				this.setState({pages: [pageTree], serverOK: true});

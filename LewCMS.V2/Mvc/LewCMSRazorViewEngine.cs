@@ -11,38 +11,38 @@ namespace LewCMS.V2.Mvc
     {
         public LewCMSRazorViewEngine()
         {
-            AreaViewLocationFormats = new[]
+            ViewLocationFormats = new[]
             {
-                "~/BackStage/{2}/Views/{1}/{0}.cshtml",
-                "~/BackStage/{2}/Views/{1}/{0}.vbhtml",
-                "~/BackStage/{2}/Views/Shared/{0}.cshtml",
-                "~/BackStage/{2}/Views/Shared/{0}.vbhtml",
-                "~/Areas/{2}/Views/{1}/{0}.cshtml",
-                "~/Areas/{2}/Views/{1}/{0}.vbhtml",
-                "~/Areas/{2}/Views/Shared/{0}.cshtml",
-                "~/Areas/{2}/Views/Shared/{0}.vbhtml"
+                "~/BackStage/LewCMS/Views/{1}/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/{1}/{0}.vbhtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.vbhtml",
+                "~/Views/{1}/{0}.cshtml",
+                "~/Views/{1}/{0}.vbhtml",
+                "~/Views/Shared/{0}.cshtml",
+                "~/Views/Shared/{0}.vbhtml"
             };
-            AreaMasterLocationFormats = new[]
+            MasterLocationFormats = new[]
             {
-                "~/BackStage/{2}/Views/{1}/{0}.cshtml",
-                "~/BackStage/{2}/Views/{1}/{0}.vbhtml",
-                "~/BackStage/{2}/Views/Shared/{0}.cshtml",
-                "~/BackStage/{2}/Views/Shared/{0}.vbhtml",
-                "~/Areas/{2}/Views/{1}/{0}.cshtml",
-                "~/Areas/{2}/Views/{1}/{0}.vbhtml",
-                "~/Areas/{2}/Views/Shared/{0}.cshtml",
-                "~/Areas/{2}/Views/Shared/{0}.vbhtml"
+                "~/BackStage/LewCMS/Views/{1}/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/{1}/{0}.vbhtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.vbhtml",
+                "~/Views/{1}/{0}.cshtml",
+                "~/Views/{1}/{0}.vbhtml",
+                "~/Views/Shared/{0}.cshtml",
+                "~/Views/Shared/{0}.vbhtml"
             };
-            AreaPartialViewLocationFormats = new[]
+            PartialViewLocationFormats = new[]
             {
-                "~/BackStage/{2}/Views/{1}/{0}.cshtml",
-                "~/BackStage/{2}/Views/{1}/{0}.vbhtml",
-                "~/BackStage/{2}/Views/Shared/{0}.cshtml",
-                "~/BackStage/{2}/Views/Shared/{0}.vbhtml",
-                "~/Areas/{2}/Views/{1}/{0}.cshtml",
-                "~/Areas/{2}/Views/{1}/{0}.vbhtml",
-                "~/Areas/{2}/Views/Shared/{0}.cshtml",
-                "~/Areas/{2}/Views/Shared/{0}.vbhtml"
+                "~/BackStage/LewCMS/Views/{1}/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/{1}/{0}.vbhtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.cshtml",
+                "~/BackStage/LewCMS/Views/Shared/{0}.vbhtml",
+                "~/Views/{1}/{0}.cshtml",
+                "~/Views/{1}/{0}.vbhtml",
+                "~/Views/Shared/{0}.cshtml",
+                "~/Views/Shared/{0}.vbhtml"
             };
         }
     }

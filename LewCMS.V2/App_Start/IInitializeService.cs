@@ -107,8 +107,19 @@ namespace LewCMS.V2.Startup
                         property = Activator.CreateInstance(applicationAssembly.GetType(typeName)) as Property;
                         break;
                 }
+                PropertyAttribute attr = property.GetType().GetCustomAttribute<PropertyAttribute>();
+                property.ViewPath = attr == null ? null : attr.ViewPath;
+                property.View = attr == null ? propertyInfo.Name : attr.View;
+                property.Name = property.DisplayName = propertyInfo.Name;
 
-                property.Name = propertyInfo.Name;
+                PropertyInfoAttribute infoAttr = propertyInfo.GetCustomAttribute<PropertyInfoAttribute>();
+
+                if (infoAttr != null)
+                {
+                    property.DisplayName = infoAttr.DisplayName ?? property.Name;
+                    property.Description = infoAttr.Description;
+                }
+
                 yield return property as Property;
             }
         }

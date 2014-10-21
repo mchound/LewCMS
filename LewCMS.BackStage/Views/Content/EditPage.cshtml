@@ -1,0 +1,28 @@
+﻿@using LewCMS.BackStage.Helpers;
+@using System.Web.Mvc.Html;
+@inherits System.Web.Mvc.WebViewPage<LewCMS.V2.Contents.IPage>
+@{
+    Layout = null;
+}
+
+<ul class="list">
+    @foreach (LewCMS.V2.Contents.Property property in Model.ContentType.Properties)
+    {
+        <li class="property">
+            <div data-lm-box>
+
+                <div class="header">
+                    <h2>@property.DisplayName</h2>
+                    <p class="description">
+                        @property.Description
+                    </p>
+                </div>
+                <div class="body">
+                    @Html.EditForProperty(property, Model)
+                </div>
+                
+            </div>
+        </li>
+    }
+
+</ul>

@@ -46,6 +46,8 @@ namespace LewCMS.V2.Contents
             contentTypeCollection.SectionTypes = initializeService.GetSectionTypes(applicationAssembly).ToList();
             contentTypeCollection.GlobalConfigTypes = initializeService.GetGlobalConfigTypes(applicationAssembly).ToList();
             this.Repository.Save(contentTypeCollection);
+
+            this.UpdateContentTypesForContent();
         }
 
         public IPage StartPage
@@ -96,7 +98,7 @@ namespace LewCMS.V2.Contents
 
         public IEnumerable<IPageInfo> GetPageInfo(Func<IPageInfo, bool> predicate)
         {
-            return this.Repository.GetStoreInfo<IPageInfo>(predicate);
+            return this.Repository.GetStoreInfo<IPageInfo>(pi => predicate(pi) && !pi.InTrash);
         }
 
         public void Save(IStorable storable)
@@ -126,6 +128,18 @@ namespace LewCMS.V2.Contents
         private IContentTypeCollection GetContentTypeCollection()
         {
             return this.Repository.Get<IContentTypeCollection>().First();
+        }
+
+        private void UpdateContentTypesForContent()
+        {
+            IEnumerable<IContent> contents = this.Repository.Get<IContent>();
+            IContentTypeCollection contentTypeCollection = this.GetContentTypeCollection();
+
+            foreach (var content in contents)
+            {
+                content.ContentType = contentTypeCollection.ContentTypes.First(ct => ct.Id == content.ContentType.Id);
+                this.Repository.Save(content);
+            }
         }
     }
 

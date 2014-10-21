@@ -28,6 +28,13 @@ namespace MyWebApplication.PageTypes
         public string String1 { get; set; }
         public string String2 { get; set; }
         public string String3 { get; set; }
+
+        public override void OnInit()
+        {
+            this.String1 = "Value of string 1";
+            this.String2 = "Value of string 2";
+            this.String3 = "Value of string 3";
+        }
     }
 
     [PageType(Id = "85451C53-28C1-44FD-9399-DE20FE27A700")]

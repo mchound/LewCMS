@@ -70,6 +70,7 @@ var PageTreeListItem = React.createClass({
 	},
 
 	onItemMenuClick: function(){
+		
 		this.setState({showMenu: false});
 	},
 

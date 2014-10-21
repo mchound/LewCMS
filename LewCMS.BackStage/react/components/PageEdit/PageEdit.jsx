@@ -31,7 +31,7 @@ var PageEdit = React.createClass({
 	render: function(){
 		
 		return (
-			<div dangerouslySetInnerHTML={{__html: this.state.html}}>
+			<div dangerouslySetInnerHTML={{__html: this.state.html}} data-lm-propertylist>
 				
 			</div>
 		);

@@ -12,6 +12,7 @@
 /*PAGE TREE*/
 /*ERROR SUMMARY*/
 /*MODAL*/
+/*BOXES*/
 /* ---------------------- TYPO ---------------------- */
 /*VARS*/
 /*SITE*/
@@ -1890,6 +1891,14 @@ h5 {
     padding: 20px;
   }
 }
+[data-lm-box] .header {
+  border-bottom: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+[data-lm-box] .header h2 {
+  margin-bottom: 15px;
+  font-weight: 100;
+}
 [data-lm-box~="auto-width"] {
   display: inline-block;
 }
@@ -2002,4 +2011,18 @@ h5 {
 }
 [data-lm-modal] .footer button:first-child {
   margin-left: 0;
+}
+[data-lm-propertylist] {
+  padding-top: 20px;
+}
+[data-lm-propertylist] .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+[data-lm-propertylist] .property {
+  margin-top: 20px;
+}
+[data-lm-propertylist] .property:first-child {
+  margin-top: 0;
 }
