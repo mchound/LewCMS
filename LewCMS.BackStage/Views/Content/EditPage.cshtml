@@ -17,7 +17,7 @@
                         @property.Description
                     </p>
                 </div>
-                <div class="body">
+                <div class="body" data-lm-editcontainer>
                     @Html.EditForProperty(property, Model)
                 </div>
                 
@@ -26,3 +26,5 @@
     }
 
 </ul>
+
+@Html.ClientScriptsForProperties(Model.ContentType.Properties)

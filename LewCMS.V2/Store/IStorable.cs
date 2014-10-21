@@ -19,7 +19,7 @@ namespace LewCMS.V2.Store
         string Id { get; set; }
         string StoreKey { get; }
         string StoreDirectory { get; }
-        Type RepresentedInterface { get; }
+        IEnumerable<Type> RepresentedInterfaces { get; }
     }
 
     public abstract class BaseInfo : IStoreInfo
@@ -30,7 +30,12 @@ namespace LewCMS.V2.Store
 
         public abstract string StoreDirectory { get; }
 
-        public abstract Type RepresentedInterface { get; }
+        public abstract IEnumerable<Type> RepresentedInterfaces { get; }
+
+        protected virtual IEnumerable<Type> GetRepresentedInterfaces(Type mainInterface)
+        {
+            return new Type[] { mainInterface }.Concat(mainInterface.GetInterfaces());
+        }
     }
 
 }

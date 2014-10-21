@@ -13,18 +13,18 @@ namespace LewCMS.V2.Users
         string PasswordHash { get; set; }
     }
 
-    public class UserPassword : IUserPassword, IStoreInfo
+    public class UserPassword : BaseInfo, IUserPassword
     {
         public string Id { get; set; }
         public string UserId { get; set; }
         public string PasswordHash { get; set; }
 
-        public string StoreKey
+        public override string StoreKey
         {
             get { return this.Id; }
         }
 
-        public string StoreDirectory
+        public override string StoreDirectory
         {
             get { return "Users"; }
         }
@@ -34,9 +34,9 @@ namespace LewCMS.V2.Users
             return this;
         }
 
-        public Type RepresentedInterface
+        public override IEnumerable<Type> RepresentedInterfaces
         {
-            get { return typeof(IUserPassword); }
+            get { return base.GetRepresentedInterfaces(typeof(IUserPassword)); }
         }
     }
 }

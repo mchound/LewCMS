@@ -17,9 +17,8 @@ namespace LewCMS.V2.Contents
         List<IContentType> ContentTypes { get; }
     }
 
-    public class ContentTypeCollection : IContentTypeCollection, IStorable, IStoreInfo
+    public class ContentTypeCollection : BaseInfo, IContentTypeCollection, IStorable
     {
-        public string Id { get; set; }
         public List<IPageType> PageTypes { get; set; }
         public List<ISectionType> SectionTypes { get; set; }
         public List<IGlobalConfigType> GlobalConfigTypes { get; set; }
@@ -31,12 +30,12 @@ namespace LewCMS.V2.Contents
             }
         }
 
-        public string StoreKey
+        public override string StoreKey
         {
             get { return "ContentTypes"; }
         }
 
-        public string StoreDirectory
+        public override string StoreDirectory
         {
             get { return "Content"; }
         }
@@ -46,9 +45,9 @@ namespace LewCMS.V2.Contents
             return this;
         }
 
-        public Type RepresentedInterface
+        public override IEnumerable<Type> RepresentedInterfaces
         {
-            get { return typeof(IContentTypeCollection); }
+            get { return base.GetRepresentedInterfaces(typeof(IContentTypeCollection)); }
         }
     }
 }

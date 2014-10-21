@@ -67,7 +67,7 @@ namespace LewCMS.V2.Store
 
         public IEnumerable<T> Get<T>() where T : class, IStorable
         {
-            IEnumerable<IStoreInfo> storeInfo = this.GetStoreInfo().Where(si => si.RepresentedInterface == typeof(T));
+            IEnumerable<IStoreInfo> storeInfo = this.GetStoreInfo().Where(si => si.RepresentedInterfaces.Any(t => t == typeof(T)));
 
             foreach (var info in storeInfo)
             {

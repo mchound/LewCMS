@@ -25,9 +25,9 @@ namespace LewCMS.V2.Contents
             this.InTrash = section.InTrash;
         }
 
-        public override Type RepresentedInterface
+        public override IEnumerable<Type> RepresentedInterfaces
         {
-            get { return typeof(ISection); }
+            get { return base.GetRepresentedInterfaces(typeof(ISection)); }
         }
 
         public override string StoreKey

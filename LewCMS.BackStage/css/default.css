@@ -1899,6 +1899,10 @@ h5 {
   margin-bottom: 15px;
   font-weight: 100;
 }
+[data-lm-box] .header .description {
+  color: #979898;
+  margin-bottom: 15px;
+}
 [data-lm-box~="auto-width"] {
   display: inline-block;
 }

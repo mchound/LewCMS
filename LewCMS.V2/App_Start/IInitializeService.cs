@@ -111,6 +111,8 @@ namespace LewCMS.V2.Startup
                 property.ViewPath = attr == null ? null : attr.ViewPath;
                 property.View = attr == null ? propertyInfo.Name : attr.View;
                 property.Name = property.DisplayName = propertyInfo.Name;
+                property.ClientScript = attr.ClientScript ?? property.Name;
+                property.ClientScriptPath = attr.ClientScriptPath;
 
                 PropertyInfoAttribute infoAttr = propertyInfo.GetCustomAttribute<PropertyInfoAttribute>();
 

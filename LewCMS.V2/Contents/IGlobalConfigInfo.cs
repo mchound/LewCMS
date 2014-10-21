@@ -20,9 +20,9 @@ namespace LewCMS.V2.Contents
 
         public GlobalConfigInfo(IGlobalConfig globalConfig) : base(globalConfig) { }
 
-        public override Type RepresentedInterface
+        public override IEnumerable<Type> RepresentedInterfaces
         {
-            get { return typeof(IGlobalConfig); }
+            get { return base.GetRepresentedInterfaces(typeof(IGlobalConfig)); }
         }
 
         public override string StoreKey

@@ -128,6 +128,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientScripts\string.js" />
     <Content Include="css\components\blueprint.css">
       <DependentUpon>blueprint.less</DependentUpon>
     </Content>
@@ -157,6 +158,12 @@
     </Content>
     <Content Include="css\components\content-type-list.min.css">
       <DependentUpon>content-type-list.css</DependentUpon>
+    </Content>
+    <Content Include="css\components\editcontainer.css">
+      <DependentUpon>editcontainer.less</DependentUpon>
+    </Content>
+    <Content Include="css\components\editcontainer.min.css">
+      <DependentUpon>editcontainer.css</DependentUpon>
     </Content>
     <Content Include="css\components\errorsummary.css">
       <DependentUpon>errorsummary.less</DependentUpon>
@@ -278,6 +285,7 @@
     <Content Include="react\components\ErrorSummary\ErrorSummary.jsx" />
     <Content Include="css\components\modal.less" />
     <Content Include="css\components\propertylist.less" />
+    <Content Include="css\components\editcontainer.less" />
     <None Include="react\components\Form\ValidationMixin.jsx" />
     <None Include="react\components\CreateContent\ContentNameForm.jsx" />
     <Content Include="react\components\Modal\Modal.jsx" />

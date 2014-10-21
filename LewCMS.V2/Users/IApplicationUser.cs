@@ -13,18 +13,17 @@ namespace LewCMS.V2.Users
         string Email { get; set; }
     }
 
-    public class ApplicationUser : IApplicationUser, IStoreInfo
+    public class ApplicationUser : BaseInfo, IApplicationUser
     {
-        public string Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
 
-        public string StoreKey
+        public override string StoreKey
         {
             get { return this.Id; }
         }
 
-        public string StoreDirectory
+        public override string StoreDirectory
         {
             get { return "Users"; }
         }
@@ -34,9 +33,9 @@ namespace LewCMS.V2.Users
             return this;
         }
 
-        public Type RepresentedInterface
+        public override IEnumerable<Type> RepresentedInterfaces
         {
-            get { return typeof(IApplicationUser); }
+            get { return base.GetRepresentedInterfaces(typeof(IApplicationUser)); }
         }
     }
 }

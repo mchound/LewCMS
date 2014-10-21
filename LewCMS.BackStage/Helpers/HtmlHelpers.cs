@@ -19,5 +19,32 @@ namespace LewCMS.BackStage.Helpers
             viewData.Add("PropertyName", property.Name);
             return helper.Partial(viewPath, viewData);
         }
+
+        public static MvcHtmlString ClientScriptsForProperties(this HtmlHelper helper, IEnumerable<IProperty> properties)
+        {
+            TagBuilder script = null;
+            string src = string.Empty;
+            string html = string.Empty;
+            List<string> scriptPaths = new List<string>();
+
+            foreach (var prop in properties)
+            {
+                src = prop.ClientScriptPath ?? string.Format("/ClientScripts/{0}.js", prop.ClientScript);
+                if (!scriptPaths.Exists(s => s == src))
+                {
+                    scriptPaths.Add(src);
+                }
+            }
+
+            foreach (var _src in scriptPaths)
+            {
+                script = new TagBuilder("script");
+                script.Attributes.Add("type", "text/javascript");
+                script.Attributes.Add("src", _src);
+                html = string.Concat(html, script.ToString());
+            }
+
+            return MvcHtmlString.Create(html);
+        }
     }
 }

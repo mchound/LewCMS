@@ -40,8 +40,10 @@ namespace MyWebApplication.PageTypes
     [PageType(Id = "85451C53-28C1-44FD-9399-DE20FE27A700")]
     public class FourthPageType : Page
     {
+        [PropertyInfo(DisplayName = "String Nr1", Description = "This is supposed to reprsesent the string number one")]
         public string String1 { get; set; }
         public string String2 { get; set; }
+        [PropertyInfo(Description = "This is supposed to reprsesent the string number three. This is good, isn't it? ")]
         public string String3 { get; set; }
     }
 }

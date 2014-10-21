@@ -12,6 +12,8 @@ namespace LewCMS.V2.Contents
         string Name { get; set; }
         string View { get; set; }
         string ViewPath { get; set; }
+        string ClientScript { get; set; }
+        string ClientScriptPath { get; set; }
         string DisplayName { get; set; }
         string Description { get; set; }
         object Get();
@@ -24,6 +26,8 @@ namespace LewCMS.V2.Contents
         public string Name { get; set; }
         public string View { get; set; }
         public string ViewPath { get; set; }
+        public string ClientScript { get; set; }
+        public string ClientScriptPath { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
 

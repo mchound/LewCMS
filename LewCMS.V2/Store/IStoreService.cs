@@ -63,7 +63,7 @@ namespace LewCMS.V2.Store
 
         public IEnumerable<T> Load<T>() where T : class, IStorable
         {
-            return this.LoadStoreInfo(si => si.RepresentedInterface == typeof(T)).Select(si => this.LoadFor(si) as T);
+            return this.LoadStoreInfo(si => si.RepresentedInterfaces.Any(t => t == typeof(T))).Select(si => this.LoadFor(si) as T);
         }
 
         public IEnumerable<Tstorable> Load<Tstorable, Tinfo>(Func<Tinfo, bool> predicate) where Tstorable : class, IStorable where Tinfo : class, IStoreInfo

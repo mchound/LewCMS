@@ -15,14 +15,18 @@ var ContentNameForm = React.createClass({
 
                 <Form showSummary={false} onSubmit={this.onSubmit}>
 					<TextBox 
-						ref="textbox"
 						label="Page Name"
                         type="text"
                         value="New Page"
 						showErrorMessage={true}
-                        valProperties={{
-                            required: {errorMessage: 'This field is required'}
-                    }} />
+                        valProperties={
+							{
+								required: {
+									errorMessage: 'This field is required'
+								}
+							}
+						} 
+					/>
 
 					<div data-lm-actionrow="2 gutter-top">
 						<button className="action" type="submit" data-lm-button="clr-green icon-check">Save</button>

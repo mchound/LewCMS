@@ -11,5 +11,7 @@ namespace LewCMS.V2.Contents
     {
         public string View { get; set; }
         public string ViewPath { get; set; }
+        public string ClientScript { get; set; }
+        public string ClientScriptPath { get; set; }
     }
 }
