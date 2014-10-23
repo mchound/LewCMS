@@ -10,6 +10,7 @@ using System.Web.Http;
 using LewCMS.BackStage.Helpers;
 using LewCMS.BackStage.Models.ClientViewModels;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace LewCMS.BackStage.Api
 {
@@ -116,6 +117,25 @@ namespace LewCMS.BackStage.Api
                 this._contentService.Save(page);
                 return Request.CreateStandardOkResponse(new { id = page.Id, parentId = page.ParentId});
             }
+        }
+
+        [HttpGet]
+        [Route("LewCMS-api/edit/page")]
+        public HttpResponseMessage EditPage(string id)
+        {
+            IPage page = this._contentService.GetPage(pi => pi.Id == id);
+
+            string s = page.ContentType.Properties.ToList()[2].ClientValidationNotation;
+
+            object response = new
+            {
+                html = MvcHelpers.RenderViewToString("Content", "EditPage", page),
+                clientScripts = page.ClientScriptPaths(),
+                propertyNames = page.ContentType.Properties.Select(p => p.Name)
+            };
+
+            return Request.CreateStandardOkResponse(response);
+            
         }
     }
 }

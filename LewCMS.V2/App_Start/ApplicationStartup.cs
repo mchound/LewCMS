@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity;
 using System;
 using LewCMS.V2.Contents;
 using LewCMS.V2.Startup;
+using LewCMS.V2.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace LewCMS.Core.Startup
 {
@@ -29,6 +31,9 @@ namespace LewCMS.Core.Startup
 
             Application.Current.SetApplicationAssembly(Assembly.GetCallingAssembly());
             UnityConfig.RegisterComponents();
+
+            ClientValidation.Factories.Add(typeof(RequiredAttribute), new RequiredClientValidationFactory());
+            ClientValidation.Factories.Add(typeof(MinLengthAttribute), new MinLengthClientValidationFactory());
 
             CreateAdminUser();
             InitializeContentService();

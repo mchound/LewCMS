@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace LewCMS.V2.Contents
         string ClientScriptPath { get; set; }
         string DisplayName { get; set; }
         string Description { get; set; }
+        IEnumerable<ValidationAttribute> ValidationAttributes { get; set; }
+        string ClientValidationNotation { get; set; }
         object Get();
         void Set(object value);
         void Set(JToken jValue);
@@ -30,6 +33,8 @@ namespace LewCMS.V2.Contents
         public string ClientScriptPath { get; set; }
         public string DisplayName { get; set; }
         public string Description { get; set; }
+        public IEnumerable<ValidationAttribute> ValidationAttributes { get; set; }
+        public string ClientValidationNotation { get; set; }
 
         public virtual object Get()
         {

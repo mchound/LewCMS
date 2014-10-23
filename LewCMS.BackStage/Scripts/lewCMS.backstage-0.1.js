@@ -10,6 +10,7 @@
 
         apiUrl: '/LewCMS-api/',
         editUIUrl: '/LewCMS/content/edit/',
+        clientScriptsContainerSelector: '#client-scripts',
         culture: 'en'
 
     },
@@ -105,7 +106,8 @@
 
 	            var _url = _private.ajax.createUrlWithParameters(url, parameters);
 
-	            _private.ajax.editUIBase(_url, 'GET', null, callback);
+	            _private.ajax.apiBase(_url, 'GET', null, callback);
+	            //_private.ajax.editUIBase(_url, 'GET', null, callback);
 
 	        }
 
@@ -149,7 +151,8 @@
 	        },
 
 	        edit: function (id, callback) {
-	            _private.ajax.html('page', callback, { id: id });
+	            //_private.ajax.html('page', callback, { id: id });
+	            _private.ajax.html('edit/page', callback, { id: id });
 	        }
 
 	    }
@@ -406,6 +409,39 @@
 
     // #endregion
 
+    clientScripts = {
+
+        addScripts: function (scriptSources, callback) {
+
+            var
+            container = $(_defaults.clientScriptsContainerSelector).empty(),
+            script,
+            loadCounter = 0;
+
+            if (scriptSources.length === 0)
+                callback.call(container[0]);
+
+            for (var i = 0; i < scriptSources.length; i++) {
+                script = document.createElement('script');
+                script.setAttribute('type', 'text/javascript');
+                script.setAttribute('src', scriptSources[i]);
+                container[0].appendChild(script);
+
+                (function (script) {
+
+                    script.onload = function () {
+                        if (++loadCounter >= scriptSources.length) {
+                            callback.call(container[0]);
+                        }
+                    }
+
+                })(script);
+            }
+
+        }
+
+    }
+
 	window.lewCMS = {};
 	window.lewCMS.store = store;
 	window.lewCMS.events = events;
@@ -413,5 +449,6 @@
 	window.lewCMS.localization.currentCulture = localization.currentCulture;
 	window.lewCMS.localization.setCulture = localization.setCulture;
 	window.lewCMS.localization.translate = localization.translate;
+	window.lewCMS.clientScripts = clientScripts;
 
 })(document, window, jQuery);

@@ -3,6 +3,7 @@ using LewCMS.V2.Contents;
 using MyWebApplication.CustomProperties;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -40,9 +41,13 @@ namespace MyWebApplication.PageTypes
     [PageType(Id = "85451C53-28C1-44FD-9399-DE20FE27A700")]
     public class FourthPageType : Page
     {
+        [Required(ErrorMessage = "This is required")]
         [PropertyInfo(DisplayName = "String Nr1", Description = "This is supposed to reprsesent the string number one")]
         public string String1 { get; set; }
+
+        [MinLength(3, ErrorMessage = "String must be at least 3 charachters")]
         public string String2 { get; set; }
+
         [PropertyInfo(Description = "This is supposed to reprsesent the string number three. This is good, isn't it? ")]
         public string String3 { get; set; }
     }

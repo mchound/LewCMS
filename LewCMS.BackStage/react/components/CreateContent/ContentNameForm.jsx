@@ -15,6 +15,7 @@ var ContentNameForm = React.createClass({
 
                 <Form showSummary={false} onSubmit={this.onSubmit}>
 					<TextBox 
+						ref="textbox"
 						label="Page Name"
                         type="text"
                         value="New Page"

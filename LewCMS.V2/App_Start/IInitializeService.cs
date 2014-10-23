@@ -3,10 +3,12 @@ using LewCMS.V2.Contents.Attributes;
 using LewCMS.V2.Properties.DefaultProperties;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using LewCMS.V2.Validation;
 
 namespace LewCMS.V2.Startup
 {
@@ -107,23 +109,25 @@ namespace LewCMS.V2.Startup
                         property = Activator.CreateInstance(applicationAssembly.GetType(typeName)) as Property;
                         break;
                 }
-                PropertyAttribute attr = property.GetType().GetCustomAttribute<PropertyAttribute>();
-                property.ViewPath = attr == null ? null : attr.ViewPath;
-                property.View = attr == null ? propertyInfo.Name : attr.View;
-                property.Name = property.DisplayName = propertyInfo.Name;
-                property.ClientScript = attr.ClientScript ?? property.Name;
-                property.ClientScriptPath = attr.ClientScriptPath;
-
-                PropertyInfoAttribute infoAttr = propertyInfo.GetCustomAttribute<PropertyInfoAttribute>();
-
-                if (infoAttr != null)
-                {
-                    property.DisplayName = infoAttr.DisplayName ?? property.Name;
-                    property.Description = infoAttr.Description;
-                }
+                DecorateProperty(ref property, propertyInfo);
 
                 yield return property as Property;
             }
+        }
+
+        private void DecorateProperty(ref IProperty property, PropertyInfo propertyInfo)
+        {
+            PropertyAttribute propertyAttribute = property.GetType().GetCustomAttribute<PropertyAttribute>();
+            PropertyInfoAttribute propertyInfoAttribute = propertyInfo.GetCustomAttribute<PropertyInfoAttribute>();
+            property.ViewPath = propertyAttribute == null ? null : propertyAttribute.ViewPath;
+            property.View = propertyAttribute == null ? propertyInfo.Name : propertyAttribute.View;
+            property.Name = property.DisplayName = propertyInfo.Name;
+            property.ClientScript = propertyAttribute.ClientScript ?? property.Name;
+            property.ClientScriptPath = propertyAttribute.ClientScriptPath;
+            property.DisplayName = propertyInfoAttribute != null ? propertyInfoAttribute.DisplayName ?? property.Name : property.Name;
+            property.Description = propertyInfoAttribute != null ? propertyInfoAttribute.Description : string.Empty;
+            property.ValidationAttributes = propertyInfo.GetCustomAttributes<ValidationAttribute>();
+            property.ClientValidationNotation = property.GetClientValidationNotation();
         }
 
     }

@@ -216,6 +216,12 @@
   border: 1px solid #e4e4e4;
   box-sizing: border-box;
   height: 36px;
+  outline: none;
+}
+[data-lm-textbox] label {
+  display: block;
+  margin-bottom: 10px;
+  color: #979898;
 }
 [data-lm-textbox] .error-message {
   display: block;

@@ -4,20 +4,7 @@
     Layout = null;
 }
 
-<div id="string-@ViewData["PropertyName"]">
-
+<div data-lm-textbox="" id="string-@ViewData["PropertyName"]">
+    <input type="text" value="@Model" data-validation="@ViewData["ClientValidation"]">
+    <span class=" error-message"></span>
 </div>
-
-@*<label>@ViewData["PropertyName"]</label>
-<input type="text" value="" />*@
-
-<script type="text/javascript" src="~/Backstage/LewCMS/ClientScripts/string.js"></script>
-
-@*/** @@jsx React.DOM */
-
-    console.log('Reaccttttttttttt');
-
-    React.renderComponent(
-      TextBox({ label: '@ViewData["PropertyName"]', type: 'text', value: '@Model', showErrorMessage: true, valProperties: {{required: {errorMessage: 'This field is required'}}}}),
-    document.getElementById('string-@ViewData["PropertyName"]')
-    );*@

@@ -320,7 +320,9 @@
     <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Helpers\ClientModelHelpers.cs" />
     <Compile Include="Helpers\ContentServiceExtensions.cs" />
+    <Compile Include="Helpers\EditHelpers.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\MvcHelpers.cs" />
     <Compile Include="Helpers\WebApiHelpers.cs" />
     <Compile Include="Models\ClientModels\ClientViewModels.cs" />
     <Compile Include="Models\ViewModels\CreatePageModel.cs" />
@@ -343,6 +345,7 @@
     <Content Include="Views\Dashboard\Login.cshtml" />
     <Content Include="Views\Content\EditPage.cshtml" />
     <Content Include="Views\Properties\String.cshtml" />
+    <Content Include="Scripts\validation.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

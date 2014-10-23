@@ -1,0 +1,30 @@
+﻿{
+    "as": {
+        "type": "email",
+        "errorMessage": "Not a valid email"
+    },
+
+    "required": {
+        "errorMessage": "This field is required"
+    },
+
+    "min": {
+        "limit": 3,
+        "errorMessage": "Value must be at least 3"
+    },
+
+    "max": {
+        "limit": 10,
+        "errorMessage": "Value must be at the most 10"
+    },
+
+    "minLength": {
+        "limit": 3,
+        "errorMessage": "String must be at least 3 chars"
+    },
+
+    "maxLength": {
+        "limit": 10,
+        "errorMessage": "String can't be longer than 10 chars"
+    }
+}

@@ -1,3 +1,5 @@
-﻿var myFunc = function () {
-    console.log('Hej');
+﻿/** @jsx React.DOM */
+
+var PropertyString = function (propName, pageId) {
+
 }

@@ -3,7 +3,7 @@
 var PageEdit = React.createClass({
 	
 	getInitialState: function(){
-		return {html: ''};
+		return {html: '', clientScripts: [], propertyNames: []};
 	},
 
 	componentDidMount: function(){
@@ -15,8 +15,8 @@ var PageEdit = React.createClass({
 		function(success, response){
 			
 			if(success){
-			
-				this.setState({html: response});
+				
+				this.setState({html: response.html, clientScripts: response.clientScripts || [], propertyNames: response.propertyNames || []});
 
 			} else {
 				
@@ -24,6 +24,16 @@ var PageEdit = React.createClass({
 
 			}
 
+		}.bind(this));
+
+	},
+
+	componentDidUpdate: function(){
+	
+		lewCMS.clientScripts.addScripts(this.state.clientScripts, function(){
+			for(var i = 0; i < this.state.propertyNames.length; i++){
+				PropertyString(this.state.propertyNames[i], this.props.id);
+			}
 		}.bind(this));
 
 	},
