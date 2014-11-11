@@ -128,7 +128,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientScripts\string.js" />
+    <Content Include="ClientScripts\PropertyString.js" />
     <Content Include="css\components\blueprint.css">
       <DependentUpon>blueprint.less</DependentUpon>
     </Content>
@@ -325,6 +325,7 @@
     <Compile Include="Helpers\MvcHelpers.cs" />
     <Compile Include="Helpers\WebApiHelpers.cs" />
     <Compile Include="Models\ClientModels\ClientViewModels.cs" />
+    <Compile Include="Models\ViewModels\ContentEditModels.cs" />
     <Compile Include="Models\ViewModels\CreatePageModel.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -344,7 +345,7 @@
     <Content Include="Scripts\lewCMS.backstage-0.1.js" />
     <Content Include="Views\Dashboard\Login.cshtml" />
     <Content Include="Views\Content\EditPage.cshtml" />
-    <Content Include="Views\Properties\String.cshtml" />
+    <Content Include="Views\Properties\PropertyString.cshtml" />
     <Content Include="Scripts\validation.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

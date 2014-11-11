@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html;
+@inherits System.Web.Mvc.WebViewPage<LewCMS.BackStage.Models.ViewModels.IPageEditModel>
+@{
+    Layout = null;
+}
+
+<div data-lm-textbox="" id="PropertyString-@Model.Property.Name">
+    <input type="text" value="@(Model.GetValue<string>())" data-validation="@Model.Property.ClientValidationNotation">
+    <span class=" error-message"></span>
+</div>
+
