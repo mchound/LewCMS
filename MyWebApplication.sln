@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWebApplication", "MyWebApplication\MyWebApplication.csproj", "{832487D8-7109-410A-94B7-4FF085136D82}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS.V2", "LewCMS.V2\LewCMS.V2.csproj", "{941B32C1-1EE7-4E5B-B291-D31B7CF6DC6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS.V2.Test", "LewCMS.V2.Test\LewCMS.V2.Test.csproj", "{CF86B167-FC0A-46E2-840F-47607479BDB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LewCMS.BackStage.V2", "LewCMS.Backstage.V2\LewCMS.BackStage.V2.csproj", "{4479EFC3-8500-404E-96CC-87BAB0A46862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF86B167-FC0A-46E2-840F-47607479BDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4479EFC3-8500-404E-96CC-87BAB0A46862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4479EFC3-8500-404E-96CC-87BAB0A46862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4479EFC3-8500-404E-96CC-87BAB0A46862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4479EFC3-8500-404E-96CC-87BAB0A46862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

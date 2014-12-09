@@ -1,0 +1,17 @@
+﻿@import "../settings";
+@import "../mixins";
+
+[data-am-box]{
+
+    .site-padding();
+    border: 1px solid @color-box-border;
+    background-color: @color-box-bg;
+
+}
+
+/* ------------------------------ LOGIN ------------------------------*/
+
+[data-am-box~="login"]{
+    display: inline-block;
+    min-width: 300px;
+}

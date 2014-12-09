@@ -1,0 +1,18 @@
+﻿@import "../settings";
+
+[data-am-button]{
+    padding: @gutter-btn-pdng;
+    cursor: pointer;
+    min-height: 41px;
+}
+
+[data-am-button~="success"]{
+    color: @color-alert-success-txt;
+    background-color: @color-alert-success-bg;
+    border: 1px solid @color-alert-success-bg;
+
+    &:hover{
+        background-color: @color-alert-success-bg-hvr;
+        border-color: @color-alert-success-bg-hvr;
+    }
+}

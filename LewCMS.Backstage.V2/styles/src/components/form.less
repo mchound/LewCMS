@@ -1,0 +1,34 @@
+﻿@import "../settings";
+
+[data-am-form]{
+
+    fieldset{
+        border: none;
+        margin: 0 0 @gutter-form-fieldset-pdng;
+        padding: 0;
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+
+    label{
+        display: block;
+        margin-bottom: @gutter-form-label-btm;
+    }
+
+    input,
+    select,
+    textarea,
+    button{
+        width: 100%;
+    }
+
+    input,
+    select,
+    textarea{
+        padding: @gutter-form-comp-pdng;
+        border: 1px solid @color-input-border;
+        outline: none;
+    }
+}

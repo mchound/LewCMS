@@ -170,9 +170,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LewCMS.BackStage\LewCMS.BackStage.csproj">
-      <Project>{51d5eeef-e4f3-4405-94f0-037817633842}</Project>
-      <Name>LewCMS.BackStage</Name>
+    <ProjectReference Include="..\LewCMS.Backstage.V2\LewCMS.BackStage.V2.csproj">
+      <Project>{4479efc3-8500-404e-96cc-87bab0a46862}</Project>
+      <Name>LewCMS.BackStage.V2</Name>
     </ProjectReference>
     <ProjectReference Include="..\LewCMS.V2\LewCMS.V2.csproj">
       <Project>{941b32c1-1ee7-4e5b-b291-d31b7cf6dc6b}</Project>

@@ -1,0 +1,51 @@
+﻿@using System.Web.Mvc.Html;
+@inherits System.Web.Mvc.WebViewPage<LewCMS.BackStage.V2.Models.ViewModels.LoginViewModel>
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LewCMS - Login</title>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,100" rel="stylesheet" type="text/css" />
+        <link href="~/BackStage/LewCMS/styles/build/site.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="table stretch">
+            <div class="table-cell align-center align-middle">
+                <div data-am-box="login" class="align-left">
+
+                    <form action="/LewCMS/Dashboard/Login" data-am-form method="post" novalidate="novalidate">
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            @Html.ValidationSummary(string.Empty, new { @class = "margin-bottom-s" })
+                        }                        
+
+                        <fieldset>
+                            <label>Email</label>
+                            <input type="email" value="@(Model == null ? string.Empty : Model.Email)" name="email" />
+                        </fieldset>
+
+                        <fieldset>
+                            <label>Password</label>
+                            <input type="password" value="" name="password" />
+                        </fieldset>
+
+                        <fieldset>
+                            <button type="submit" data-am-button="success">Sign In</button>
+                        </fieldset>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

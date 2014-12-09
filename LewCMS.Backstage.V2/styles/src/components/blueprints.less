@@ -1,0 +1,34 @@
+﻿@import "../settings";
+
+[data-am-pane]{
+    display: table-cell;
+    vertical-align: top;
+}
+
+[data-am-pane~="left"]{
+
+    width: @left-pane-width;
+    background-color: @color-left-bg;
+
+}
+
+[data-am-pane~="center"]{
+
+}
+
+[data-am-topbar]{
+    height: @top-bar-height;
+    background-color: @color-topbar-bg;
+}
+
+[data-am-logo]{
+
+    height: @top-bar-height;
+    border-bottom: 1px solid @color-left-border;
+    padding: ((@top-bar-height - @logo-height) / 2) 0;
+    text-align: center;
+}
+
+[data-am-mainview]{
+
+}
